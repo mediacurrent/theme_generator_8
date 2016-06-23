@@ -31,7 +31,10 @@
     "gulp-mocha": "^2.0.0",
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
+    "html-wiring": "^1.2.0",
     "lodash": "^4.13.1",
+    "mkdirp": "^0.5.1",
+    "path": "^0.12.7",
     "yeoman-assert": "^2.0.0",
     "yeoman-test": "^1.0.0"
   },

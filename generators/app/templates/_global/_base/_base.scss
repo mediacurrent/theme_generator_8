@@ -1,0 +1,53 @@
+//=======================================================
+// Base
+//=======================================================
+
+// Set default font family to sans-serif.
+// Prevent iOS text size adjust after orientation change, without disabling
+// user zoom.
+html {
+  @include font-stack-base;
+  box-sizing: border-box;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+// https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+* {
+  box-sizing: inherit;
+
+  &:before,
+  &:after {
+    box-sizing: inherit;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: $color-tundora;
+}
+
+// HTML5 display definitions
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+
+// Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
+template {
+  display: none;
+}

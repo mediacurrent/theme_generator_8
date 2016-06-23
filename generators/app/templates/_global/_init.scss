@@ -1,0 +1,31 @@
+//=======================================================
+// Utilities: Import Sass mixins, variables, modules etc.
+//=======================================================
+<% if (breakpoint || singularity) { %>
+// Import breakpoint plugin
+// http://breakpoint-sass.com/
+@import '../../node_modules/breakpoint-sass/stylesheets/breakpoint';
+<% } -%>
+<% if (singularity) { %>
+// Imports Singularity grid system.
+// https://github.com/at-import/Singularity
+@import '../../node_modules/singularitygs/stylesheets/singularitygs';
+<% } -%>
+
+// Import variables
+@import 'variables';
+
+// Import colors
+@import 'colors';
+
+// Import Typography
+@import 'typography';
+
+// Import functions
+@import 'functions';
+
+// Import mixins
+@import 'mixins';
+
+// Import breakpoints
+@import 'breakpoints';

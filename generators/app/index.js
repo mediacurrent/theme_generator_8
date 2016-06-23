@@ -1,8 +1,13 @@
 'use strict';
+/* eslint no-multi-spaces: "off" */
 var yeoman = require('yeoman-generator');
 var chalk  = require('chalk');
 var yosay  = require('yosay');
+var mkdirp = require('mkdirp');
 var _      = require('lodash');
+var path   = require('path');
+var wiring = require('html-wiring');
+/* eslint no-multi-spaces: "on" */
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -11,6 +16,7 @@ module.exports = yeoman.Base.extend({
       'Welcome to the cool ' + chalk.red('Mediacurrent D8 theme') + ' generator!'
     ));
 
+    // Proved the user with prompts.
     var prompts = [
       {
         name: 'themeName',
@@ -20,7 +26,10 @@ module.exports = yeoman.Base.extend({
       {
         name: 'themeNameMachine',
         message: 'What is your theme\'s machine name? EX: unicorn_theme',
-        default: this.appname // Default to current folder name
+        default: function (answers) {
+          // Default to snake case theme name
+          return _.snakeCase(answers.themeName);
+        }
       },
       {
         name: 'themeDesc',
@@ -61,36 +70,241 @@ module.exports = yeoman.Base.extend({
             name: 'KSS Node style guide'
           },
           {
-            value: 'normalize',
-            name: 'Normalize.css broken up into base partials'
-          },
-          {
             value: 'breakpoint',
             name: 'Breakpoint plugin'
           },
           {
             value: 'singularity',
             name: 'Singularity Grid System and Breakpoint'
-          },
-          {
-            value: 'utilities',
-            name: 'Helpful mixins, utilities, components and example layout partials'
           }
         ]
+      },
+      {
+        type: 'confirm',
+        name: 'kssSections',
+        message: 'Since you\'re using KSS, would you like some sample Style Guide sections?',
+        when: function (answers) {
+          // If baseTheme is true, ask this question.
+          // If it's false skip this question.
+          return (answers.howMuchTheme.includes('kssNode'));
+        }
       }
     ];
 
     return this.prompt(prompts).then(function (props) {
+      // Check available options and store them in as easy to use variables.
+      // Returns true or false depending on if the choice is selected.
+      var hasOption = function (choices, opt) {
+        return choices.indexOf(opt) !== -1;
+      };
+
+      this.kssNode = hasOption(props.howMuchTheme, 'kssNode');
+      this.breakpoint = hasOption(props.howMuchTheme, 'breakpoint');
+      this.singularity = hasOption(props.howMuchTheme, 'singularity');
+
+      // If the user has selected a base theme, add it to the object.
+      // If they haven't set it to false.
+      if (props.baseTheme === true) {
+        this.baseTheme = props.whichBaseTheme;
+      }
+      else {
+        this.baseTheme = false;
+      }
+
+      // Set kssSections if it's needed.
+      if (this.kssNode === true) {
+        this.kssSections = props.kssSections;
+      }
+      else {
+        this.kssSections = false;
+      }
+
+      // If BOTH Singularity and Breakpoint options are checked,
+      // set breakpoint to false as Singularity includes breakpoint
+      // as a dependency.
+      if (this.singularity === true && this.breakpoint === true) {
+        this.breakpoint = false;
+      }
+
+      // Create a underscored version of the theme name.
+      this.cleanThemeName = _.snakeCase(props.themeName);
+
+      // Use the user provided theme machine name.
+      this.themeNameMachine = props.themeNameMachine;
+
+      // Create a dashed version of the theme name.
+      this.dashedThemeName = _.kebabCase(props.themeName);
+
+      // Get pkg info so we can create a 'generated on' comment.
+      this.pkg = JSON.parse(wiring.readFileAsString(path.join(__dirname, '../../package.json')));
+
       // To access props later use this.props.someAnswer;
       this.props = props;
     }.bind(this));
   },
 
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
+  writing: {
+    // Create the project configuration.
+    // This adds node modules and tools needed.
+    projectConfig: function () {
+      this.fs.copyTpl(
+        this.templatePath('_package.json'),
+        this.destinationPath('package.json'),
+        {
+          themeName: this.themeNameMachine
+        }
+      );
+      this.fs.copy(
+        this.templatePath('gitignore'),
+        this.destinationPath('.gitignore')
+      );
+      this.fs.copy(
+        this.templatePath('_README.md'),
+        this.destinationPath('README.md')
+      );
+      this.fs.copy(
+        this.templatePath('eslintrc'),
+        this.destinationPath('.eslintrc')
+      );
+      this.fs.copy(
+        this.templatePath('sass-lint.yml'),
+        this.destinationPath('.sass-lint.yml')
+      );
+    },
+
+    // Build out the theme folders.
+    scaffoldFolders: function() {
+      mkdirp('components');
+      mkdirp('layout');
+      mkdirp('dist');
+      mkdirp('global');
+      mkdirp('global/base');
+      mkdirp('global/utils');
+      mkdirp('templates');
+    },
+
+    // Add build tools.
+    buildTools: function() {
+      this.fs.copyTpl(
+        this.templatePath('_gulpfile.js'),
+        this.destinationPath('gulpfile.js'),
+        {
+          kssNode: this.kssNode,
+          themeNameMachine: this.themeNameMachine
+        }
+      );
+    },
+
+    // Create the theme files.
+    projectFiles: function () {
+      // Create theme.info.yml with data provided.
+      this.fs.copyTpl(
+        this.templatePath('_theme_name.info.yml'),
+        this.destinationPath(this.themeNameMachine + '.info.yml'),
+        {
+          themeName: this.props.themeName,
+          themeDesc: this.props.themeDesc,
+          themeNameMachine: this.themeNameMachine,
+          baseTheme: this.baseTheme,
+          pkg: this.pkg
+        }
+      );
+      // Create theme.libraries.yml with data provided.
+      this.fs.copyTpl(
+        this.templatePath('_theme_name.libraries.yml'),
+        this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+        {
+          themeNameMachine: this.themeNameMachine
+        }
+      );
+      // Create theme.theme with data provided.
+      this.fs.copyTpl(
+        this.templatePath('_theme_name.theme'),
+        this.destinationPath(this.themeNameMachine + '.theme'),
+        {
+          themeNameMachine: this.themeNameMachine
+        }
+      );
+      // Create main global Sass file and partials.
+      this.fs.copy(
+        this.templatePath('_global/_global.scss'),
+        this.destinationPath('global/global.scss')
+      );
+      this.fs.copy(
+        this.templatePath('_global/_base'),
+        this.destinationPath('global/base')
+      );
+      this.fs.copy(
+        this.templatePath('_global/_utils'),
+        this.destinationPath('global/utils')
+      );
+      // The following need variables passed in so they can
+      // conditionally buid the files.
+      this.fs.copyTpl(
+        this.templatePath('_global/_init.scss'),
+        this.destinationPath('global/utils/_init.scss'),
+        {
+          breakpoint: this.breakpoint,
+          singularity: this.singularity
+        }
+      );
+      this.fs.copyTpl(
+        this.templatePath('_global/_colors.scss'),
+        this.destinationPath('global/utils/_colors.scss'),
+        {
+          kssSections: this.kssSections
+        }
+      );
+      this.fs.copyTpl(
+        this.templatePath('_global/_typography.scss'),
+        this.destinationPath('global/utils/_typography.scss'),
+        {
+          kssSections: this.kssSections
+        }
+      );
+
+      // If we're including sample sections, add the icons section,
+      // which is a component.
+      if (this.kssSections === true) {
+        this.fs.copy(
+          this.templatePath('_components/_icons'),
+          this.destinationPath('components/icons')
+        );
+        this.fs.copyTpl(
+          this.templatePath('_components/_icons.scss'),
+          this.destinationPath('components/icons.scss'),
+          {
+            themeNameMachine: this.themeNameMachine
+          }
+        );
+      }
+
+      this.fs.copy(
+        this.templatePath('_screenshot.png'),
+        this.destinationPath('screenshot.png')
+      );
+
+    //   // If the Panels Layout option is selected, use the subgenerator 'panels-layout'
+    //   // to build an example 1 column layout.
+    //   if (this.panelsLayout === true) {
+    //     this.composeWith('mc-theme:panels-layout', {
+    //       args: [this.props.themeName + ' 1 Col'],
+    //       options: {
+    //         admincss: true
+    //       }
+    //     });
+    //   }
+
+    //   // If the KSS Node option is selected, use the subgenerator 'kss-style-guide'.
+    //   if (this.kssNode === true) {
+    //     this.composeWith('mc-theme:kss-style-guide', {
+    //       args: [this.props.themeName],
+    //       options: {
+    //         gulpExample: false
+    //       }
+    //     });
+    //   }
+    }
   },
 
   install: function () {
