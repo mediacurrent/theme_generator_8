@@ -1,4 +1,4 @@
-# generator-mc-d-8-theme [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# generator-mc-d-8-theme [![NPM version][npm-image]][npm-url]
 > Yeoman generator for creating Drupal 8 component based themes.
 
 ## Installation
