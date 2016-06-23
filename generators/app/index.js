@@ -267,16 +267,24 @@ module.exports = yeoman.Base.extend({
       // which is a component.
       if (this.kssSections === true) {
         this.fs.copy(
-          this.templatePath('_components/_icons'),
+          this.templatePath('_sample-components/_icons'),
           this.destinationPath('components/icons')
         );
         this.fs.copyTpl(
-          this.templatePath('_components/_icons.scss'),
-          this.destinationPath('components/icons.scss'),
+          this.templatePath('_sample-components/_icons.scss'),
+          this.destinationPath('components/icons/icons.scss'),
           {
             themeNameMachine: this.themeNameMachine
           }
         );
+      }
+
+      // If we're including sample sections, add a sample list component.
+      // Use the component subgenerator to build the component.
+      if (this.kssSections === true) {
+        this.composeWith('mc-d8-theme:component', {
+          args: ['Sample List']
+        });
       }
 
       this.fs.copy(
@@ -284,30 +292,42 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('screenshot.png')
       );
 
-    //   // If the Panels Layout option is selected, use the subgenerator 'panels-layout'
-    //   // to build an example 1 column layout.
-    //   if (this.panelsLayout === true) {
-    //     this.composeWith('mc-theme:panels-layout', {
-    //       args: [this.props.themeName + ' 1 Col'],
-    //       options: {
-    //         admincss: true
-    //       }
-    //     });
-    //   }
-
-    //   // If the KSS Node option is selected, use the subgenerator 'kss-style-guide'.
-    //   if (this.kssNode === true) {
-    //     this.composeWith('mc-theme:kss-style-guide', {
-    //       args: [this.props.themeName],
-    //       options: {
-    //         gulpExample: false
-    //       }
-    //     });
-    //   }
+      // If the KSS Node option is selected, use the subgenerator 'kss-style-guide'.
+      if (this.kssNode === true) {
+        this.composeWith('mc-d8-theme:kss-style-guide', {
+          args: [this.props.themeName],
+          options: {
+            gulpExample: false
+          }
+        });
+      }
     }
   },
 
   install: function () {
-    this.installDependencies();
+    // Create an empty array for our NodeJS Modules
+    var npmArray = [];
+
+    // Conditionally install breakpoint or singularity using npm.
+    if (this.breakpoint === true || this.singularity === true) {
+      npmArray.push('breakpoint-sass');
+    }
+
+    if (this.singularity === true) {
+      npmArray.push('singularitygs');
+    }
+
+    // This runs `npm install gulp ... --save-dev` on the command line.
+    this.npmInstall(npmArray, { 'saveDev': true });
+
+    this.npmInstall();
+  },
+
+  end: function() {
+    // Shrinkwrap npm dependencies.
+    // This is the same as npm shrinkwrap --dev.
+    this.spawnCommand('npm', ['shrinkwrap', '--dev']);
+
+    this.log(chalk.red('#YOLO'));
   }
 });
