@@ -1,0 +1,68 @@
+//=======================================================
+// Typography
+//=======================================================
+
+// sass-lint-disable no-vendor-prefixes
+a {
+  // Remove gaps in links underline in iOS 8+ and Safari 8+.
+  -webkit-text-decoration-skip: objects;
+  color: $color-pacific-blue;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  // Remove the outline on focused links when they are also active or hovered
+  // in all browsers (opinionated).
+  &:active,
+  &:hover {
+    color: $color-rio-grande;
+    text-decoration: underline;
+    outline-width: 0;
+  }
+}
+
+p {
+  margin: 0;
+}
+
+dfn {
+  font-style: italic;
+}
+
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+// Address inconsistent and variable font size in all browsers.
+small {
+  font-size: 80%;
+}
+
+// Prevent `sub` and `sup` affecting `line-height` in all browsers.
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+// Contain overflow in all browsers.
+pre {
+  margin: 0;
+  overflow: auto;
+}
+
+// Address odd `em`-unit font size rendering in all browsers.
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1rem;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
