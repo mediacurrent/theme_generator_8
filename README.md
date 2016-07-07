@@ -2,6 +2,8 @@
 
 > [Yeoman generator](http://yeoman.io/) for Drupal Themes - lets you quickly set up a Drupal 8 theme with sensible defaults and best practices.
 
+**Looking for the [Drupal 7 version of this generator](https://bitbucket.org/mediacurrent/mis_theme_generator)?**
+
 ## Usage
 
 While the mc-d8-theme generator can be run anywhere, it's happiest when it's run from an empty directory you'd like to become your theme.
