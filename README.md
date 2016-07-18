@@ -121,37 +121,37 @@ Provided by default are seven npm scripts that point to Gulp tasks. We run gulp 
 
 1. Run the default build task (gulp in this instance) and everything in it.
   This is the equivalent to running `gulp` on the command line with Gulp installed globally.
-  ```bash
+  ```
   npm run build
   ```
 
 2. Compile Sass and JS.
-  ```bash
+  ```
   npm run compile
   ```
 
 3. Watch files and run tasks when they change.
-  ```bash
+  ```
   npm run watch
   ```
 
 4. Compress png and svg assets.
-  ```bash
+  ```
   npm run compress
   ```
 
 5. Build the KSS Style guide.
-  ```bash
+  ```
   npm run styleguide
   ```
 
 6. Lint Sass and JS files.
-  ```bash
+  ```
   npm run lint
   ```
 
 7. Delete compiled Sass, JS and style guide files from the /dist directory.
-  ```bash
+  ```
   npm run clean
   ```
 
@@ -159,7 +159,7 @@ Provided by default are seven npm scripts that point to Gulp tasks. We run gulp 
 Would you like to contribute? Want to make a few changes or fix a bug? COME ON OVER!
 
 Clone down this repo:
-```bash
+```
 git clone git@bitbucket.org:mediacurrent/mis_theme_generator_8.git
 ```
 
@@ -167,13 +167,13 @@ Remove `generator-mc-d8-theme` if you have previously installed it:
 
 _Tip: use `npm ls -g -depth=0` to see what global node modules are installed._
 
-```bash
+```
 npm uninstall generator-mc-d8-theme -g
 ```
 
 From the generator root directory [link](https://docs.npmjs.com/cli/link) your local generator files to npm:
 
-```bash
+```
 npm link
 ```
 
