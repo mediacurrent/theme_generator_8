@@ -32,14 +32,14 @@ module.exports = yeoman.Base.extend({
   writing: function () {
     this.fs.copyTpl(
       this.templatePath('_component/_component.json'),
-      this.destinationPath('components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.json'),
+      this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.json'),
       {
         name: this.componentName.raw
       }
     );
     this.fs.copyTpl(
       this.templatePath('_component/_component.scss'),
-      this.destinationPath('components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.scss'),
+      this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.scss'),
       {
         name: this.componentName.raw,
         dashed: this.componentName.dashed
@@ -47,7 +47,7 @@ module.exports = yeoman.Base.extend({
     );
     this.fs.copyTpl(
       this.templatePath('_component/_component.twig'),
-      this.destinationPath('components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.twig'),
+      this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.twig'),
       {
         dashed: this.componentName.dashed
       }

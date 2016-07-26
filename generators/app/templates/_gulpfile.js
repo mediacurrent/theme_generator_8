@@ -29,7 +29,7 @@ gulp.task('compile', ['compile:sass', 'compile:js']);
 
 // Compile Sass
 gulp.task('compile:sass', function() {
-  return gulp.src('./{global,layout,components}/**/*.scss')
+  return gulp.src('./src/{global,layout,components}/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({ outputStyle: 'nested' })
       .on('error', sass.logError))
@@ -49,7 +49,7 @@ gulp.task('compile:sass', function() {
 // Compile JavaScript ES2015 to ES5.
 gulp.task('compile:js', function() {
   return gulp.src([
-    './{global,layout,components}/**/*.js'
+    './src/{global,layout,components}/**/*.js'
   ], { base: './' })
     .pipe(sourcemaps.init())
     .pipe(babel({
@@ -75,8 +75,8 @@ gulp.task('lint', ['lint:sass', 'lint:js']);
 // Lint Sass based on .sass-lint.yml config.
 gulp.task('lint:sass', function () {
   return gulp.src([
-    './{global,layout,components}/**/*.scss',
-    '!./global/utils/*'
+    './src/{global,layout,components}/**/*.scss',
+    '!./src/global/utils/*'
   ])
     .pipe(sassLint())
     .pipe(sassLint.format());
@@ -85,7 +85,7 @@ gulp.task('lint:sass', function () {
 // Lint JavaScript based on .eslintrc config.
 gulp.task('lint:js', function () {
   return gulp.src([
-    './{global,layout,components}/**/*.js'
+    './src/{global,layout,components}/**/*.js'
   ])
     .pipe(eslint())
     .pipe(eslint.format());
@@ -93,7 +93,7 @@ gulp.task('lint:js', function () {
 
 gulp.task('compress', function() {
   return gulp.src([
-    './{global,layout,components}/**/*{.png,.svg}'
+    './src/{global,layout,components}/**/*{.png,.svg}'
   ])
     .pipe(imagemin({
       progressive: true,
@@ -114,12 +114,13 @@ gulp.task('compress', function() {
 gulp.task('styleguide', function() {
   return kss({
     source: [
-      'global',
-      'components'
+      'src/global',
+      'src/components',
+      'src/layout'
     ],
     destination: './dist/style-guide',
-    builder: 'style-guide/builder',
-    namespace: '<%= themeNameMachine %>:' + __dirname + '/components/',
+    builder: 'src/style-guide/builder',
+    namespace: '<%= themeNameMachine %>:' + __dirname + '/src/components/',
     'extend-drupal8': true,
     // The css and js paths are URLs, like '/misc/jquery.js'.
     // The following paths are relative to the generated style guide.
@@ -185,14 +186,21 @@ gulp.task('watch', function() {
 
   // Watch all my sass files and compile sass if a file changes.
   gulp.watch(
-    './{global,layout,components}/**/*.scss',
+    './src/{global,layout,components}/**/*.scss',
     ['lint:sass', 'compile:sass']
   );
 
   // Watch all my JS files and compile if a file changes.
   gulp.watch([
-    './{global,layout,components}/**/*.js'
+    './src/{global,layout,components}/**/*.js'
   ], ['lint:js', 'compile:js']);
+  <% if (kssNode) { %>
+  // Watch all my twig files and rebuild the style guide if a file changes.
+  gulp.watch(
+    './src/{layout,components}/**/*.twig',
+    ['watch:styleguide']
+  );
+  <% } -%>
 });
 <% if (kssNode) { %>
 //=======================================================

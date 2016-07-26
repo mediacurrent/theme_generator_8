@@ -159,6 +159,10 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('.gitignore')
       );
       this.fs.copy(
+        this.templatePath('editorconfig'),
+        this.destinationPath('.editorconfig')
+      );
+      this.fs.copy(
         this.templatePath('_README.md'),
         this.destinationPath('README.md')
       );
@@ -174,13 +178,14 @@ module.exports = yeoman.Base.extend({
 
     // Build out the theme folders.
     scaffoldFolders: function() {
-      mkdirp('components');
-      mkdirp('layout');
+      mkdirp('src');
+      mkdirp('src/components');
+      mkdirp('src/layout');
       mkdirp('dist');
-      mkdirp('global');
-      mkdirp('global/base');
-      mkdirp('global/utils');
-      mkdirp('templates');
+      mkdirp('src/global');
+      mkdirp('src/global/base');
+      mkdirp('src/global/utils');
+      mkdirp('src/templates');
     },
 
     // Add build tools.
@@ -227,37 +232,37 @@ module.exports = yeoman.Base.extend({
       );
       // Create main global Sass file and partials.
       this.fs.copy(
-        this.templatePath('_global/_global.scss'),
-        this.destinationPath('global/global.scss')
+        this.templatePath('src/_global/_global.scss'),
+        this.destinationPath('src/global/global.scss')
       );
       this.fs.copy(
-        this.templatePath('_global/_base'),
-        this.destinationPath('global/base')
+        this.templatePath('src/_global/_base'),
+        this.destinationPath('src/global/base')
       );
       this.fs.copy(
-        this.templatePath('_global/_utils'),
-        this.destinationPath('global/utils')
+        this.templatePath('src/_global/_utils'),
+        this.destinationPath('src/global/utils')
       );
       // The following need variables passed in so they can
       // conditionally buid the files.
       this.fs.copyTpl(
-        this.templatePath('_global/_init.scss'),
-        this.destinationPath('global/utils/_init.scss'),
+        this.templatePath('src/_global/_init.scss'),
+        this.destinationPath('src/global/utils/_init.scss'),
         {
           breakpoint: this.breakpoint,
           singularity: this.singularity
         }
       );
       this.fs.copyTpl(
-        this.templatePath('_global/_colors.scss'),
-        this.destinationPath('global/utils/_colors.scss'),
+        this.templatePath('src/_global/_colors.scss'),
+        this.destinationPath('src/global/utils/_colors.scss'),
         {
           kssSections: this.kssSections
         }
       );
       this.fs.copyTpl(
-        this.templatePath('_global/_typography.scss'),
-        this.destinationPath('global/utils/_typography.scss'),
+        this.templatePath('src/_global/_typography.scss'),
+        this.destinationPath('src/global/utils/_typography.scss'),
         {
           kssSections: this.kssSections
         }
@@ -267,12 +272,12 @@ module.exports = yeoman.Base.extend({
       // which is a component.
       if (this.kssSections === true) {
         this.fs.copy(
-          this.templatePath('_sample-components/_icons'),
-          this.destinationPath('components/icons')
+          this.templatePath('src/_sample-components/_icons'),
+          this.destinationPath('src/components/icons')
         );
         this.fs.copyTpl(
-          this.templatePath('_sample-components/_icons.scss'),
-          this.destinationPath('components/icons/icons.scss'),
+          this.templatePath('src/_sample-components/_icons.scss'),
+          this.destinationPath('src/components/icons/icons.scss'),
           {
             themeNameMachine: this.themeNameMachine
           }
