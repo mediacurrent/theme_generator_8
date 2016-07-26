@@ -26,11 +26,11 @@ module.exports = yeoman.Base.extend({
   writing: function () {
     this.fs.copy(
       this.templatePath('_style-guide'),
-      this.destinationPath('style-guide')
+      this.destinationPath('src/style-guide')
     );
     this.fs.copyTpl(
       this.templatePath('_style-guide.md'),
-      this.destinationPath('components/style-guide.md'),
+      this.destinationPath('src/components/style-guide.md'),
       {
         themeName: this.name
       }
@@ -68,12 +68,13 @@ module.exports = yeoman.Base.extend({
         gulp.task('styleguide', function() {
           return kss({
             source: [
-              'global',
-              'components'
+              'src/global',
+              'src/components',
+              'src/layout'
             ],
             destination: './dist/style-guide',
-            builder: 'style-guide/builder',
-            namespace: 'themeMachineName:' + __dirname + '/components/',
+            builder: 'src/style-guide/builder',
+            namespace: 'themeMachineName:' + __dirname + '/src/components/',
             'extend-drupal8': true,
             // The css and js paths are URLs, like '/misc/jquery.js'.
             // The following paths are relative to the generated style guide.

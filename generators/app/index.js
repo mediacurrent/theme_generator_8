@@ -232,21 +232,21 @@ module.exports = yeoman.Base.extend({
       );
       // Create main global Sass file and partials.
       this.fs.copy(
-        this.templatePath('src/_global/_global.scss'),
+        this.templatePath('_src/_global/_global.scss'),
         this.destinationPath('src/global/global.scss')
       );
       this.fs.copy(
-        this.templatePath('src/_global/_base'),
+        this.templatePath('_src/_global/_base'),
         this.destinationPath('src/global/base')
       );
       this.fs.copy(
-        this.templatePath('src/_global/_utils'),
+        this.templatePath('_src/_global/_utils'),
         this.destinationPath('src/global/utils')
       );
       // The following need variables passed in so they can
       // conditionally buid the files.
       this.fs.copyTpl(
-        this.templatePath('src/_global/_init.scss'),
+        this.templatePath('_src/_global/_init.scss'),
         this.destinationPath('src/global/utils/_init.scss'),
         {
           breakpoint: this.breakpoint,
@@ -254,14 +254,14 @@ module.exports = yeoman.Base.extend({
         }
       );
       this.fs.copyTpl(
-        this.templatePath('src/_global/_colors.scss'),
+        this.templatePath('_src/_global/_colors.scss'),
         this.destinationPath('src/global/utils/_colors.scss'),
         {
           kssSections: this.kssSections
         }
       );
       this.fs.copyTpl(
-        this.templatePath('src/_global/_typography.scss'),
+        this.templatePath('_src/_global/_typography.scss'),
         this.destinationPath('src/global/utils/_typography.scss'),
         {
           kssSections: this.kssSections
@@ -272,11 +272,11 @@ module.exports = yeoman.Base.extend({
       // which is a component.
       if (this.kssSections === true) {
         this.fs.copy(
-          this.templatePath('src/_sample-components/_icons'),
+          this.templatePath('_src/_sample-components/_icons'),
           this.destinationPath('src/components/icons')
         );
         this.fs.copyTpl(
-          this.templatePath('src/_sample-components/_icons.scss'),
+          this.templatePath('_src/_sample-components/_icons.scss'),
           this.destinationPath('src/components/icons/icons.scss'),
           {
             themeNameMachine: this.themeNameMachine
