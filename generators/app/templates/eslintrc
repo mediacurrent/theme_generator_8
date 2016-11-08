@@ -36,6 +36,7 @@ rules:
   indent:
     - 2
     - 2
+    - SwitchCase: 1
 
   # Prefer single quotes over double.
   quotes:
@@ -63,6 +64,7 @@ rules:
   # Enforce placing 'use strict' at the top function scope
   strict:
     - 2
+    - function
 
   # Prohibit use of a variable before it is defined.
   no-undef:
