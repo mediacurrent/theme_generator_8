@@ -20,7 +20,7 @@ module.exports = yeoman.Base.extend({
     var prompts = [
       {
         name: 'themeName',
-        message: 'What is your theme\'s human readable name? \n It\'s recommended to add a "theme" to the name so it doesn\'t conflict with modules. EX: Unicorn Theme',
+        message: 'What is your theme\'s human readable name?',
         default: _.startCase(this.appname) // Default to current folder name
       },
       {
@@ -36,14 +36,9 @@ module.exports = yeoman.Base.extend({
         message: 'What is your theme\'s description?'
       },
       {
-        type: 'confirm',
-        name: 'baseTheme',
-        message: 'Would you like to use a base theme?'
-      },
-      {
         type: 'list',
         name: 'whichBaseTheme',
-        message: 'Which base theme would you like to use?',
+        message: 'Which base theme would you like to use? If you don\'t want to use a base theme pick "stable" as that\'s what\'s used by Drupal if you don\'t specify a base.',
         choices: [
           {
             value: 'stable',
@@ -53,12 +48,7 @@ module.exports = yeoman.Base.extend({
             value: 'classy',
             name: 'Use Classy as a base theme'
           }
-        ],
-        when: function (answers) {
-          // If baseTheme is true, ask this question.
-          // If it's false skip this question.
-          return (answers.baseTheme);
-        }
+        ]
       },
       {
         type: 'checkbox',
@@ -102,14 +92,8 @@ module.exports = yeoman.Base.extend({
       this.breakpoint = hasOption(props.howMuchTheme, 'breakpoint');
       this.singularity = hasOption(props.howMuchTheme, 'singularity');
 
-      // If the user has selected a base theme, add it to the object.
-      // If they haven't set it to false.
-      if (props.baseTheme === true) {
-        this.baseTheme = props.whichBaseTheme;
-      }
-      else {
-        this.baseTheme = false;
-      }
+      // Add the base theme to the object.
+      this.baseTheme = props.whichBaseTheme;
 
       // Set kssSections if it's needed.
       if (this.kssNode === true) {
