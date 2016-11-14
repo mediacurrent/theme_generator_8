@@ -206,6 +206,15 @@ module.exports = yeoman.Base.extend({
           themeNameMachine: this.themeNameMachine
         }
       );
+      // Create theme.breakpoints.yml with data provided.
+      this.fs.copyTpl(
+        this.templatePath('_theme_name.breakpoints.yml'),
+        this.destinationPath(this.themeNameMachine + '.breakpoints.yml'),
+        {
+          themeName: this.props.themeName,
+          themeNameMachine: this.themeNameMachine
+        }
+      );
       // Create theme.theme with data provided.
       this.fs.copyTpl(
         this.templatePath('_theme_name.theme'),
