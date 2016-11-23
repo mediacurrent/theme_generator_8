@@ -286,10 +286,15 @@ module.exports = yeoman.Base.extend({
       }
 
       // If we're including sample sections, add a sample list component.
-      // Use the component subgenerator to build the component.
+      // Use the component and js-behavior subgenerators to build the component.
       if (this.kssSections === true) {
+        // Add the sample .scss, .json and .twig files.
         this.composeWith('mc-d8-theme:component', {
           args: ['Sample List']
+        });
+        // Add a sample JavaScript behavior.
+        this.composeWith('mc-d8-theme:js-behavior', {
+          args: ['sample-list']
         });
       }
 
