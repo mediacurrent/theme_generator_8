@@ -155,6 +155,10 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('.eslintrc')
       );
       this.fs.copy(
+        this.templatePath('babelrc'),
+        this.destinationPath('.babelrc')
+      );
+      this.fs.copy(
         this.templatePath('sass-lint.yml'),
         this.destinationPath('.sass-lint.yml')
       );
