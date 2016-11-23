@@ -49,6 +49,7 @@ Available generators:
 
 * [mc-d8-theme](#markdown-header-app) (aka [mc-d8-theme:app](#markdown-header-app), the main app)
 * [mc-d8-theme:component](#markdown-header-component)
+* [mc-d8-theme:js-behavior](#markdown-header-js-behavior)
 * [mc-d8-theme:kss-style-guide](#markdown-header-kss-style-guide)
 
 ### App
@@ -76,12 +77,26 @@ This would generate the following files:
 - components/site-logo/site-logo.json
 - components/site-logo/site-logo.twig
 
-### KSS Style Guide
-Generates a KSS Node style guide. You must pass it a name for the theme if run independently of the main app. If run by itself this subgenerator has no way to modify your existing `gulpfile.js` Instead it will provide code you can copy and paste into your `gulpfile.js` for it to work correctly.
+### JS Behavior
+Generates a Drupal JS behavior based on whatever component file name you pass it.
 
 Example:
 ```bash
-yo mc-d8-theme:kss-style-guide 'Super Sweet Theme'
+yo mc-d8-theme:js-behavior 'site-logo'
+```
+
+By default this will put the new behavior in the components directory. For example if
+the component name you passed it was `site-logo`, it will generate a new behavior within:
+`src/components/site-logo/site-logo.es6.js`.
+
+The generated file is ES6 / ES2015 ready and can be compiled by the provided build tools.
+
+### KSS Style Guide
+Generates a KSS Node style guide. You must pass it a name and a machine name for the theme if run independently of the main app. If run by itself this subgenerator has no way to modify your existing `gulpfile.js` Instead it will provide code you can copy and paste into your `gulpfile.js` for it to work correctly.
+
+Example:
+```bash
+yo mc-d8-theme:kss-style-guide 'Super Sweet Theme' 'super_sweet_theme'
 ```
 
 Use `--help` to see all usage info.

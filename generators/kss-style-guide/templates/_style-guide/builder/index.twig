@@ -6,7 +6,7 @@
 
   <meta name="description" content="">
   <meta name="generator" content="kss-node">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <link rel="stylesheet" href="kss-assets/kss.css">
   {{ styles|raw }}
@@ -39,6 +39,7 @@
                 {% endif %}
               </li>
             {% endfor %}
+            <li><button class="kss-menu-full-width js-full-width" title="Remove navigation and padding to show what a component looks like at full page width.">Remove Navigation</button></li>
           </ul>
         </nav>
       </div>
@@ -143,8 +144,17 @@
 </div>
 
 <!-- SCRIPTS -->
+<!-- Fake drupalSettings -->
+<script type="application/json" data-drupal-selector="drupal-settings-json">
+  {}
+</script>
+<!-- / Fake drupalSettings -->
+<script src="/core/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/core/assets/vendor/jquery-once/jquery.once.min.js"></script>
+<script src="/core/assets/vendor/domready/ready.min.js"></script>
+<script src="/core/misc/drupalSettingsLoader.js"></script>
+<script src="/core/misc/drupal.js"></script>
 <script src="kss-assets/kss.js"></script>
-<script src="kss-assets/jquery-1.9.1.min.js"></script>
 <script src="kss-assets/rainbow.min.js"></script>
 <script src="kss-assets/main.js"></script>
 <script src="https://fast.fonts.net/jsapi/be6ccecf-72d4-4789-bbc3-f0be03f90a6a.js" async></script>

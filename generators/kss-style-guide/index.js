@@ -12,6 +12,11 @@ module.exports = yeoman.Base.extend({
       type: String,
       desc: 'The theme name'
     });
+    this.argument('machineName', {
+      required: true,
+      type: String,
+      desc: 'The theme machine name'
+    });
     this.option('gulpExample', {
       type: Boolean,
       desc: 'Provide an example of a KSS Node gulp task.',
@@ -27,6 +32,13 @@ module.exports = yeoman.Base.extend({
     this.fs.copy(
       this.templatePath('_style-guide'),
       this.destinationPath('src/style-guide')
+    );
+    this.fs.copyTpl(
+      this.templatePath('_gulp-tasks/styleguide.js'),
+      this.destinationPath('gulp-tasks/styleguide.js'),
+      {
+        themeName: this.machineName
+      }
     );
     this.fs.copyTpl(
       this.templatePath('_style-guide.md'),

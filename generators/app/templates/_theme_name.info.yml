@@ -14,11 +14,8 @@ type: theme
 description: <%= themeDesc %>
 package: Other
 core: 8.x
-<% if (baseTheme) { %>
 # Classy vs. Stable as a base theme: https://www.lullabot.com/articles/a-tale-of-two-base-themes-in-drupal-8-core
 base theme: <%= baseTheme %>
-<% } -%>
-
 
 # This section controls the libraries for your theme. For full documentation,
 # see https://www.drupal.org/node/2216195

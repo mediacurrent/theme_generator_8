@@ -4,12 +4,12 @@
 <% if (breakpoint || singularity) { %>
 // Import breakpoint plugin
 // http://breakpoint-sass.com/
-@import '../../node_modules/breakpoint-sass/stylesheets/breakpoint';
+@import '../../../node_modules/breakpoint-sass/stylesheets/breakpoint';
 <% } -%>
 <% if (singularity) { %>
 // Imports Singularity grid system.
 // https://github.com/at-import/Singularity
-@import '../../node_modules/singularitygs/stylesheets/singularitygs';
+@import '../../../node_modules/singularitygs/stylesheets/singularitygs';
 <% } -%>
 
 // Import variables

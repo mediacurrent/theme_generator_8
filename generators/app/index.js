@@ -20,7 +20,7 @@ module.exports = yeoman.Base.extend({
     var prompts = [
       {
         name: 'themeName',
-        message: 'What is your theme\'s human readable name? \n It\'s recommended to add a "theme" to the name so it doesn\'t conflict with modules. EX: Unicorn Theme',
+        message: 'What is your theme\'s human readable name?',
         default: _.startCase(this.appname) // Default to current folder name
       },
       {
@@ -36,14 +36,9 @@ module.exports = yeoman.Base.extend({
         message: 'What is your theme\'s description?'
       },
       {
-        type: 'confirm',
-        name: 'baseTheme',
-        message: 'Would you like to use a base theme?'
-      },
-      {
         type: 'list',
         name: 'whichBaseTheme',
-        message: 'Which base theme would you like to use?',
+        message: 'Which base theme would you like to use? If you don\'t want to use a base theme pick "stable" as that\'s what\'s used by Drupal if you don\'t specify a base.',
         choices: [
           {
             value: 'stable',
@@ -53,12 +48,7 @@ module.exports = yeoman.Base.extend({
             value: 'classy',
             name: 'Use Classy as a base theme'
           }
-        ],
-        when: function (answers) {
-          // If baseTheme is true, ask this question.
-          // If it's false skip this question.
-          return (answers.baseTheme);
-        }
+        ]
       },
       {
         type: 'checkbox',
@@ -102,14 +92,8 @@ module.exports = yeoman.Base.extend({
       this.breakpoint = hasOption(props.howMuchTheme, 'breakpoint');
       this.singularity = hasOption(props.howMuchTheme, 'singularity');
 
-      // If the user has selected a base theme, add it to the object.
-      // If they haven't set it to false.
-      if (props.baseTheme === true) {
-        this.baseTheme = props.whichBaseTheme;
-      }
-      else {
-        this.baseTheme = false;
-      }
+      // Add the base theme to the object.
+      this.baseTheme = props.whichBaseTheme;
 
       // Set kssSections if it's needed.
       if (this.kssNode === true) {
@@ -171,6 +155,10 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('.eslintrc')
       );
       this.fs.copy(
+        this.templatePath('babelrc'),
+        this.destinationPath('.babelrc')
+      );
+      this.fs.copy(
         this.templatePath('sass-lint.yml'),
         this.destinationPath('.sass-lint.yml')
       );
@@ -198,6 +186,10 @@ module.exports = yeoman.Base.extend({
           themeNameMachine: this.themeNameMachine
         }
       );
+      this.fs.copy(
+        this.templatePath('_gulp-tasks'),
+        this.destinationPath('gulp-tasks')
+      );
     },
 
     // Create the theme files.
@@ -219,6 +211,15 @@ module.exports = yeoman.Base.extend({
         this.templatePath('_theme_name.libraries.yml'),
         this.destinationPath(this.themeNameMachine + '.libraries.yml'),
         {
+          themeNameMachine: this.themeNameMachine
+        }
+      );
+      // Create theme.breakpoints.yml with data provided.
+      this.fs.copyTpl(
+        this.templatePath('_theme_name.breakpoints.yml'),
+        this.destinationPath(this.themeNameMachine + '.breakpoints.yml'),
+        {
+          themeName: this.props.themeName,
           themeNameMachine: this.themeNameMachine
         }
       );
@@ -285,10 +286,15 @@ module.exports = yeoman.Base.extend({
       }
 
       // If we're including sample sections, add a sample list component.
-      // Use the component subgenerator to build the component.
+      // Use the component and js-behavior subgenerators to build the component.
       if (this.kssSections === true) {
+        // Add the sample .scss, .json and .twig files.
         this.composeWith('mc-d8-theme:component', {
           args: ['Sample List']
+        });
+        // Add a sample JavaScript behavior.
+        this.composeWith('mc-d8-theme:js-behavior', {
+          args: ['sample-list']
         });
       }
 
@@ -300,7 +306,7 @@ module.exports = yeoman.Base.extend({
       // If the KSS Node option is selected, use the subgenerator 'kss-style-guide'.
       if (this.kssNode === true) {
         this.composeWith('mc-d8-theme:kss-style-guide', {
-          args: [this.props.themeName],
+          args: [this.props.themeName, this.props.themeNameMachine],
           options: {
             gulpExample: false
           }
