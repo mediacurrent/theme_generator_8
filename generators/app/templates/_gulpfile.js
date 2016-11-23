@@ -1,3 +1,4 @@
+/*eslint strict: ["error", "global"]*/
 'use strict';
 
 //=======================================================
@@ -8,63 +9,45 @@ var gulp = require('gulp');
 //=======================================================
 // Include Our Plugins
 //=======================================================
-var sass        = require('gulp-sass');
-var prefix      = require('gulp-autoprefixer');
-var sourcemaps  = require('gulp-sourcemaps');
 var sync        = require('browser-sync');
-var sassLint    = require('gulp-sass-lint');
-var eslint      = require('gulp-eslint');
-var babel       = require('gulp-babel');
-var rename      = require('gulp-rename');
-var imagemin    = require('gulp-imagemin');
-var path        = require('path');
-var del         = require('del');
 var runSequence = require('run-sequence');
-<% if (kssNode) { %>var kss         = require('kss');<% } %>
+
+//=======================================================
+// Include Our tasks.
+//
+// Each task is broken apart to it's own node module.
+// Check out the ./gulp-tasks directory for more.
+//=======================================================
+var taskCompile     = require('./gulp-tasks/compile.js');
+var taskMove        = require('./gulp-tasks/move.js');
+var taskLint        = require('./gulp-tasks/lint.js');
+var taskCompress    = require('./gulp-tasks/compress.js');
+var taskStyleGuide  = require('./gulp-tasks/styleguide.js');
+var taskClean       = require('./gulp-tasks/clean.js');
+<% if (kssNode) { %>var taskStyleGuide  = require('./gulp-tasks/styleguide.js');<% } %>
 
 //=======================================================
 // Compile Our Sass and JS
+// We also move some files if they don't need
+// to be compiled.
 //=======================================================
-gulp.task('compile', ['compile:sass', 'compile:js']);
+gulp.task('compile', ['compile:sass', 'compile:js', 'move:js']);
 
 // Compile Sass
 gulp.task('compile:sass', function() {
-  return gulp.src('./src/{global,layout,components}/**/*.scss')
-    .pipe(sourcemaps.init())
-    .pipe(sass({ outputStyle: 'nested' })
-      .on('error', sass.logError))
-    .pipe(prefix({
-      browsers: ['last 2 versions'],
-      cascade: false
-    }))
-    .pipe(rename(function (path) {
-      path.dirname = '';
-      return path;
-    }))
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./dist/css'))
-    .pipe(sync.stream());
+  return taskCompile.sass();
 });
 
 // Compile JavaScript ES2015 to ES5.
 gulp.task('compile:js', function() {
-  return gulp.src([
-    './src/{global,layout,components}/**/*.js'
-  ], { base: './' })
-    .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: ['es2015']
-    }))
-    .pipe(rename(function (path) {
-      // Get the directory name and rename the file to match.
-      var pathArray = path.dirname.split('/');
-      var parentName = pathArray.slice(-1);
-      path.dirname = '';
-      path.basename = parentName[0] + '.bundle';
-      return path;
-    }))
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./dist/js'));
+  return taskCompile.js();
+});
+
+// If some JS components aren't es6 we want to simply move them
+// into the dist folder. This allows us to clean the dist/js
+// folder on build.
+gulp.task('move:js', function() {
+  return taskMove.js();
 });
 
 //=======================================================
@@ -74,67 +57,26 @@ gulp.task('lint', ['lint:sass', 'lint:js']);
 
 // Lint Sass based on .sass-lint.yml config.
 gulp.task('lint:sass', function () {
-  return gulp.src([
-    './src/{global,layout,components}/**/*.scss',
-    '!./src/global/utils/*'
-  ])
-    .pipe(sassLint())
-    .pipe(sassLint.format());
+  return taskLint.sass();
 });
 
 // Lint JavaScript based on .eslintrc config.
 gulp.task('lint:js', function () {
-  return gulp.src([
-    './src/{global,layout,components}/**/*.js'
-  ])
-    .pipe(eslint())
-    .pipe(eslint.format());
+  return taskLint.js();
 });
 
+//=======================================================
+// Compress Files
+//=======================================================
 gulp.task('compress', function() {
-  return gulp.src([
-    './src/{global,layout,components}/**/*{.png,.svg}'
-  ])
-    .pipe(imagemin({
-      progressive: true,
-      svgoPlugins: [{
-        removeViewBox: false
-      }]
-    }))
-    .pipe(rename(function (path) {
-      path.dirname = '';
-      return path;
-    }))
-    .pipe(gulp.dest('./dist/assets'));
+  return taskCompress.assets();
 });
 <% if (kssNode) { %>
 //=======================================================
 // Generate style guide
 //=======================================================
 gulp.task('styleguide', function() {
-  return kss({
-    source: [
-      'src/global',
-      'src/components',
-      'src/layout'
-    ],
-    destination: './dist/style-guide',
-    builder: 'src/style-guide/builder',
-    namespace: '<%= themeNameMachine %>:' + __dirname + '/src/components/',
-    'extend-drupal8': true,
-    // The css and js paths are URLs, like '/misc/jquery.js'.
-    // The following paths are relative to the generated style guide.
-    css: [
-      path.relative(
-        __dirname + '/style-guide/',
-        __dirname + '/css/global.css'
-      )
-    ],
-    js: [
-    ],
-    homepage: 'style-guide.md',
-    title: 'Style Guide'
-  });
+  return taskStyleGuide.generate(__dirname);
 });
 <% } %>
 //=======================================================
@@ -145,10 +87,7 @@ gulp.task('clean', ['clean:css', 'clean:js', 'clean:styleguide']);
 
 // Clean style guide files.
 gulp.task('clean:styleguide', function () {
-  // You can use multiple globbing patterns as you would with `gulp.src`
-  return del([
-    './dist/style-guide/*'
-  ], {force: true});
+  return taskClean.styleguide();
 });
 <% } else { %>
 gulp.task('clean', ['clean:css', 'clean:js']);
@@ -156,16 +95,12 @@ gulp.task('clean', ['clean:css', 'clean:js']);
 
 // Clean CSS files.
 gulp.task('clean:css', function () {
-  return del([
-    './dist/css/*'
-  ], {force: true});
+  return taskClean.css();
 });
 
 // Clean JS files.
 gulp.task('clean:js', function () {
-  return del([
-    './dist/js/*'
-  ], {force: true});
+  return taskClean.js();
 });
 
 //=======================================================
@@ -178,6 +113,8 @@ gulp.task('watch', function() {
   // NOTE: for this to work in Drupal, you must install and enable
   // https://www.drupal.org/project/link_css. This module should
   // NOT be committed to the repo OR enabled on production.
+  //
+  // This should work out of the box for work within the style guide.
   //
   // sync.init({
   //   open: false,
@@ -202,7 +139,11 @@ gulp.task('watch', function() {
   );
   <% } -%>
 });
+
 <% if (kssNode) { %>
+// Reload the browser if the style guide is updated.
+gulp.task('watch:styleguide', ['styleguide'], sync.reload);
+
 //=======================================================
 // Default Task
 //

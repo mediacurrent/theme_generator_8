@@ -12,6 +12,11 @@ module.exports = yeoman.Base.extend({
       type: String,
       desc: 'The theme name'
     });
+    this.argument('machineName', {
+      required: true,
+      type: String,
+      desc: 'The theme machine name'
+    });
     this.option('gulpExample', {
       type: Boolean,
       desc: 'Provide an example of a KSS Node gulp task.',

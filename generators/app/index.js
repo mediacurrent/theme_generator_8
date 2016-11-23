@@ -186,6 +186,10 @@ module.exports = yeoman.Base.extend({
           themeNameMachine: this.themeNameMachine
         }
       );
+      this.fs.copy(
+        this.templatePath('_gulp-tasks'),
+        this.destinationPath('gulp-tasks')
+      );
     },
 
     // Create the theme files.
