@@ -77,11 +77,11 @@ This would generate the following files:
 - components/site-logo/site-logo.twig
 
 ### KSS Style Guide
-Generates a KSS Node style guide. You must pass it a name for the theme if run independently of the main app. If run by itself this subgenerator has no way to modify your existing `gulpfile.js` Instead it will provide code you can copy and paste into your `gulpfile.js` for it to work correctly.
+Generates a KSS Node style guide. You must pass it a name and a machine name for the theme if run independently of the main app. If run by itself this subgenerator has no way to modify your existing `gulpfile.js` Instead it will provide code you can copy and paste into your `gulpfile.js` for it to work correctly.
 
 Example:
 ```bash
-yo mc-d8-theme:kss-style-guide 'Super Sweet Theme'
+yo mc-d8-theme:kss-style-guide 'Super Sweet Theme' 'super_sweet_theme'
 ```
 
 Use `--help` to see all usage info.

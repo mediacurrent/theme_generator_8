@@ -34,6 +34,13 @@ module.exports = yeoman.Base.extend({
       this.destinationPath('src/style-guide')
     );
     this.fs.copyTpl(
+      this.templatePath('_gulp-tasks/styleguide.js'),
+      this.destinationPath('gulp-tasks/styleguide.js'),
+      {
+        themeName: this.machineName
+      }
+    );
+    this.fs.copyTpl(
       this.templatePath('_style-guide.md'),
       this.destinationPath('src/components/style-guide.md'),
       {

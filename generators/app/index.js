@@ -301,7 +301,7 @@ module.exports = yeoman.Base.extend({
       // If the KSS Node option is selected, use the subgenerator 'kss-style-guide'.
       if (this.kssNode === true) {
         this.composeWith('mc-d8-theme:kss-style-guide', {
-          args: [this.props.themeName],
+          args: [this.props.themeName, this.props.themeNameMachine],
           options: {
             gulpExample: false
           }
