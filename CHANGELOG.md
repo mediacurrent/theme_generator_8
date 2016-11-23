@@ -1,16 +1,5 @@
 # Changelog
 
-## 1.1.0 (2016-07-26)
-
-This update is mainly moving source files into a `src` directory. The main theme files that Drupal needs are left in the top level theme folder. If you try to move them, stuff breaks.
-
-### New Feature
-* Added editor config file. http://editorconfig.org/
-* Moved source files into a new `/src` directory.
-
-### Documentation
-* Added a new CHANGELOG.md! YAY!
-
 ## 1.2.0 (2016-11-23)
 
 🐊 If this release had a name it'd be "Danger Zone". We've greatly refactored the Gulp file, updated all node modules and done a _ton_ of other stuff. We've even added a new Drupal JS behavior generator. Read on for more deets.
@@ -37,3 +26,14 @@ This update is mainly moving source files into a `src` directory. The main theme
 
 ### Documentation
 * Updated generator readme with details on how to use the new JS Behavior subgenerator.
+
+## 1.1.0 (2016-07-26)
+
+This update is mainly moving source files into a `src` directory. The main theme files that Drupal needs are left in the top level theme folder. If you try to move them, stuff breaks.
+
+### New Feature
+* Added editor config file. http://editorconfig.org/
+* Moved source files into a new `/src` directory.
+
+### Documentation
+* Added a new CHANGELOG.md! YAY!
