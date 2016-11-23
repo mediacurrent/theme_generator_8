@@ -8,4 +8,4 @@ node_modules
 npm-debug.log
 
 # Ignore any map files. These don't need to be committed.
-*.css.map
+*.map
