@@ -788,3 +788,18 @@ pre .regexp {
   padding: 15px;
   background-color: rgba(0, 0, 0, 0.25);
 }
+
+.kss-menu-full-width {
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  background-color: #e3e3e3;
+  margin: 20px 0 0 auto;
+  display: block;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+.kss-menu-full-width:hover {
+  border: 2px solid rgba(0, 0, 0, 0.25);
+}
