@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 (2016-11-27)
+
+### Bug Fix
+* Fixed broken path / twig name space for the components module. Thanks Mario!
+    * https://bitbucket.org/mediacurrent/mis_theme_generator_8/issues/6/path-to-components-is-incorrect-in-theme
+
 ## 1.2.0 (2016-11-23)
 
 🐊 If this release had a name it'd be "Danger Zone". We've greatly refactored the Gulp file, updated all node modules and done a _ton_ of other stuff. We've even added a new Drupal JS behavior generator. Read on for more deets.
