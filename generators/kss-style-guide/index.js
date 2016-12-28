@@ -40,6 +40,14 @@ module.exports = yeoman.Base.extend({
         themeName: this.machineName
       }
     );
+    this.log('Adding concat gulp task.');
+    this.fs.copyTpl(
+      this.templatePath('_gulp-tasks/concat.js'),
+      this.destinationPath('gulp-tasks/concat.js'),
+      {
+        themeName: this.machineName
+      }
+    );
     this.fs.copyTpl(
       this.templatePath('_style-guide.md'),
       this.destinationPath('src/components/style-guide.md'),
@@ -53,7 +61,9 @@ module.exports = yeoman.Base.extend({
     // Install our NodeJS Modules
     // This runs `npm install kss-node ... --save-dev` on the command line.
     this.npmInstall([
-      'kss'
+      'kss',
+      'gulp-concat',
+      'gulp-order'
     ], {
       saveDev: true
     });

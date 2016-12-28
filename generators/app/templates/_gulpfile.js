@@ -78,6 +78,13 @@ gulp.task('compress', function() {
 gulp.task('styleguide', function() {
   return taskStyleGuide.generate(__dirname);
 });
+
+//=======================================================
+// Concat all CSS files into a master bundle.
+//=======================================================
+gulp.task('concat', function () {
+  return taskConcat.css();
+});
 <% } %>
 //=======================================================
 // Clean all directories.
@@ -106,6 +113,27 @@ gulp.task('clean:js', function () {
 //=======================================================
 // Watch and recompile sass.
 //=======================================================
+
+// Pull the sass watch task out so we can use run sequence.
+<% if (kssNode) { %>
+gulp.task('watch:sass', function(callback) {
+  runSequence(
+    ['lint:sass', 'compile:sass'],
+    'concat',
+    callback
+  );
+});
+<% } else { %>
+// Pull the sass watch task out so we can use run sequence.
+gulp.task('watch:sass', function(callback) {
+  runSequence(
+    ['lint:sass', 'compile:sass'],
+    callback
+  );
+});
+<% } -%>
+
+// Main watch task.
 gulp.task('watch', function() {
 
   // BrowserSync proxy setup
@@ -124,22 +152,22 @@ gulp.task('watch', function() {
   // Watch all my sass files and compile sass if a file changes.
   gulp.watch(
     './src/{global,layout,components}/**/*.scss',
-    ['lint:sass', 'compile:sass']
+    ['watch:sass']
   );
 
   // Watch all my JS files and compile if a file changes.
   gulp.watch([
     './src/{global,layout,components}/**/*.js'
   ], ['lint:js', 'compile:js']);
-  <% if (kssNode) { %>
+<% if (kssNode) { %>
   // Watch all my twig files and rebuild the style guide if a file changes.
   gulp.watch(
     './src/{layout,components}/**/*.twig',
     ['watch:styleguide']
   );
-  <% } -%>
-});
+<% } -%>
 
+});
 <% if (kssNode) { %>
 // Reload the browser if the style guide is updated.
 gulp.task('watch:styleguide', ['styleguide'], sync.reload);
@@ -149,12 +177,13 @@ gulp.task('watch:styleguide', ['styleguide'], sync.reload);
 //
 // runSequence runs 'clean' first, and when that finishes
 // 'lint', 'compile', 'compress', 'styleguide' run
-// at the same time.
+// at the same time. 'concat' runs last.
 //=======================================================
 gulp.task('default', function(callback) {
   runSequence(
     'clean',
     ['lint', 'compile', 'compress', 'styleguide'],
+    'concat',
     callback
   );
 });
