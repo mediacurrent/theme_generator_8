@@ -30,10 +30,13 @@ module.exports = {
       'extend-drupal8': true,
       // The css and js paths are URLs, like '/misc/jquery.js'.
       // The following paths are relative to the generated style guide.
+      // The all.css file is for the style guide ONLY so you don't have to
+      // keep adding the file here everytime you add a new component.
+      // Drupal libraries should be leveraged for adding CSS per component.
       css: [
         path.relative(
           dirname + '/style-guide/',
-          dirname + '/css/global.css'
+          dirname + '/all/all.css'
         )
       ],
       js: [

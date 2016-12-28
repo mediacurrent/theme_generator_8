@@ -1,5 +1,19 @@
 # Changelog
 
+## 🔧 1.3.0 (2016-12-28)
+
+### New Feature
+* Added a warning at the end of the theme generation to remind you to delete any unused code. If you don't need it, delete it! ☠️
+* Added a concat task if KSS node is used. **Thanks Tobias and Mario!** This should allow you to not worry about adding a new CSS file for every new component within the style guide. Everything should work by default. Note that the generated `all.css` file may need some modification if CSS files are being concatenated in the wrong order. I've provided an example of how to do that within the concat.js gulp task. Also, **Don't** use the `all.css` file for production **only the style guide.** Leverage [Drupal's Libraries](https://www.drupal.org/docs/8/theming-drupal-8/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-theme) to add CSS / JS files as needed.
+    * https://bitbucket.org/mediacurrent/mis_theme_generator_8/issues/7/add-the-ability-to-concat-css-for-the
+    * https://bitbucket.org/mediacurrent/mis_theme_generator_8/issues/8/dynamically-add-reference-to-allcss-to
+
+### Bug Fix
+* Removed duplicate style guide task include within the gulp file. This caused breakage if you didn't select the KSS option.
+
+### Documentation
+* Added link to CHANGELOG.md from the main README.
+
 ## 1.2.1 (2016-11-27)
 
 ### Bug Fix
