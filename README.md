@@ -4,6 +4,8 @@
 
 **Looking for the [Drupal 7 version of this generator](https://bitbucket.org/mediacurrent/mis_theme_generator)?**
 
+**[Read the Changelog!](⚡️ CHANGELOG.md)**
+
 ## Usage
 
 While the mc-d8-theme generator can be run anywhere, it's happiest when it's run from an empty directory you'd like to become your theme.
@@ -64,7 +66,7 @@ yo mc-d8-theme
 ```
 
 ### Component
-Generates component boiler plate based on whatever name you pass it.
+Generates component boiler plate based on whatever name you pass it. Please delete whatever you don't need. If you haven't modified it, you don't need it.
 
 Example:
 ```bash
