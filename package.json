@@ -1,6 +1,6 @@
 {
   "name": "generator-mc-d8-theme",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Yeoman generator for creating Drupal 8 component based themes.",
   "homepage": "",
   "author": {
