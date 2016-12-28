@@ -4,7 +4,9 @@
 
 **Looking for the [Drupal 7 version of this generator](https://bitbucket.org/mediacurrent/mis_theme_generator)?**
 
-**[Read the Changelog!](⚡️ CHANGELOG.md)**
+## What's New
+
+**[Read the ⚡️ Changelog!](CHANGELOG.md)**
 
 ## Usage
 
