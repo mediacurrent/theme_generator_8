@@ -9,7 +9,7 @@
 **[Read the ⚡️ Changelog!](CHANGELOG.md)**
 
 ## [Links](#markdown-header-links)
-[`.sass-lint`](generators/app/templates/sass-lint.yml)
+* [`.sass-lint`](generators/app/templates/sass-lint.yml)
 
 ## Usage
 
