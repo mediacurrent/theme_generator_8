@@ -8,6 +8,9 @@
 
 **[Read the ⚡️ Changelog!](CHANGELOG.md)**
 
+## [Links](#markdown-header-links)
+[`.sass-lint`](generators/app/templates/sass-lint.yml)
+
 ## Usage
 
 While the mc-d8-theme generator can be run anywhere, it's happiest when it's run from an empty directory you'd like to become your theme.
