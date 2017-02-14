@@ -1,14 +1,13 @@
 {
   "name": "generator-mc-d8-theme",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Yeoman generator for creating Drupal 8 component based themes.",
-  "homepage": "",
+  "homepage": "https://github.com/mediacurrent/theme_generator_8",
   "author": {
     "name": "ZackHawkinsMC",
     "email": "zack.hawkins@mediacurrent.com",
     "url": ""
   },
-  "homepage": "https://github.com/mediacurrent/theme_generator_8",
   "files": [
     "generators"
   ],
