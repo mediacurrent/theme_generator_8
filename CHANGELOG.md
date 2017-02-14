@@ -1,5 +1,13 @@
 # Changelog
 
+## ✈️ 1.3.1 (2017-02-14)
+
+### New Feature
+* Moved the project from Bitbucket to Github and NPM.
+
+### Documentation
+* Updated README to reflect new install instructions.
+
 ## 🔧 1.3.0 (2016-12-28)
 
 ### New Feature
