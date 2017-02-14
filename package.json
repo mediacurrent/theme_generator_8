@@ -8,12 +8,14 @@
     "email": "zack.hawkins@mediacurrent.com",
     "url": ""
   },
+  "homepage": "https://github.com/mediacurrent/theme_generator_8",
   "files": [
     "generators"
   ],
   "main": "generators/index.js",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "drupal"
   ],
   "dependencies": {
     "yeoman-generator": "^0.23.0",
@@ -44,7 +46,6 @@
       "mocha": true
     }
   },
-  "repository": "/generator-mc-d8-theme",
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"

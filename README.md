@@ -2,13 +2,11 @@
 
 > [Yeoman generator](http://yeoman.io/) for Drupal Themes - lets you quickly set up a Drupal 8 theme with sensible defaults and best practices.
 
-**Looking for the [Drupal 7 version of this generator](https://bitbucket.org/mediacurrent/mis_theme_generator)?**
-
 ## What's New
 
 **[Read the ⚡️ Changelog!](CHANGELOG.md)**
 
-## [Links](#markdown-header-links)
+## Links
 * [`.sass-lint`](generators/app/templates/sass-lint.yml)
 
 ## Usage
@@ -31,7 +29,7 @@ nvm install stable | grep -ohe 'v[0-9]*\.[0-9]*\.[0-9]*' | head -1 > .nvmrc && n
 (Because the `generator-mc-d8-theme` generator doesn't exist on NPM we install it from this repo.)
 
 ```bash
-npm install -g yo git+ssh://git@bitbucket.org:mediacurrent/mis_theme_generator_8.git
+npm install -g yo generator-mc-d8-theme
 ```
 
 ### 3. Run `yo mc-d8-theme`:
@@ -182,7 +180,7 @@ Would you like to contribute? Want to make a few changes or fix a bug? COME ON O
 
 Clone down this repo:
 ```
-git clone git@bitbucket.org:mediacurrent/mis_theme_generator_8.git
+git clone git@github.com:mediacurrent/theme_generator_8.git
 ```
 
 Remove `generator-mc-d8-theme` if you have previously installed it:
