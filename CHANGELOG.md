@@ -1,5 +1,20 @@
 # Changelog
 
+## 🎈1.3.3 (2017-04-07)
+
+### Bug Fix
+* Added a `.gitkeep` to the layout folder. If the theme was created and checked into the repo _without_ anything being added to the layout dir... errors my friend. Errors.
+
+  **Thanks Tim** for the [issue](https://github.com/mediacurrent/theme_generator_8/issues/4)!
+* Added in default breakpoints in `*.breakpoints.yml`. Having this file contain only comments was bugging out some environments.
+
+  **Thanks Carie** for the [issue](https://github.com/mediacurrent/theme_generator_8/issues/2)!
+
+## 1.3.2 (2017-03-15)
+
+### New Feature
+* Updated version of Node / npm used with project. The old version was keeping the readme from showing up on [https://www.npmjs.com/package/generator-mc-d8-theme](npm).
+
 ## ✈️ 1.3.1 (2017-02-14)
 
 ### New Feature
