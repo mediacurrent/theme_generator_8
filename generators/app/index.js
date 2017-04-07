@@ -174,6 +174,12 @@ module.exports = yeoman.Base.extend({
       mkdirp('src/global/base');
       mkdirp('src/global/utils');
       mkdirp('src/templates');
+      // Some folders remain empty so add in a gitkeep
+      // so they're checked into git.
+      this.fs.copy(
+        this.templatePath('gitkeep'),
+        this.destinationPath('layout/.gitkeep')
+      );
     },
 
     // Add build tools.
