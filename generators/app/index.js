@@ -352,9 +352,6 @@ module.exports = yeoman.Base.extend({
   },
 
   end: function() {
-    // Shrinkwrap npm dependencies.
-    // This is the same as npm shrinkwrap --dev.
-    this.spawnCommand('npm', ['shrinkwrap', '--dev']);
     this.log(chalk.cyan.bgBlack.bold(
       `☠️  NOTE: Your new generated theme contains a fair bit of boilerplate code.
    This is by design. If you don't need it PLEASE delete it.
