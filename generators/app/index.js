@@ -33,7 +33,11 @@ module.exports = yeoman.Base.extend({
       },
       {
         name: 'themeDesc',
-        message: 'What is your theme\'s description?'
+        message: 'What is your theme\'s description?',
+        default: function (answers) {
+          // Default to a helpful reminder to change the description later.
+          return 'Update ' + answers.themeName + '.info.yml if you want to change the theme description later.';
+        }
       },
       {
         type: 'list',
