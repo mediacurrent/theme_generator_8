@@ -293,6 +293,13 @@ module.exports = yeoman.Base.extend({
             themeNameMachine: this.themeNameMachine
           }
         );
+        this.fs.copyTpl(
+          this.templatePath('_src/_sample-components/_icons/icons.twig'),
+          this.destinationPath('src/components/icons/icons.twig'),
+          {
+            themeNameMachine: this.themeNameMachine
+          }
+        );
       }
 
       // If we're including sample sections, add a sample list component.
