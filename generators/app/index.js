@@ -155,8 +155,8 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('README.md')
       );
       this.fs.copy(
-        this.templatePath('eslintrc'),
-        this.destinationPath('.eslintrc')
+        this.templatePath('eslintrc.yml'),
+        this.destinationPath('.eslintrc.yml')
       );
       this.fs.copy(
         this.templatePath('babelrc'),
