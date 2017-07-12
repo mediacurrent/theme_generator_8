@@ -23,9 +23,10 @@ var taskMove        = require('./gulp-tasks/move.js');
 var taskLint        = require('./gulp-tasks/lint.js');
 var taskCompress    = require('./gulp-tasks/compress.js');
 var taskClean       = require('./gulp-tasks/clean.js');
-<% if (kssNode) { %>var taskStyleGuide  = require('./gulp-tasks/styleguide.js');<% } -%>
-<% if (kssNode) { %>var taskConcat      = require('./gulp-tasks/concat.js');<% } -%>
-
+<% if (kssNode) { %>
+var taskStyleGuide  = require('./gulp-tasks/styleguide.js');
+var taskConcat      = require('./gulp-tasks/concat.js');
+<% } %>
 //=======================================================
 // Compile Our Sass and JS
 // We also move some files if they don't need

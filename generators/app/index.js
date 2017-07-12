@@ -33,7 +33,11 @@ module.exports = yeoman.Base.extend({
       },
       {
         name: 'themeDesc',
-        message: 'What is your theme\'s description?'
+        message: 'What is your theme\'s description?',
+        default: function (answers) {
+          // Default to a helpful reminder to change the description later.
+          return 'Update ' + answers.themeName + '.info.yml if you want to change the theme description later.';
+        }
       },
       {
         type: 'list',
@@ -151,8 +155,8 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('README.md')
       );
       this.fs.copy(
-        this.templatePath('eslintrc'),
-        this.destinationPath('.eslintrc')
+        this.templatePath('eslintrc.yml'),
+        this.destinationPath('.eslintrc.yml')
       );
       this.fs.copy(
         this.templatePath('babelrc'),
@@ -289,6 +293,13 @@ module.exports = yeoman.Base.extend({
             themeNameMachine: this.themeNameMachine
           }
         );
+        this.fs.copyTpl(
+          this.templatePath('_src/_sample-components/_icons/icons.twig'),
+          this.destinationPath('src/components/icons/icons.twig'),
+          {
+            themeNameMachine: this.themeNameMachine
+          }
+        );
       }
 
       // If we're including sample sections, add a sample list component.
@@ -341,9 +352,6 @@ module.exports = yeoman.Base.extend({
   },
 
   end: function() {
-    // Shrinkwrap npm dependencies.
-    // This is the same as npm shrinkwrap --dev.
-    this.spawnCommand('npm', ['shrinkwrap', '--dev']);
     this.log(chalk.cyan.bgBlack.bold(
       `☠️  NOTE: Your new generated theme contains a fair bit of boilerplate code.
    This is by design. If you don't need it PLEASE delete it.
