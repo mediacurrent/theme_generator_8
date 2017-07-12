@@ -1,5 +1,23 @@
 # Changelog
 
+## 👾 1.3.4 (2017-07-12)
+
+### Bug Fix
+* Added a default description that's basically a reminder to update the theme description later. Thanks to Kevin for finding that Drupal chokes if there's no description provided.
+
+  **Thanks Kevin** for the [issue](https://github.com/mediacurrent/theme_generator_8/issues/11)!
+* Updated eslint to the new format. (Added a `.yml` extension.) Also fixed an issue where eslint will check the parent directories looking for a config file. This meant it could find other eslint config files and try to use those too.
+
+  [issue](https://github.com/mediacurrent/theme_generator_8/issues/9)
+* Fixed macro namespace for icon macro. This made it p much broken out of the box.
+
+  **Thanks Tim and Eric** for the [issue](https://github.com/mediacurrent/theme_generator_8/issues/7)!
+* Fixed issue with npm shrinkwrapping before all dev dependencies are installed.
+* Added `drupal.init.js` to KSS builder template.
+
+  **Thanks Eric** for the [issue](https://github.com/mediacurrent/theme_generator_8/issues/10)!
+* Updated all build tool dev dependencies to the latest version.
+
 ## 🎈1.3.3 (2017-04-07)
 
 ### Bug Fix
