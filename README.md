@@ -7,7 +7,8 @@
 **[Read the ⚡️ Changelog!](CHANGELOG.md)**
 
 ## Links
-* [`.sass-lint`](generators/app/templates/sass-lint.yml)
+* [`.sass-lint.yml`](generators/app/templates/sass-lint.yml)
+* [`.eslintrc.yml`](generators/app/templates/eslintrc.yml)
 
 ## Usage
 
@@ -18,21 +19,43 @@ I.E.
 themes/custom/my_awesome_theme
 ```
 
-### 1. Use [NVM](https://github.com/creationix/nvm) to install the latest stable version of NodeJS and create an `.nvmrc` file.
+### First a note about using Node.js via [NVM](https://github.com/creationix/nvm)
+
+While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project. Here's a quick one liner that will create a `.nvmrc` file and install the latest stable version of Node using NVM.
 
 ```bash
 nvm install stable | grep -ohe 'v[0-9]*\.[0-9]*\.[0-9]*' | head -1 > .nvmrc && nvm use
 ```
 
-### 2. Install `yo` and `generator-mc-d8-theme` globally:
+### Getting Started
 
-(Because the `generator-mc-d8-theme` generator doesn't exist on NPM we install it from this repo.)
+There are **two ways** to install and use the theme generator:
+
+#### 1. Use [npx](https://www.npmjs.com/package/npx)
+
+**This is the recommended way of running the theme generator.**
+
+If you're using `npm@5.2.0` or newer you already have [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) available on the command line.
+
+npx allows you to run one off commands using the latest version of a package without installing it globally.
+
+```bash
+npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme'
+```
+
+Tools like this you only run once every so often. By the time you need to run it again it'll be so far out of date you'll have to update it.
+
+#### 2. Install `yo` and `generator-mc-d8-theme` globally:
+
+**This is NOT the recommended way of running the theme generator.**
+
+If you're using an older version of npm or just want to install it globally:
 
 ```bash
 npm install -g yo generator-mc-d8-theme
 ```
 
-### 3. Run `yo mc-d8-theme`:
+**Run `yo mc-d8-theme`:**
 
 ```
 yo mc-d8-theme
@@ -40,7 +63,7 @@ yo mc-d8-theme
 
 To see which generators and subgenerators you have, run `yo --help`.
 
-### Update the generator as needed.
+**Update the generator as needed.**
 
 ```
 npm update -g generator-mc-d8-theme
@@ -64,6 +87,13 @@ Available generators:
 Sets up a new theme, generating all the boilerplate you need to get started. The app generator also adds normalize and sample components.
 
 Example:
+
+```bash
+npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme'
+```
+
+Or:
+
 ```bash
 yo mc-d8-theme
 ```
@@ -72,6 +102,13 @@ yo mc-d8-theme
 Generates component boiler plate based on whatever name you pass it. Please delete whatever you don't need. If you haven't modified it, you don't need it.
 
 Example:
+
+```bash
+npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:component "Site Logo"'
+```
+
+Or:
+
 ```bash
 yo mc-d8-theme:component 'Site Logo'
 ```
@@ -86,6 +123,13 @@ This would generate the following files:
 Generates a Drupal JS behavior based on whatever component file name you pass it.
 
 Example:
+
+```bash
+npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:js-behavior "site-logo"'
+```
+
+Or:
+
 ```bash
 yo mc-d8-theme:js-behavior 'site-logo'
 ```
@@ -100,6 +144,13 @@ The generated file is ES6 / ES2015 ready and can be compiled by the provided bui
 Generates a KSS Node style guide. You must pass it a name and a machine name for the theme if run independently of the main app. If run by itself this subgenerator has no way to modify your existing `gulpfile.js` Instead it will provide code you can copy and paste into your `gulpfile.js` for it to work correctly.
 
 Example:
+
+```bash
+npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:kss-style-guide "Super Sweet Theme" "super_sweet_theme"'
+```
+
+Or:
+
 ```bash
 yo mc-d8-theme:kss-style-guide 'Super Sweet Theme' 'super_sweet_theme'
 ```
@@ -107,6 +158,13 @@ yo mc-d8-theme:kss-style-guide 'Super Sweet Theme' 'super_sweet_theme'
 Use `--help` to see all usage info.
 
 Example:
+
+```bash
+npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:kss-style-guide --help'
+```
+
+Or:
+
 ```bash
 yo mc-d8-theme:kss-style-guide --help
 ```
@@ -125,13 +183,13 @@ Currently your new theme uses [libSass](http://sass-lang.com/libsass) and [Gulp]
 * Gulp Babel
 * Gulp imagemin
 
+If you're not using `npm@5.0.0` or later (which generates a lockfile `package-lock.json`) consider using [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap).
+
 After you've got the Gulp file modified to your hearts content, [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) the dependencies so everyone uses the _exact_ same node modules.
 
 ```bash
 npm shrinkwrap --save-dev
 ```
-
-There's a post install script that runs `npm shrinkwrap --save-dev` so hopefully if someone adds a module and forgets to shrinkwrap it, it'll be added automatically.
 
 Now running `npm install` will download the node modules specified in the npm-shrinkwrap.json file.
 
