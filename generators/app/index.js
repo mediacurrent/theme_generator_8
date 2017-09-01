@@ -159,10 +159,6 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('.eslintrc.yml')
       );
       this.fs.copy(
-        this.templatePath('babelrc'),
-        this.destinationPath('.babelrc')
-      );
-      this.fs.copy(
         this.templatePath('sass-lint.yml'),
         this.destinationPath('.sass-lint.yml')
       );
@@ -178,11 +174,12 @@ module.exports = yeoman.Base.extend({
       mkdirp('src/global/base');
       mkdirp('src/global/utils');
       mkdirp('src/templates');
+      mkdirp('src/layout');
       // Some folders remain empty so add in a gitkeep
       // so they're checked into git.
       this.fs.copy(
         this.templatePath('gitkeep'),
-        this.destinationPath('layout/.gitkeep')
+        this.destinationPath('src/layout/.gitkeep')
       );
     },
 

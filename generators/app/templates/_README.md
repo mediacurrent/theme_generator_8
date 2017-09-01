@@ -1,8 +1,16 @@
 ## Getting Started
-If you haven't yet, install nvm:
-https://github.com/creationix/nvm
+
+### Browser Support
+Autoprefixer & Babel is set to support:
+
+* IE >= 9
+* Last 3 versions of modern browsers.
+
+These can be updated at any time within the `package.json`.
 
 ### Run the following commands from the theme directory
+If you haven't yet, install nvm:
+https://github.com/creationix/nvm
 
 #### Use the right version of node with:
 `nvm use`

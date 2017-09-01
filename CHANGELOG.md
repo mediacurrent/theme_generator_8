@@ -1,5 +1,19 @@
 # Changelog
 
+## 🕷 1.3.5 (2017-09-01)
+
+### Bug Fix
+* Back in **1.3.3** I fixed the layout folder but didn't quite get it in the right spot. This is now fixed.
+
+### New Feature
+* Updated Babel to use [env](https://github.com/babel/babel-preset-env) instead of a preset. This means you can simplify browser support a bit by adding browsers needed to the project's `package.json`.
+* Moved Autoprefixer config to the `package.json` file similar to Babel env. This sets us up for when both Babel env and Autoprefixer use the same config.
+* Added in error handling for JS and SCSS compiling. Now the watch task won't fail completely but will show you the error and keep watching files. This is a feature right?
+
+### Documentation
+* Add best practice about using the generator via [npx](https://www.npmjs.com/package/npx).
+* Added theme documentation that points out Autoprefixer and Babel project config.
+
 ## 👾 1.3.4 (2017-07-12)
 
 ### Bug Fix

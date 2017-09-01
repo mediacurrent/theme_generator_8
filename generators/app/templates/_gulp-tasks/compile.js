@@ -16,19 +16,23 @@ var sync        = require('browser-sync');
 var babel       = require('gulp-babel');
 var rename      = require('gulp-rename');
 
+// Small error handler helper function.
+function handleError(err) {
+  console.log(err.toString());
+  this.emit('end');
+}
+
 // Export our tasks.
 module.exports = {
 
   // Compile Sass.
   sass: function() {
     return gulp.src('./src/{global,layout,components}/**/*.scss')
-      .pipe(sass({ outputStyle: 'nested' })
-        .on('error', sass.logError))
+      .pipe(
+        sass({ outputStyle: 'nested' })
+          .on('error', handleError)
+      )
       .pipe(prefix({
-        browsers: [
-          'last 2 versions',
-          'IE >= 10'
-        ],
         cascade: false
       }))
       .pipe(rename(function (path) {
@@ -45,7 +49,10 @@ module.exports = {
       './src/{global,layout,components}/**/*.es6.js'
     ], { base: './' })
       .pipe(sourcemaps.init())
-      .pipe(babel())
+      .pipe(
+        babel()
+          .on('error', handleError)
+      )
       .pipe(rename(function (path) {
         // Currently not using ES6 modules so for now
         // es6 files are compiled into individual JS files.
