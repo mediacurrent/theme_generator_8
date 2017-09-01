@@ -1,6 +1,6 @@
 # Changelog
 
-## 🕷 1.3.5 (2017-09-01)
+## 🕷 1.4.0 (2017-09-01)
 
 ### Bug Fix
 * Back in **1.3.3** I fixed the layout folder but didn't quite get it in the right spot. This is now fixed.
