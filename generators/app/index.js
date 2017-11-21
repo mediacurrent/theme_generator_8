@@ -354,6 +354,5 @@ module.exports = yeoman.Base.extend({
    This is by design. If you don't need it PLEASE delete it.
    You can always rerun the generator some other time in a different directory
    and copy over what you're missing.`));
-    this.log(chalk.red('#YOLO 🚀'));
   }
 });
