@@ -52,6 +52,20 @@ module.exports = yeoman.Base.extend({
         dashed: this.componentName.dashed
       }
     );
+    this.fs.readdir(
+      __dirname, function(err, list) {
+        if (err) {
+          throw err;
+        }
+        else {
+          var regexSearch = new RegExp('.*\.\libraries.yml');
+          list.forEach(function(item) {
+            console.log(item);
+          })
+        }
+      }
+    )
+
   },
 
   install: function () {
