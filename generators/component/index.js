@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var _      = require('lodash');
 var chalk  = require('chalk');
+var fs     = require('fs');
 
 module.exports = yeoman.Base.extend({
   constructor: function () {
@@ -30,6 +31,8 @@ module.exports = yeoman.Base.extend({
   // Write each file the component needs, adding the component
   // name where needed.
   writing: function () {
+    var destPath = this.destinationPath();
+
     this.fs.copyTpl(
       this.templatePath('_component/_component.json'),
       this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.json'),
@@ -49,18 +52,37 @@ module.exports = yeoman.Base.extend({
       this.templatePath('_component/_component.twig'),
       this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.twig'),
       {
-        dashed: this.componentName.dashed
+        dashed: this.componentName.dashed,
+        theme_name: destPath.split('/').slice(-1).pop()
       }
     );
-    this.fs.readdir(
-      __dirname, function(err, list) {
+
+    // auto add this component to the libraries file in Drupal
+    var libraryDefinition = `
+${this.componentName.dashed}:
+  css:
+    component:
+      dist/css/${this.componentName.dashed}.css: {}
+  js:
+    dist/js/${this.componentName.dashed}.js: {}
+
+`;
+    fs.readdir(
+      destPath, function(err, list) {
         if (err) {
+          console.log('There was an error adding this component to the libraries.yml file');
           throw err;
         }
         else {
-          var regexSearch = new RegExp('.*\.\libraries.yml');
           list.forEach(function(item) {
-            console.log(item);
+            if (item.indexOf('libraries.yml') !== -1) {
+              fs.appendFile(`${destPath}/${item}`, libraryDefinition, function (err) {
+                if (err) {
+                  console.log('There was an error adding this component to the libraries.yml file');
+                  throw err;
+                }
+              });
+            }
           })
         }
       }
