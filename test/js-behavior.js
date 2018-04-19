@@ -3,7 +3,7 @@ var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-describe('generator-ck-d8-theme:js-behavior', function () {
+describe('generator-mc-d8-theme:js-behavior', function () {
   before(function () {
     return helpers.run(path.join(__dirname, '../generators/js-behavior'))
       .withPrompts({someAnswer: true})
