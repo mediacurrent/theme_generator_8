@@ -13,7 +13,7 @@ module.exports = yeoman.Base.extend({
   prompting: function () {
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the cool ' + chalk.red('Code Koalas D8 theme') + ' generator!'
+      'Welcome to the cool ' + chalk.red('Mediacurrent D8 theme') + ' generator!'
     ));
 
     // Proved the user with prompts.
@@ -303,11 +303,11 @@ module.exports = yeoman.Base.extend({
       // Use the component and js-behavior subgenerators to build the component.
       if (this.kssSections === true) {
         // Add the sample .scss, .json and .twig files.
-        this.composeWith('ck-d8-theme:component', {
+        this.composeWith('mc-d8-theme:component', {
           args: ['Sample List']
         });
         // Add a sample JavaScript behavior.
-        this.composeWith('ck-d8-theme:js-behavior', {
+        this.composeWith('mc-d8-theme:js-behavior', {
           args: ['sample-list']
         });
       }
@@ -319,7 +319,7 @@ module.exports = yeoman.Base.extend({
 
       // If the KSS Node option is selected, use the subgenerator 'kss-style-guide'.
       if (this.kssNode === true) {
-        this.composeWith('ck-d8-theme:kss-style-guide', {
+        this.composeWith('mc-d8-theme:kss-style-guide', {
           args: [this.props.themeName, this.props.themeNameMachine],
           options: {
             gulpExample: false
