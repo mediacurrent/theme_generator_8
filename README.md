@@ -12,7 +12,7 @@
 
 ## Usage
 
-While the mc-d8-theme generator can be run anywhere, it's happiest when it's run from an empty directory you'd like to become your theme.
+While the koality-theme generator can be run anywhere, it's happiest when it's run from an empty directory you'd like to become your theme.
 
 I.E.
 ```
@@ -40,25 +40,25 @@ If you're using `npm@5.2.0` or newer you already have [npx](https://medium.com/@
 npx allows you to run one off commands using the latest version of a package without installing it globally.
 
 ```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme'
+npx -p yo -p generator-koality-theme -c 'yo koality-theme'
 ```
 
 Tools like this you only run once every so often. By the time you need to run it again it'll be so far out of date you'll have to update it.
 
-#### 2. Install `yo` and `generator-mc-d8-theme` globally:
+#### 2. Install `yo` and `generator-koality-theme` globally:
 
 **This is NOT the recommended way of running the theme generator.**
 
 If you're using an older version of npm or just want to install it globally:
 
 ```bash
-npm install -g yo generator-mc-d8-theme
+npm install -g yo generator-koality-theme
 ```
 
-**Run `yo mc-d8-theme`:**
+**Run `yo koality-theme`:**
 
 ```
-yo mc-d8-theme
+yo koality-theme
 ```
 
 To see which generators and subgenerators you have, run `yo --help`.
@@ -66,19 +66,19 @@ To see which generators and subgenerators you have, run `yo --help`.
 **Update the generator as needed.**
 
 ```
-npm update -g generator-mc-d8-theme
+npm update -g generator-koality-theme
 ```
 
 ## Generators
 
-The `mc-d8-theme` generator makes use of several subgenerators. Each of these can be called individually.
+The `koality-theme` generator makes use of several subgenerators. Each of these can be called individually.
 
 Available generators:
 
-* [mc-d8-theme](#markdown-header-app) (aka [mc-d8-theme:app](#markdown-header-app), the main app)
-* [mc-d8-theme:component](#markdown-header-component)
-* [mc-d8-theme:js-behavior](#markdown-header-js-behavior)
-* [mc-d8-theme:kss-style-guide](#markdown-header-kss-style-guide)
+* [koality-theme](#markdown-header-app) (aka [koality-theme:app](#markdown-header-app), the main app)
+* [koality-theme:component](#markdown-header-component)
+* [koality-theme:js-behavior](#markdown-header-js-behavior)
+* [koality-theme:kss-style-guide](#markdown-header-kss-style-guide)
 
 ### App
 
@@ -89,13 +89,13 @@ Sets up a new theme, generating all the boilerplate you need to get started. The
 Example:
 
 ```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme'
+npx -p yo -p generator-koality-theme -c 'yo koality-theme'
 ```
 
 Or:
 
 ```bash
-yo mc-d8-theme
+yo koality-theme
 ```
 
 ### Component
@@ -104,13 +104,13 @@ Generates component boiler plate based on whatever name you pass it. Please dele
 Example:
 
 ```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:component "Site Logo"'
+npx -p yo -p generator-koality-theme -c 'yo koality-theme:component "Site Logo"'
 ```
 
 Or:
 
 ```bash
-yo mc-d8-theme:component 'Site Logo'
+yo koality-theme:component 'Site Logo'
 ```
 
 This would generate the following files:
@@ -125,13 +125,13 @@ Generates a Drupal JS behavior based on whatever component file name you pass it
 Example:
 
 ```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:js-behavior "site-logo"'
+npx -p yo -p generator-koality-theme -c 'yo koality-theme:js-behavior "site-logo"'
 ```
 
 Or:
 
 ```bash
-yo mc-d8-theme:js-behavior 'site-logo'
+yo koality-theme:js-behavior 'site-logo'
 ```
 
 By default this will put the new behavior in the components directory. For example if
@@ -146,13 +146,13 @@ Generates a KSS Node style guide. You must pass it a name and a machine name for
 Example:
 
 ```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:kss-style-guide "Super Sweet Theme" "super_sweet_theme"'
+npx -p yo -p generator-koality-theme -c 'yo koality-theme:kss-style-guide "Super Sweet Theme" "super_sweet_theme"'
 ```
 
 Or:
 
 ```bash
-yo mc-d8-theme:kss-style-guide 'Super Sweet Theme' 'super_sweet_theme'
+yo koality-theme:kss-style-guide 'Super Sweet Theme' 'super_sweet_theme'
 ```
 
 Use `--help` to see all usage info.
@@ -160,13 +160,13 @@ Use `--help` to see all usage info.
 Example:
 
 ```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:kss-style-guide --help'
+npx -p yo -p generator-koality-theme -c 'yo koality-theme:kss-style-guide --help'
 ```
 
 Or:
 
 ```bash
-yo mc-d8-theme:kss-style-guide --help
+yo koality-theme:kss-style-guide --help
 ```
 
 ## The New Theme
@@ -241,12 +241,12 @@ Clone down this repo:
 git clone git@github.com:mediacurrent/theme_generator_8.git
 ```
 
-Remove `generator-mc-d8-theme` if you have previously installed it:
+Remove `generator-koality-theme` if you have previously installed it:
 
 _Tip: use `npm ls -g -depth=0` to see what global node modules are installed._
 
 ```
-npm uninstall generator-mc-d8-theme -g
+npm uninstall generator-koality-theme -g
 ```
 
 From the generator root directory [link](https://docs.npmjs.com/cli/link) your local generator files to npm:
@@ -255,6 +255,6 @@ From the generator root directory [link](https://docs.npmjs.com/cli/link) your l
 npm link
 ```
 
-Now whenever you run `yo mc-d8-theme` it'll use your locally cloned mc-d8-theme generator. Any updates done to the generator can be tested in real time.
+Now whenever you run `yo koality-theme` it'll use your locally cloned koality-theme generator. Any updates done to the generator can be tested in real time.
 
 Break off a feature branch dive right in. After you've got something you'd like to add, push back to the repo and pull request against master.

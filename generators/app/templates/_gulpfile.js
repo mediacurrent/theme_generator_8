@@ -147,7 +147,7 @@ gulp.task('watch', function() {
   //
   // sync.init({
   //   open: false,
-  //   proxy: 'http://test.mcdev'
+  //   proxy: 'http://test.localhost'
   // });
 
   // Watch all my sass files and compile sass if a file changes.

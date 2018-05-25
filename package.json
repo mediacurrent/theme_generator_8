@@ -1,11 +1,11 @@
 {
-  "name": "generator-mc-d8-theme",
+  "name": "generator-koality-theme",
   "version": "1.4.0",
   "description": "Yeoman generator for creating Drupal 8 component based themes.",
-  "homepage": "https://github.com/mediacurrent/theme_generator_8",
+  "homepage": "https://github.com/CodeKoalas/koality-drupal-theme-generator",
   "author": {
-    "name": "ZackHawkinsMC",
-    "email": "zack.hawkins@mediacurrent.com",
+    "name": "fabean",
+    "email": "joshfabean@gmail.com",
     "url": ""
   },
   "files": [
