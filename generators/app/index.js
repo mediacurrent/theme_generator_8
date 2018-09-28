@@ -73,6 +73,10 @@ module.exports = class extends Generator {
           {
             value: 'singularity',
             name: 'Singularity Grid System and Breakpoint'
+          },
+          {
+            value: 'koalityGrid',
+            name: 'Koality Flexbox Grid'
           }
         ]
       },
@@ -95,6 +99,7 @@ module.exports = class extends Generator {
     this.kssNode = hasOption(this.answers.howMuchTheme, 'kssNode');
     this.breakpoint = hasOption(this.answers.howMuchTheme, 'breakpoint');
     this.singularity = hasOption(this.answers.howMuchTheme, 'singularity');
+    this.koalityGrid = hasOption(this.answers.howMuchTheme, 'koalityGrid');
 
     // Add the base theme to the object.
     this.baseTheme = this.answers.whichBaseTheme;
@@ -109,8 +114,12 @@ module.exports = class extends Generator {
 
     // If BOTH Singularity and Breakpoint options are checked,
     // set breakpoint to false as Singularity includes breakpoint
+    // same with koalityGrid
     // as a dependency.
     if (this.singularity === true && this.breakpoint === true) {
+      this.breakpoint = false;
+    }
+    if (this.koalityGrid === true && this.breakpoint === true) {
       this.breakpoint = false;
     }
 
@@ -259,7 +268,8 @@ module.exports = class extends Generator {
         this.destinationPath('src/global/utils/_init.scss'),
         {
           breakpoint: this.breakpoint,
-          singularity: this.singularity
+          singularity: this.singularity,
+          koalitygrid: this.koalityGrid
         }
       );
       this.fs.copyTpl(
@@ -342,6 +352,11 @@ module.exports = class extends Generator {
     // Conditionally install breakpoint or singularity using npm.
     if (this.breakpoint === true || this.singularity === true) {
       npmArray.push('breakpoint-sass');
+    }
+
+    // Conditionally install Koality Grid using npm.
+    if (this.koalityGrid === true) {
+      npmArray.push('koality-flexbox-grid');
     }
 
     if (this.singularity === true) {

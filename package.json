@@ -1,6 +1,6 @@
 {
   "name": "generator-koality-theme",
-  "version": "1.4.0",
+  "version": "2.0.1",
   "description": "Yeoman generator for creating Drupal 8 component based themes.",
   "homepage": "https://github.com/CodeKoalas/koality-drupal-theme-generator",
   "author": {

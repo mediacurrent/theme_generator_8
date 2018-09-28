@@ -1,7 +1,7 @@
 //=======================================================
 // Utilities: Import Sass mixins, variables, modules etc.
 //=======================================================
-<% if (breakpoint || singularity) { %>
+<% if (breakpoint || singularity || koalitygrid) { %>
 // Import breakpoint plugin
 // http://breakpoint-sass.com/
 @import '../../../node_modules/breakpoint-sass/stylesheets/breakpoint';
@@ -10,6 +10,11 @@
 // Imports Singularity grid system.
 // https://github.com/at-import/Singularity
 @import '../../../node_modules/singularitygs/stylesheets/singularitygs';
+<% } -%>
+<% if (koalitygrid) { %>
+// Imports Koality Grid
+// https://github.com/fabean/flexbox-grid
+@import '../../../node_modules/koality-flexbox-grid/src/scss/flexbox-grid';
 <% } -%>
 
 // Import variables

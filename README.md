@@ -1,4 +1,10 @@
-# Mediacurrent D8 Theme Generator
+# Koality D8 Theme Generator
+
+This is a fork of the [Media Current D8 Theme Generator](https://github.com/mediacurrent/theme_generator_8). At this point most all code and features are thanks to all the hard work they have done. The main differences at this point are the following features:
+
+* Auto add component libraries to the theme's library definition list which saves some key strokes
+* Added the [Koality Flexbox Grid](https://github.com/fabean/flexbox-grid) as an install option
+
 
 > [Yeoman generator](http://yeoman.io/) for Drupal Themes - lets you quickly set up a Drupal 8 theme with sensible defaults and best practices.
 
@@ -238,7 +244,7 @@ Would you like to contribute? Want to make a few changes or fix a bug? COME ON O
 
 Clone down this repo:
 ```
-git clone git@github.com:mediacurrent/theme_generator_8.git
+git@github.com:CodeKoalas/koality-drupal-theme-generator.git
 ```
 
 Remove `generator-koality-theme` if you have previously installed it:

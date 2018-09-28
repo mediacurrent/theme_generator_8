@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.0.1 (2018-09-28)
+
+### New Feature
+* Added the [Koality Grid](https://github.com/fabean/flexbox-grid) as an install option
+
+## 2.0.0 (2018-09-28)
+* Changed name to Koality Theme Generator on this fork of the project headed by [Code Koalas](https://codekoalas.com)
+
+### Bug Fixes
+* Upgraded Yeoman to version 3
+
+### New Feature
+* When adding a component the `attach_library` on the top of the twig file includes the theme name
+* When adding a component the library definition gets added to the theme's library file
+
 ## 🕷 1.4.0 (2017-09-01)
 
 ### Bug Fix
