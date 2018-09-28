@@ -1,10 +1,10 @@
 'use strict';
-var yeoman = require('yeoman-generator');
+var Generator = require('yeoman-generator');
 var chalk  = require('chalk');
 
-module.exports = yeoman.Base.extend({
-  constructor: function () {
-    yeoman.Base.apply(this, arguments);
+module.exports = class extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
 
     // Get more info with `--help`.
     this.argument('name', {
@@ -22,13 +22,13 @@ module.exports = yeoman.Base.extend({
       desc: 'Provide an example of a KSS Node gulp task.',
       defaults: true
     });
-  },
+  }
 
-  initializing: function () {
+  initializing() {
     this.log('Creating KSS Node directory structure.');
-  },
+  }
 
-  writing: function () {
+  writing() {
     this.fs.copy(
       this.templatePath('_style-guide'),
       this.destinationPath('src/style-guide')
@@ -55,9 +55,9 @@ module.exports = yeoman.Base.extend({
         themeName: this.name
       }
     );
-  },
+  }
 
-  install: function () {
+  install() {
     // Install our NodeJS Modules
     // This runs `npm install kss-node ... --save-dev` on the command line.
     this.npmInstall([
@@ -119,4 +119,4 @@ module.exports = yeoman.Base.extend({
       this.log('\n');
     }
   }
-});
+};
