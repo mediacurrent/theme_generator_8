@@ -5,7 +5,6 @@ This is a fork of the [Media Current D8 Theme Generator](https://github.com/medi
 * Auto add component libraries to the theme's library definition list which saves some key strokes
 * Added the [Koality Flexbox Grid](https://github.com/fabean/flexbox-grid) as an install option
 
-
 > [Yeoman generator](http://yeoman.io/) for Drupal Themes - lets you quickly set up a Drupal 8 theme with sensible defaults and best practices.
 
 ## What's New
