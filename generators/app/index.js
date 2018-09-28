@@ -1,6 +1,6 @@
 'use strict';
 /* eslint no-multi-spaces: "off" */
-var yeoman = require('yeoman-generator');
+var Generator = require('yeoman-generator');
 var chalk  = require('chalk');
 var yosay  = require('yosay');
 var mkdirp = require('mkdirp');
@@ -9,40 +9,43 @@ var path   = require('path');
 var wiring = require('html-wiring');
 /* eslint no-multi-spaces: "on" */
 
-module.exports = yeoman.Base.extend({
-  prompting: function () {
+
+module.exports = class extends Generator {
+  async prompting() {
     // Have Yeoman greet the user.
     this.log(yosay(
       'Welcome to the cool ' + chalk.red('Koality Drupal theme') + ' generator!'
     ));
 
-    // Proved the user with prompts.
-    var prompts = [
+    this.answers = await this.prompt([
       {
+        type: 'input',
         name: 'themeName',
-        message: 'What is your theme\'s human readable name?',
-        default: _.startCase(this.appname) // Default to current folder name
+        message: `What is your theme's human readable name?`,
+        default: this.appname,
+        store: true
       },
       {
+        type: 'input',
         name: 'themeNameMachine',
-        message: 'What is your theme\'s machine name? EX: unicorn_theme',
-        default: function (answers) {
-          // Default to snake case theme name
-          return _.snakeCase(answers.themeName);
-        }
+        message: `What is your theme's machine name? EX: unicorn_theme`,
+        default: (answers) => {
+          return _.snakeCase(answers.themeName)
+        },
+        store: true
       },
       {
+        type: 'input',
         name: 'themeDesc',
-        message: 'What is your theme\'s description?',
-        default: function (answers) {
-          // Default to a helpful reminder to change the description later.
-          return 'Update ' + answers.themeName + '.info.yml if you want to change the theme description later.';
+        message: `What is your theme's description`,
+        default: (answers) => {
+          return `Update ${answers.themeName}.info.yml if you want to change the theme description later.`
         }
       },
       {
         type: 'list',
         name: 'whichBaseTheme',
-        message: 'Which base theme would you like to use? If you don\'t want to use a base theme pick "stable" as that\'s what\'s used by Drupal if you don\'t specify a base.',
+        message: `Which base theme you you like to use? If you don't want to use a base theme ping "stable" as that's what's used by Drupal if you don't specify a base.`,
         choices: [
           {
             value: 'stable',
@@ -76,65 +79,60 @@ module.exports = yeoman.Base.extend({
       {
         type: 'confirm',
         name: 'kssSections',
-        message: 'Since you\'re using KSS, would you like some sample Style Guide sections?',
-        when: function (answers) {
-          // If baseTheme is true, ask this question.
-          // If it's false skip this question.
+        message: `Since you're using KSS, would you like some sample Style Guide sections?`,
+        when: (answers) => {
           return (answers.howMuchTheme.includes('kssNode'));
         }
       }
-    ];
+    ]);
 
-    return this.prompt(prompts).then(function (props) {
-      // Check available options and store them in as easy to use variables.
-      // Returns true or false depending on if the choice is selected.
-      var hasOption = function (choices, opt) {
-        return choices.indexOf(opt) !== -1;
-      };
+    // Check available options and store them in as easy to use variables.
+    // Returns true or false depending on if the choice is selected.
+    const hasOption = (choices, opt) => {
+      return choices.indexOf(opt) !== -1;
+    };
 
-      this.kssNode = hasOption(props.howMuchTheme, 'kssNode');
-      this.breakpoint = hasOption(props.howMuchTheme, 'breakpoint');
-      this.singularity = hasOption(props.howMuchTheme, 'singularity');
+    this.kssNode = hasOption(this.answers.howMuchTheme, 'kssNode');
+    this.breakpoint = hasOption(this.answers.howMuchTheme, 'breakpoint');
+    this.singularity = hasOption(this.answers.howMuchTheme, 'singularity');
 
-      // Add the base theme to the object.
-      this.baseTheme = props.whichBaseTheme;
+    // Add the base theme to the object.
+    this.baseTheme = this.answers.whichBaseTheme;
 
-      // Set kssSections if it's needed.
-      if (this.kssNode === true) {
-        this.kssSections = props.kssSections;
-      }
-      else {
-        this.kssSections = false;
-      }
+    // Set kssSections if it's needed.
+    if (this.kssNode === true) {
+      this.kssSections = this.answers.kssSections;
+    }
+    else {
+      this.kssSections = false;
+    }
 
-      // If BOTH Singularity and Breakpoint options are checked,
-      // set breakpoint to false as Singularity includes breakpoint
-      // as a dependency.
-      if (this.singularity === true && this.breakpoint === true) {
-        this.breakpoint = false;
-      }
+    // If BOTH Singularity and Breakpoint options are checked,
+    // set breakpoint to false as Singularity includes breakpoint
+    // as a dependency.
+    if (this.singularity === true && this.breakpoint === true) {
+      this.breakpoint = false;
+    }
 
-      // Create a underscored version of the theme name.
-      this.cleanThemeName = _.snakeCase(props.themeName);
+    // Create a underscored version of the theme name.
+    this.cleanThemeName = _.snakeCase(this.answers.themeName);
 
-      // Use the user provided theme machine name.
-      this.themeNameMachine = props.themeNameMachine;
+    // Use the user provided theme machine name.
+    this.themeNameMachine = this.answers.themeNameMachine;
 
-      // Create a dashed version of the theme name.
-      this.dashedThemeName = _.kebabCase(props.themeName);
+    // Create a dashed version of the theme name.
+    this.dashedThemeName = _.kebabCase(this.answers.themeName);
 
-      // Get pkg info so we can create a 'generated on' comment.
-      this.pkg = JSON.parse(wiring.readFileAsString(path.join(__dirname, '../../package.json')));
+    // Get pkg info so we can create a 'generated on' comment.
+    this.pkg = JSON.parse(wiring.readFileAsString(path.join(__dirname, '../../package.json')));
+  }
 
-      // To access props later use this.props.someAnswer;
-      this.props = props;
-    }.bind(this));
-  },
-
-  writing: {
+  writing() {
+    this.log(this.templatePath('_package.json'));
+    this.log(this.destinationPath);
     // Create the project configuration.
     // This adds node modules and tools needed.
-    projectConfig: function () {
+    const projectConfig = () => {
       this.fs.copyTpl(
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
@@ -162,10 +160,11 @@ module.exports = yeoman.Base.extend({
         this.templatePath('sass-lint.yml'),
         this.destinationPath('.sass-lint.yml')
       );
-    },
+    };
+    projectConfig();
 
     // Build out the theme folders.
-    scaffoldFolders: function() {
+    const scaffoldFolders = () => {
       mkdirp('src');
       mkdirp('src/components');
       mkdirp('src/layout');
@@ -181,10 +180,11 @@ module.exports = yeoman.Base.extend({
         this.templatePath('gitkeep'),
         this.destinationPath('src/layout/.gitkeep')
       );
-    },
+    };
+    scaffoldFolders();
 
     // Add build tools.
-    buildTools: function() {
+    const buildTools = () => {
       this.fs.copyTpl(
         this.templatePath('_gulpfile.js'),
         this.destinationPath('gulpfile.js'),
@@ -197,17 +197,18 @@ module.exports = yeoman.Base.extend({
         this.templatePath('_gulp-tasks'),
         this.destinationPath('gulp-tasks')
       );
-    },
+    };
+    buildTools();
 
     // Create the theme files.
-    projectFiles: function () {
+    const projectFiles = () => {
       // Create theme.info.yml with data provided.
       this.fs.copyTpl(
         this.templatePath('_theme_name.info.yml'),
         this.destinationPath(this.themeNameMachine + '.info.yml'),
         {
-          themeName: this.props.themeName,
-          themeDesc: this.props.themeDesc,
+          themeName: this.answers.themeName,
+          themeDesc: this.answers.themeDesc,
           themeNameMachine: this.themeNameMachine,
           baseTheme: this.baseTheme,
           pkg: this.pkg
@@ -226,7 +227,7 @@ module.exports = yeoman.Base.extend({
         this.templatePath('_theme_name.breakpoints.yml'),
         this.destinationPath(this.themeNameMachine + '.breakpoints.yml'),
         {
-          themeName: this.props.themeName,
+          themeName: this.answers.themeName,
           themeNameMachine: this.themeNameMachine
         }
       );
@@ -297,19 +298,23 @@ module.exports = yeoman.Base.extend({
             themeNameMachine: this.themeNameMachine
           }
         );
-      }
+      };
 
       // If we're including sample sections, add a sample list component.
       // Use the component and js-behavior subgenerators to build the component.
       if (this.kssSections === true) {
         // Add the sample .scss, .json and .twig files.
-        this.composeWith('koality-theme:component', {
-          args: ['Sample List']
-        });
+        this.composeWith(require.resolve('../component'),
+          {
+            name: 'Sample List'
+          }
+        );
         // Add a sample JavaScript behavior.
-        this.composeWith('koality-theme:js-behavior', {
-          args: ['sample-list']
-        });
+        this.composeWith(require.resolve('../js-behavior'),
+          {
+            name: 'sample-list'
+          }
+        );
       }
 
       this.fs.copy(
@@ -318,18 +323,19 @@ module.exports = yeoman.Base.extend({
       );
 
       // If the KSS Node option is selected, use the subgenerator 'kss-style-guide'.
-      if (this.kssNode === true) {
+      /*if (this.kssNode === true) {
         this.composeWith('koality-theme:kss-style-guide', {
-          args: [this.props.themeName, this.props.themeNameMachine],
+          args: [this.this.answers.themeName, this.this.answers.themeNameMachine],
           options: {
             gulpExample: false
           }
         });
-      }
-    }
-  },
+      }*/
+    };
+    projectFiles();
+  }
 
-  install: function () {
+  install() {
     // Create an empty array for our NodeJS Modules
     var npmArray = [];
 
@@ -346,13 +352,13 @@ module.exports = yeoman.Base.extend({
     this.npmInstall(npmArray, { 'saveDev': true });
 
     this.npmInstall();
-  },
+  }
 
-  end: function() {
+  end() {
     this.log(chalk.cyan.bgBlack.bold(
       `☠️  NOTE: Your new generated theme contains a fair bit of boilerplate code.
    This is by design. If you don't need it PLEASE delete it.
    You can always rerun the generator some other time in a different directory
    and copy over what you're missing.`));
   }
-});
+};
