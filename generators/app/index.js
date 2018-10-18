@@ -246,9 +246,12 @@ module.exports = class extends Generator {
         }
       );
       // Create main global Sass file and partials.
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('_src/_global/_global.scss'),
-        this.destinationPath('src/global/global.scss')
+        this.destinationPath('src/global/global.scss'),
+        {
+          koalitygrid: this.koalityGrid
+        }
       );
       this.fs.copy(
         this.templatePath('_src/_global/_base'),
