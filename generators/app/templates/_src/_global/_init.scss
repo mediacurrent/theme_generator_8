@@ -11,11 +11,6 @@
 // https://github.com/at-import/Singularity
 @import '../../../node_modules/singularitygs/stylesheets/singularitygs';
 <% } -%>
-<% if (koalitygrid) { %>
-// Imports Koality Grid
-// https://github.com/fabean/flexbox-grid
-@import '../../../node_modules/koality-flexbox-grid/src/scss/grid';
-<% } -%>
 
 // Import variables
 @import 'variables';

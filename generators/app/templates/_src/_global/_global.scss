@@ -12,3 +12,9 @@
 // any classes.
 // ========================================
 @import 'base/base';
+
+<% if (koalitygrid) { %>
+// Imports Koality Grid
+// https://github.com/fabean/flexbox-grid
+@import '../../node_modules/koality-flexbox-grid/src/scss/grid';
+<% } -%>

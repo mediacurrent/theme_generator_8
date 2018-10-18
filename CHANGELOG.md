@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.4 (2018-10-18)
+
+### Bug Fixes
+* Moved Koality Grid to global so it's not included on every file
+* Theme should actually build now even when using Koality Grid
+
 ## 2.0.3 (2018-10-18)
 
 ### Bug Fixes
