@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.6 (2018-10-18)
+
+### Bug Fixes
+* Got KSS Style Guides working again thanks to [redbrickone](https://github.com/redbrickone)
+
 ## 2.0.4 (2018-10-18)
 
 ### Bug Fixes
