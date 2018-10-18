@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.2 (2018-10-18)
+
+### Bug Fixes
+* Changed the way Koality Grid is imported to allow for variable overrides
+
 ## 2.0.1 (2018-09-28)
 
 ### New Feature
