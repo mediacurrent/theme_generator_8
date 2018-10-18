@@ -118,9 +118,6 @@ module.exports = class extends Generator {
     if (this.singularity === true && this.breakpoint === true) {
       this.breakpoint = false;
     }
-    if (this.koalityGrid === true && this.breakpoint === true) {
-      this.breakpoint = false;
-    }
 
     // Create a underscored version of the theme name.
     this.cleanThemeName = _.snakeCase(this.answers.themeName);
