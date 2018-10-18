@@ -8,12 +8,12 @@ module.exports = class extends Generator {
 
     // Get more info with `--help`.
     this.argument('name', {
-      required: true,
+      required: false,
       type: String,
       desc: 'The theme name'
     });
     this.argument('machineName', {
-      required: true,
+      required: false,
       type: String,
       desc: 'The theme machine name'
     });
