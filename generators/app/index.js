@@ -337,14 +337,14 @@ module.exports = class extends Generator {
       );
 
       // If the KSS Node option is selected, use the subgenerator 'kss-style-guide'.
-      /*if (this.kssNode === true) {
+      if (this.kssNode === true) {
         this.composeWith('koality-theme:kss-style-guide', {
-          args: [this.this.answers.themeName, this.this.answers.themeNameMachine],
+          args: [this.answers.themeName, this.answers.themeNameMachine],
           options: {
             gulpExample: false
           }
         });
-      }*/
+      }
     };
     projectFiles();
   }
