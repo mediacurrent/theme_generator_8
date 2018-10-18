@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.3 (2018-10-18)
+
+### Bug Fixes
+* Removed need to `html-wiring` as that is deprecated
+* Fixed the variables for Koality Grid so they conditionally get passed in
+
 ## 2.0.2 (2018-10-18)
 
 ### Bug Fixes
