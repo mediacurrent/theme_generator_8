@@ -6,7 +6,6 @@ var yosay  = require('yosay');
 var mkdirp = require('mkdirp');
 var _      = require('lodash');
 var path   = require('path');
-var wiring = require('html-wiring');
 /* eslint no-multi-spaces: "on" */
 
 
@@ -133,7 +132,6 @@ module.exports = class extends Generator {
     this.dashedThemeName = _.kebabCase(this.answers.themeName);
 
     // Get pkg info so we can create a 'generated on' comment.
-    this.pkg = JSON.parse(wiring.readFileAsString(path.join(__dirname, '../../package.json')));
   }
 
   writing() {
@@ -220,7 +218,6 @@ module.exports = class extends Generator {
           themeDesc: this.answers.themeDesc,
           themeNameMachine: this.themeNameMachine,
           baseTheme: this.baseTheme,
-          pkg: this.pkg
         }
       );
       // Create theme.libraries.yml with data provided.
@@ -284,6 +281,13 @@ module.exports = class extends Generator {
         this.destinationPath('src/global/utils/_typography.scss'),
         {
           kssSections: this.kssSections
+        }
+      );
+      this.fs.copyTpl(
+        this.templatePath('_src/_global/_variables.scss'),
+        this.destinationPath('src/global/utils/_variables.scss'),
+        {
+          koalitygrid: this.koalityGrid
         }
       );
 
