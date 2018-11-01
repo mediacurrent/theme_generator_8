@@ -1,15 +1,14 @@
 'use strict';
-
-var fs = require('fs');
-var yeoman = require('yeoman-generator');
+var Generator = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
-var mkdirp = require('mkdirp');
 var _ = require('lodash');
+var fs = require('fs');
+var mkdirp = require('mkdirp');
 var path = require('path');
 
-module.exports = yeoman.Base.extend({
-  prompting: function () {
+module.exports = class extends Generator {
+  prompting() {
     // Have Yeoman greet the user.
     this.log(yosay(
       'Welcome to the cool ' + chalk.red('Mediacurrent D8 theme') + ' generator!'
@@ -127,207 +126,200 @@ module.exports = yeoman.Base.extend({
       // To access props later use this.props.someAnswer;
       this.props = props;
     }.bind(this));
-  },
+  }
 
-  writing: {
+  writing() {
     // Create the project configuration.
     // This adds node modules and tools needed.
-    projectConfig: function () {
-      this.fs.copyTpl(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json'),
-        {
-          themeName: this.themeNameMachine
-        }
-      );
-      this.fs.copy(
-        this.templatePath('gitignore'),
-        this.destinationPath('.gitignore')
-      );
-      this.fs.copy(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-      this.fs.copy(
-        this.templatePath('_README.md'),
-        this.destinationPath('README.md')
-      );
-      this.fs.copy(
-        this.templatePath('eslintrc.yml'),
-        this.destinationPath('.eslintrc.yml')
-      );
-      this.fs.copy(
-        this.templatePath('sass-lint.yml'),
-        this.destinationPath('.sass-lint.yml')
-      );
-    },
+    this.fs.copyTpl(
+      this.templatePath('_package.json'),
+      this.destinationPath('package.json'),
+      {
+        themeName: this.themeNameMachine
+      }
+    );
+    this.fs.copy(
+      this.templatePath('gitignore'),
+      this.destinationPath('.gitignore')
+    );
+    this.fs.copy(
+      this.templatePath('editorconfig'),
+      this.destinationPath('.editorconfig')
+    );
+    this.fs.copy(
+      this.templatePath('_README.md'),
+      this.destinationPath('README.md')
+    );
+    this.fs.copy(
+      this.templatePath('eslintrc.yml'),
+      this.destinationPath('.eslintrc.yml')
+    );
+    this.fs.copy(
+      this.templatePath('sass-lint.yml'),
+      this.destinationPath('.sass-lint.yml')
+    );
 
     // Build out the theme folders.
-    scaffoldFolders: function () {
-      mkdirp('src');
-      mkdirp('src/components');
-      mkdirp('src/layout');
-      mkdirp('dist');
-      mkdirp('src/global');
-      mkdirp('src/global/base');
-      mkdirp('src/global/utils');
-      mkdirp('src/templates');
-      mkdirp('src/layout');
-      // Some folders remain empty so add in a gitkeep
-      // so they're checked into git.
-      this.fs.copy(
-        this.templatePath('gitkeep'),
-        this.destinationPath('src/layout/.gitkeep')
-      );
-    },
+    mkdirp('src');
+    mkdirp('src/components');
+    mkdirp('src/layout');
+    mkdirp('dist');
+    mkdirp('src/global');
+    mkdirp('src/global/base');
+    mkdirp('src/global/utils');
+    mkdirp('src/templates');
+    mkdirp('src/layout');
+    // Some folders remain empty so add in a gitkeep
+    // so they're checked into git.
+    this.fs.copy(
+      this.templatePath('gitkeep'),
+      this.destinationPath('src/layout/.gitkeep')
+    );
 
     // Add build tools.
-    buildTools: function () {
-      this.fs.copyTpl(
-        this.templatePath('_gulpfile.js'),
-        this.destinationPath('gulpfile.js'),
-        {
-          kssNode: this.kssNode,
-          themeNameMachine: this.themeNameMachine
-        }
-      );
-      this.fs.copy(
-        this.templatePath('_gulp-tasks'),
-        this.destinationPath('gulp-tasks')
-      );
-    },
+    this.fs.copyTpl(
+      this.templatePath('_gulpfile.js'),
+      this.destinationPath('gulpfile.js'),
+      {
+        kssNode: this.kssNode,
+        themeNameMachine: this.themeNameMachine
+      }
+    );
+    this.fs.copy(
+      this.templatePath('_gulp-tasks'),
+      this.destinationPath('gulp-tasks')
+    );
 
     // Create the theme files.
-    projectFiles: function () {
-      // Create theme.info.yml with data provided.
-      this.fs.copyTpl(
-        this.templatePath('_theme_name.info.yml'),
-        this.destinationPath(this.themeNameMachine + '.info.yml'),
-        {
-          themeName: this.props.themeName,
-          themeDesc: this.props.themeDesc,
-          themeNameMachine: this.themeNameMachine,
-          baseTheme: this.baseTheme,
-          pkg: this.pkg
-        }
+    //
+    // Create theme.info.yml with data provided.
+    this.fs.copyTpl(
+      this.templatePath('_theme_name.info.yml'),
+      this.destinationPath(this.themeNameMachine + '.info.yml'),
+      {
+        themeName: this.props.themeName,
+        themeDesc: this.props.themeDesc,
+        themeNameMachine: this.themeNameMachine,
+        baseTheme: this.baseTheme,
+        pkg: this.pkg
+      }
+    );
+    // Create theme.libraries.yml with data provided.
+    this.fs.copyTpl(
+      this.templatePath('_theme_name.libraries.yml'),
+      this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+      {
+        themeNameMachine: this.themeNameMachine
+      }
+    );
+    // Create theme.breakpoints.yml with data provided.
+    this.fs.copyTpl(
+      this.templatePath('_theme_name.breakpoints.yml'),
+      this.destinationPath(this.themeNameMachine + '.breakpoints.yml'),
+      {
+        themeName: this.props.themeName,
+        themeNameMachine: this.themeNameMachine
+      }
+    );
+    // Create theme.theme with data provided.
+    this.fs.copyTpl(
+      this.templatePath('_theme_name.theme'),
+      this.destinationPath(this.themeNameMachine + '.theme'),
+      {
+        themeNameMachine: this.themeNameMachine
+      }
+    );
+    // Create main global Sass file and partials.
+    this.fs.copy(
+      this.templatePath('_src/_global/_global.scss'),
+      this.destinationPath('src/global/global.scss')
+    );
+    this.fs.copy(
+      this.templatePath('_src/_global/_base'),
+      this.destinationPath('src/global/base')
+    );
+    this.fs.copy(
+      this.templatePath('_src/_global/_utils'),
+      this.destinationPath('src/global/utils')
+    );
+    // The following need variables passed in so they can
+    // conditionally buid the files.
+    this.fs.copyTpl(
+      this.templatePath('_src/_global/_init.scss'),
+      this.destinationPath('src/global/utils/_init.scss'),
+      {
+        breakpoint: this.breakpoint,
+        singularity: this.singularity
+      }
+    );
+    this.fs.copyTpl(
+      this.templatePath('_src/_global/_colors.scss'),
+      this.destinationPath('src/global/utils/_colors.scss'),
+      {
+        kssSections: this.kssSections
+      }
+    );
+    this.fs.copyTpl(
+      this.templatePath('_src/_global/_typography.scss'),
+      this.destinationPath('src/global/utils/_typography.scss'),
+      {
+        kssSections: this.kssSections
+      }
+    );
+
+    // If we're including sample sections, add the icons section,
+    // which is a component.
+    if (this.kssSections === true) {
+      this.fs.copy(
+        this.templatePath('_src/_sample-components/_icons'),
+        this.destinationPath('src/components/icons')
       );
-      // Create theme.libraries.yml with data provided.
       this.fs.copyTpl(
-        this.templatePath('_theme_name.libraries.yml'),
-        this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+        this.templatePath('_src/_sample-components/_icons.scss'),
+        this.destinationPath('src/components/icons/icons.scss'),
         {
           themeNameMachine: this.themeNameMachine
         }
       );
-      // Create theme.breakpoints.yml with data provided.
       this.fs.copyTpl(
-        this.templatePath('_theme_name.breakpoints.yml'),
-        this.destinationPath(this.themeNameMachine + '.breakpoints.yml'),
-        {
-          themeName: this.props.themeName,
-          themeNameMachine: this.themeNameMachine
-        }
-      );
-      // Create theme.theme with data provided.
-      this.fs.copyTpl(
-        this.templatePath('_theme_name.theme'),
-        this.destinationPath(this.themeNameMachine + '.theme'),
+        this.templatePath('_src/_sample-components/_icons/icons.twig'),
+        this.destinationPath('src/components/icons/icons.twig'),
         {
           themeNameMachine: this.themeNameMachine
         }
       );
-      // Create main global Sass file and partials.
-      this.fs.copy(
-        this.templatePath('_src/_global/_global.scss'),
-        this.destinationPath('src/global/global.scss')
-      );
-      this.fs.copy(
-        this.templatePath('_src/_global/_base'),
-        this.destinationPath('src/global/base')
-      );
-      this.fs.copy(
-        this.templatePath('_src/_global/_utils'),
-        this.destinationPath('src/global/utils')
-      );
-      // The following need variables passed in so they can
-      // conditionally buid the files.
-      this.fs.copyTpl(
-        this.templatePath('_src/_global/_init.scss'),
-        this.destinationPath('src/global/utils/_init.scss'),
-        {
-          breakpoint: this.breakpoint,
-          singularity: this.singularity
-        }
-      );
-      this.fs.copyTpl(
-        this.templatePath('_src/_global/_colors.scss'),
-        this.destinationPath('src/global/utils/_colors.scss'),
-        {
-          kssSections: this.kssSections
-        }
-      );
-      this.fs.copyTpl(
-        this.templatePath('_src/_global/_typography.scss'),
-        this.destinationPath('src/global/utils/_typography.scss'),
-        {
-          kssSections: this.kssSections
-        }
-      );
-
-      // If we're including sample sections, add the icons section,
-      // which is a component.
-      if (this.kssSections === true) {
-        this.fs.copy(
-          this.templatePath('_src/_sample-components/_icons'),
-          this.destinationPath('src/components/icons')
-        );
-        this.fs.copyTpl(
-          this.templatePath('_src/_sample-components/_icons.scss'),
-          this.destinationPath('src/components/icons/icons.scss'),
-          {
-            themeNameMachine: this.themeNameMachine
-          }
-        );
-        this.fs.copyTpl(
-          this.templatePath('_src/_sample-components/_icons/icons.twig'),
-          this.destinationPath('src/components/icons/icons.twig'),
-          {
-            themeNameMachine: this.themeNameMachine
-          }
-        );
-      }
-
-      // If we're including sample sections, add a sample list component.
-      // Use the component and js-behavior subgenerators to build the component.
-      if (this.kssSections === true) {
-        // Add the sample .scss, .json and .twig files.
-        this.composeWith('mc-d8-theme:component', {
-          args: ['Sample List']
-        });
-        // Add a sample JavaScript behavior.
-        this.composeWith('mc-d8-theme:js-behavior', {
-          args: ['sample-list']
-        });
-      }
-
-      this.fs.copy(
-        this.templatePath('_screenshot.png'),
-        this.destinationPath('screenshot.png')
-      );
-
-      // If the KSS Node option is selected, use the subgenerator 'kss-style-guide'.
-      if (this.kssNode === true) {
-        this.composeWith('mc-d8-theme:kss-style-guide', {
-          args: [this.props.themeName, this.props.themeNameMachine],
-          options: {
-            gulpExample: false
-          }
-        });
-      }
     }
-  },
 
-  install: function () {
+    // If we're including sample sections, add a sample list component.
+    // Use the component and js-behavior subgenerators to build the component.
+    if (this.kssSections === true) {
+      // Add the sample .scss, .json and .twig files.
+      this.composeWith('mc-d8-theme:component', {
+        arguments: ['Sample List']
+      });
+      // Add a sample JavaScript behavior.
+      this.composeWith('mc-d8-theme:js-behavior', {
+        arguments: ['sample-list']
+      });
+    }
+
+    this.fs.copy(
+      this.templatePath('_screenshot.png'),
+      this.destinationPath('screenshot.png')
+    );
+
+    // If the KSS Node option is selected, use the subgenerator 'kss-style-guide'.
+    if (this.kssNode === true) {
+      this.composeWith('mc-d8-theme:kss-style-guide', {
+        arguments: [this.props.themeName, this.props.themeNameMachine],
+        options: {
+          gulpExample: false
+        }
+      });
+    }
+  }
+
+  install() {
     // Create an empty array for our NodeJS Modules
     var npmArray = [];
 
@@ -341,17 +333,20 @@ module.exports = yeoman.Base.extend({
     }
 
     // This runs `npm install gulp ... --save-dev` on the command line.
-    this.npmInstall(npmArray, { 'saveDev': true });
+    this.npmInstall(npmArray, {
+      saveDev: true
+    });
 
     this.npmInstall();
-  },
-
-  end: function () {
-    this.log(chalk.cyan.bgBlack.bold(
-      `☠️  NOTE: Your new generated theme contains a fair bit of boilerplate code.
-   This is by design. If you don't need it PLEASE delete it.
-   You can always rerun the generator some other time in a different directory
-   and copy over what you're missing.`));
-    this.log(chalk.red('#YOLO 🚀'));
   }
-});
+
+  end() {
+    this.log(chalk.cyan.bgBlack.bold(
+`☠️  NOTE: Your new generated theme contains a fair bit of boilerplate code.
+This is by design. If you don't need it PLEASE delete it.
+You can always rerun the generator some other time in a different directory
+and copy over what you're missing.`));
+    this.log(chalk.red('🚀'));
+  }
+
+};
