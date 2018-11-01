@@ -1,6 +1,6 @@
 'use strict';
 var yeoman = require('yeoman-generator');
-var chalk  = require('chalk');
+var chalk = require('chalk');
 
 module.exports = yeoman.Base.extend({
   constructor: function () {

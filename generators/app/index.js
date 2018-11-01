@@ -1,13 +1,12 @@
 'use strict';
-/* eslint no-multi-spaces: "off" */
+
+var fs = require('fs');
 var yeoman = require('yeoman-generator');
-var chalk  = require('chalk');
-var yosay  = require('yosay');
+var chalk = require('chalk');
+var yosay = require('yosay');
 var mkdirp = require('mkdirp');
-var _      = require('lodash');
-var path   = require('path');
-var wiring = require('html-wiring');
-/* eslint no-multi-spaces: "on" */
+var _ = require('lodash');
+var path = require('path');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -102,8 +101,7 @@ module.exports = yeoman.Base.extend({
       // Set kssSections if it's needed.
       if (this.kssNode === true) {
         this.kssSections = props.kssSections;
-      }
-      else {
+      } else {
         this.kssSections = false;
       }
 
@@ -124,7 +122,7 @@ module.exports = yeoman.Base.extend({
       this.dashedThemeName = _.kebabCase(props.themeName);
 
       // Get pkg info so we can create a 'generated on' comment.
-      this.pkg = JSON.parse(wiring.readFileAsString(path.join(__dirname, '../../package.json')));
+      this.pkg = JSON.parse(fs.readFileSync(path.resolve(path.join(__dirname, '../../package.json')), 'utf8'));
 
       // To access props later use this.props.someAnswer;
       this.props = props;
@@ -165,7 +163,7 @@ module.exports = yeoman.Base.extend({
     },
 
     // Build out the theme folders.
-    scaffoldFolders: function() {
+    scaffoldFolders: function () {
       mkdirp('src');
       mkdirp('src/components');
       mkdirp('src/layout');
@@ -184,7 +182,7 @@ module.exports = yeoman.Base.extend({
     },
 
     // Add build tools.
-    buildTools: function() {
+    buildTools: function () {
       this.fs.copyTpl(
         this.templatePath('_gulpfile.js'),
         this.destinationPath('gulpfile.js'),
@@ -348,7 +346,7 @@ module.exports = yeoman.Base.extend({
     this.npmInstall();
   },
 
-  end: function() {
+  end: function () {
     this.log(chalk.cyan.bgBlack.bold(
       `☠️  NOTE: Your new generated theme contains a fair bit of boilerplate code.
    This is by design. If you don't need it PLEASE delete it.
