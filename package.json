@@ -8,7 +8,7 @@
     "email": "zack.hawkins@mediacurrent.com",
     "url": ""
   },
-  "repository": "mediacurrent/theme_generator_8",
+  "repository": "github:mediacurrent/theme_generator_8",
   "files": [
     "generators"
   ],
