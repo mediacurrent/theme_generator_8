@@ -21,11 +21,13 @@ themes/custom/my_awesome_theme
 
 ### First a note about using Node.js via [NVM](https://github.com/creationix/nvm)
 
-While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project. Here's a quick one liner that will create a `.nvmrc` file and install the latest stable version of Node using NVM.
+While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project. Here's a quick one liner that will install the latest stable version of Node using NVM and create a `.nvmrc` file.
 
 ```bash
-nvm install stable | grep -ohe 'v[0-9]*\.[0-9]*\.[0-9]*' | head -1 > .nvmrc && nvm use
+nvm install node && node -v > .nvmrc
 ```
+
+From now on, when working on this theme change into its directory and run `nvm use` and NVM will switch to the specified version for you.
 
 ### Getting Started
 
