@@ -1,35 +1,35 @@
 'use strict';
-var yeoman = require('yeoman-generator');
-var _      = require('lodash');
-var chalk  = require('chalk');
+var Generator = require('yeoman-generator');
+var _ = require('lodash');
+var chalk = require('chalk');
 
-module.exports = yeoman.Base.extend({
-  constructor: function () {
-    yeoman.Base.apply(this, arguments);
+module.exports = class extends Generator {
+  constructor(args, options) {
+    super(args, options);
 
-    // Get more info with `--help`.
     this.argument('name', {
       required: true,
       type: String,
       desc: 'The new component name'
     });
-  },
+  }
 
-  initializing: function () {
+  initializing() {
     // Create an object to contain all our name variations.
     this.componentName = {};
 
     // Preserve the raw layout name.
-    this.componentName.raw = this.name;
+    this.componentName.raw = this.options.name;
 
     // Create a dashed version of the layout name.
-    this.componentName.dashed = _.kebabCase(this.name);
+    this.componentName.dashed = _.kebabCase(this.options.name);
 
-    this.log('Creating a new theme component called ' + this.name + ' (' + this.componentName.dashed + ').');
-  },
-  // Write each file the component needs, adding the component
-  // name where needed.
-  writing: function () {
+    this.log('Creating a new theme component called ' + this.options.name + ' (' + this.componentName.dashed + ').');
+  }
+
+  writing() {
+    // Write each file the component needs, adding the component
+    // name where needed.
     this.fs.copyTpl(
       this.templatePath('_component/_component.json'),
       this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.json'),
@@ -52,11 +52,12 @@ module.exports = yeoman.Base.extend({
         dashed: this.componentName.dashed
       }
     );
-  },
+  }
 
-  install: function () {
+  install() {
     this.log('=========================================');
-    this.log('Created a new component named ' + chalk.red(this.name) + '.');
+    this.log('Created a new component named ' + chalk.red(this.options.name) + '.');
     this.log('-----------------------------------------');
   }
-});
+
+};
