@@ -9,7 +9,9 @@ var plumber = require('gulp-plumber');
 gulp.task('static', function () {
   return gulp.src('**/*.js')
     .pipe(excludeGitignore())
-    .pipe(eslint())
+    .pipe(eslint({
+      ignorePattern: ['generators/kss-style-guide/templates/_style-guide/builder/kss-assets']
+    }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
@@ -23,7 +25,7 @@ gulp.task('pre-test', function () {
     .pipe(istanbul.hookRequire());
 });
 
-gulp.task('test', ['pre-test'], function (cb) {
+gulp.task('test', gulp.series('pre-test', function (cb) {
   var mochaErr;
 
   gulp.src('test/**/*.js')
@@ -36,10 +38,10 @@ gulp.task('test', ['pre-test'], function (cb) {
     .on('end', function () {
       cb(mochaErr);
     });
-});
+}));
 
 gulp.task('watch', function () {
   gulp.watch(['generators/**/*.js', 'test/**'], ['test']);
 });
 
-gulp.task('default', ['static', 'test']);
+gulp.task('default', gulp.series('static', 'test'));
