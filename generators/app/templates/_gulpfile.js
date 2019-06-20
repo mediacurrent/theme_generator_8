@@ -1,205 +1,63 @@
 /*eslint strict: ["error", "global"]*/
 'use strict';
 
-//=======================================================
-// Include gulp
-//=======================================================
-var gulp = require('gulp');
+// Include gulp helpers.
+const { series, parallel, watch } = require('gulp');
 
-//=======================================================
-// Include Our Plugins
-//=======================================================
-var sync        = require('browser-sync');
-var runSequence = require('run-sequence');
-
-//=======================================================
 // Include Our tasks.
 //
 // Each task is broken apart to it's own node module.
 // Check out the ./gulp-tasks directory for more.
-//=======================================================
-var taskCompile     = require('./gulp-tasks/compile.js');
-var taskMove        = require('./gulp-tasks/move.js');
-var taskLint        = require('./gulp-tasks/lint.js');
-var taskCompress    = require('./gulp-tasks/compress.js');
-var taskClean       = require('./gulp-tasks/clean.js');
-<% if (kssNode) { %>
-var taskStyleGuide  = require('./gulp-tasks/styleguide.js');
-var taskConcat      = require('./gulp-tasks/concat.js');
-<% } %>
-//=======================================================
+const { compileSass, compileJS } = require('./gulp-tasks/compile.js');
+const { lintJS, lintSass } = require('./gulp-tasks/lint.js');
+const { compressAssets } = require('./gulp-tasks/compress.js');
+const { cleanCSS, cleanJS } = require('./gulp-tasks/clean.js');
+const { concatCSS } = require('./gulp-tasks/concat.js');
+const { moveFonts, movePatternCSS } = require('./gulp-tasks/move.js');
+
 // Compile Our Sass and JS
-// We also move some files if they don't need
-// to be compiled.
-//=======================================================
-gulp.task('compile', ['compile:sass', 'compile:js', 'move:js']);
+exports.compile = parallel(compileSass, compileJS, moveFonts, movePatternCSS);
 
-// Compile Sass
-gulp.task('compile:sass', function() {
-  return taskCompile.sass();
-});
-
-// Compile JavaScript ES2015 to ES5.
-gulp.task('compile:js', function() {
-  return taskCompile.js();
-});
-
-// If some JS components aren't es6 we want to simply move them
-// into the dist folder. This allows us to clean the dist/js
-// folder on build.
-gulp.task('move:js', function() {
-  return taskMove.js();
-});
-
-//=======================================================
 // Lint Sass and JavaScript
-//=======================================================
-gulp.task('lint', ['lint:sass', 'lint:js']);
+exports.lint = parallel(lintSass, lintJS);
 
-// Lint Sass based on .sass-lint.yml config.
-gulp.task('lint:sass', function () {
-  return taskLint.sass();
-});
-
-// Lint JavaScript based on .eslintrc config.
-gulp.task('lint:js', function () {
-  return taskLint.js();
-});
-
-//=======================================================
 // Compress Files
-//=======================================================
-gulp.task('compress', function() {
-  return taskCompress.assets();
-});
-<% if (kssNode) { %>
-//=======================================================
-// Generate style guide
-//=======================================================
-gulp.task('styleguide', function() {
-  return taskStyleGuide.generate(__dirname);
-});
+exports.compress = compressAssets;
 
-//=======================================================
 // Concat all CSS files into a master bundle.
-//=======================================================
-gulp.task('concat', function () {
-  return taskConcat.css();
-});
-<% } %>
-//=======================================================
+exports.concat = concatCSS;
+
 // Clean all directories.
-//=======================================================
-<% if (kssNode) { -%>
-gulp.task('clean', ['clean:css', 'clean:js', 'clean:styleguide']);
+exports.clean = parallel(cleanCSS, cleanJS);
 
-// Clean style guide files.
-gulp.task('clean:styleguide', function () {
-  return taskClean.styleguide();
-});
-<% } else { %>
-gulp.task('clean', ['clean:css', 'clean:js']);
-<% } -%>
-
-// Clean CSS files.
-gulp.task('clean:css', function () {
-  return taskClean.css();
-});
-
-// Clean JS files.
-gulp.task('clean:js', function () {
-  return taskClean.js();
-});
-
-//=======================================================
-// Watch and recompile sass.
-//=======================================================
-
-// Pull the sass watch task out so we can use run sequence.
-<% if (kssNode) { %>
-gulp.task('watch:sass', function(callback) {
-  runSequence(
-    ['lint:sass', 'compile:sass'],
-    'concat',
-    callback
-  );
-});
-<% } else { %>
-// Pull the sass watch task out so we can use run sequence.
-gulp.task('watch:sass', function(callback) {
-  runSequence(
-    ['lint:sass', 'compile:sass'],
-    callback
-  );
-});
-<% } -%>
-
-// Main watch task.
-gulp.task('watch', function() {
-
-  // BrowserSync proxy setup
-  // Uncomment this and swap proxy with your local env url.
-  // NOTE: for this to work in Drupal, you must install and enable
-  // https://www.drupal.org/project/link_css. This module should
-  // NOT be committed to the repo OR enabled on production.
-  //
-  // This should work out of the box for work within the style guide.
-  //
-  // sync.init({
-  //   open: false,
-  //   proxy: 'http://test.mcdev'
-  // });
-
+/**
+ * Watch Sass and JS files.
+ * @returns {undefined}
+ */
+function watchFiles() {
   // Watch all my sass files and compile sass if a file changes.
-  gulp.watch(
-    './src/{global,layout,components}/**/*.scss',
-    ['watch:sass']
+  watch(
+    './src/patterns/**/**/*.scss',
+    series(parallel(lintSass, compileSass), concatCSS)
   );
 
   // Watch all my JS files and compile if a file changes.
-  gulp.watch([
-    './src/{global,layout,components}/**/*.js'
-  ], ['lint:js', 'compile:js']);
-<% if (kssNode) { %>
-  // Watch all my twig files and rebuild the style guide if a file changes.
-  gulp.watch(
-    './src/{layout,components}/**/*.twig',
-    ['watch:styleguide']
-  );
-<% } -%>
+  watch('./src/patterns/**/**/*.js', parallel(lintJS, compileJS));
+}
 
-});
-<% if (kssNode) { %>
-// Reload the browser if the style guide is updated.
-gulp.task('watch:styleguide', ['styleguide'], sync.reload);
+exports.watch = watchFiles;
 
-//=======================================================
 // Default Task
-//
-// runSequence runs 'clean' first, and when that finishes
-// 'lint', 'compile', 'compress', 'styleguide' run
-// at the same time. 'concat' runs last.
-//=======================================================
-gulp.task('default', function(callback) {
-  runSequence(
-    'clean',
-    ['lint', 'compile', 'compress', 'styleguide'],
-    'concat',
-    callback
-  );
-});
-<% } else { %>
-//=======================================================
-// Default Task
-//
-// runSequence runs 'clean' first, and when that finishes
-// 'lint', 'compile' and 'compress' run at the same time.
-//=======================================================
-gulp.task('default', function(callback) {
-  runSequence(
-    'clean',
-    ['lint', 'compile', 'compress'],
-    callback
-  );
-});
-<% } -%>
+exports.default = series(
+  parallel(cleanCSS, cleanJS),
+  parallel(
+    lintSass,
+    compileSass,
+    lintJS,
+    compileJS,
+    compressAssets,
+    moveFonts,
+    movePatternCSS
+  ),
+  concatCSS
+);

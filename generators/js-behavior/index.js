@@ -32,8 +32,8 @@ module.exports = class extends Generator {
 
   writing() {
     this.fs.copyTpl(
-      this.templatePath('_behavior.es6.js'),
-      this.destinationPath('src/components/' + this.behaviorName.dashed + '/' + this.behaviorName.dashed + '.es6.js'),
+      this.templatePath('_behavior.js'),
+      this.destinationPath('src/patterns/01-components/' + this.behaviorName.dashed + '/' + this.behaviorName.dashed + '.js'),
       {
         camel: this.behaviorName.camel
       }

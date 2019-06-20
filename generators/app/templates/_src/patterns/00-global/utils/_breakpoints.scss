@@ -1,0 +1,27 @@
+//===========================
+// Breakpoints
+//===========================
+
+// Extra small devices (phones, less than 480px)
+// No media query since this is the default in Horizon.
+
+// Small devices (phone/tablets, 480px and up).
+$screen-sm-min: 480px;
+
+// Medium devices (tablets, 768px and up).
+$screen-md-min: 768px;
+
+// Large devices (desktops, 960px and up).
+$screen-lg-min: 960px;
+
+// X-Large devices (large desktops, 1200px and up).
+$screen-xl-min: 1200px;
+
+// Custom breakpoints as needed.
+$screen-1140: 1140px;
+
+@mixin breakpoint($viewport) {
+  @media screen and ( min-width: $viewport ) {
+    @content;
+  }
+}
