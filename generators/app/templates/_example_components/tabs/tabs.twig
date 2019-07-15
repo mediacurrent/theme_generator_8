@@ -1,0 +1,23 @@
+{{ attach_library('h4h_theme/tabs') }}
+<section class="tabs {{ modifier_class }} js-tabs">
+  {% if title %}
+    {% set heading_level = heading_level|default(2) %}
+    <h{{ heading_level }} class="section-title__heading">{{ title }}</h{{ heading_level }}>
+  {% endif %}
+  <ul class="tabs__list">
+    {% for tab in tabs %}
+      <li class="tabs__item {{ tab.classes }}">
+        <a class="tabs__link" href="{{ tab.link }}">{{ tab.text }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% if (tabs_content) %}
+    <div class="tabs__panel-wrapper">
+    {% for content in tabs_content %}
+      <section id="{{ content.id }}" class="tabs__panel {{ content.classes }}">
+        {{ content.body }}
+      </section>
+    {% endfor %}
+    </div>
+  {% endif %}
+</section>

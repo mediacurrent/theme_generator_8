@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "chalk": "^1.0.0",
+    "js-yaml": "^3.13.1",
     "yeoman-generator": "^3.1.1",
     "yosay": "^1.0.0"
   },

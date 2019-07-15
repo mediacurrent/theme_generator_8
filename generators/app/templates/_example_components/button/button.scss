@@ -1,0 +1,64 @@
+// Buttons
+//
+// This is the button component. It provides basic styles for buttons throughout the site.
+//
+// :hover - Highlights when hovering.
+// .btn--primary - Primary button style.
+// .btn--secondary - Secondary button style.
+// .btn--reversed - Dark background color with white text button style.
+// .btn--donate - Donate button style.
+// .btn--large - Modifier to make any button larger.
+// .btn--xlarge - Modifier to make buttons extra large.
+// .btn--centered - Modifier to make the button centered.
+// .is-disabled - Disable the button. The same styles will
+//                be applied if you use the `disabled` attribute.
+//                **The disabled attribute is the preferred method.**
+//
+// Markup: btn-kss.twig
+//
+// Style guide: Components.btn
+
+// Import site utilities.
+@import '../../global/utils/init';
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+  background-color: $color-alto;
+  font-weight: bold;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: 0.85em 1em;
+  font-size: 1rem;
+
+  &:hover {
+    background-color: $color-gallery;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: $color-gallery;
+    color: $color-tundora;
+    border: 3px solid $color-silver;
+  }
+}
+
+.btn--primary {
+  padding: 0.55em 1.2em;
+  color: $color-pacific-blue;
+  background-color: $color-white;
+  border: 3px solid $color-white;
+  border-radius: 3px;
+
+  &:hover,
+  &:active {
+    color: $color-pacific-blue;
+    text-decoration: none;
+    background-color: rgba($color-white, 0.85);
+  }
+}

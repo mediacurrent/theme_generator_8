@@ -7,7 +7,6 @@ global:
     base:
       dist/css/global.css: {}
 
-
 # Example external library.
 # webfonts:
 #   version: 1.x
@@ -29,3 +28,5 @@ global:
 #   dependencies:
 #     - <%= themeNameMachine %>/clearfix
 #     - <%= themeNameMachine %>/visually-hidden
+
+<%- exampleComponents %>

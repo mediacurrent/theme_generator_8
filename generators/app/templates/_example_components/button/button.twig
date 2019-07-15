@@ -1,0 +1,9 @@
+{% for item in items %}
+  {% if modifier_class == 'btn--primary' %}
+    <div style="padding: 1rem; background-color: #0099cc;">
+      <button type="button" class="btn {{ modifier_class }}">{{ item.text }}</button>
+    </div>
+  {% else %}
+    <button type="button" class="btn {{ modifier_class }}"{{ modifier_class == 'is-disabled' ? ' disabled' }}>{{ item.text }}</button>
+  {% endif %}
+{% endfor %}

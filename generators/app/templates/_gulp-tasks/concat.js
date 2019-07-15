@@ -9,7 +9,6 @@ const { src, dest } = require('gulp');
 //=======================================================
 var concat = require('gulp-concat');
 var order = require('gulp-order');
-var sync = require('browser-sync');
 
 // Export our tasks.
 module.exports = {
@@ -30,7 +29,6 @@ module.exports = {
         .pipe(order(['dist/css/global.css', 'dist/css/*.css'], { base: './' }))
         .pipe(concat('all.css'))
         .pipe(dest('./dist/css'))
-        .pipe(sync.stream())
     );
   }
 };

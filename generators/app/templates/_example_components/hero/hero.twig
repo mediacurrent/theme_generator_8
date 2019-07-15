@@ -1,0 +1,66 @@
+{{ attach_library('h4h_theme/hero') }}
+{% import '@h4h_theme/icons/icons.twig' as icons %}
+{#
+  Default to h2 (heading level 2) if no heading level is supplied.
+#}
+{% set heading_level = heading_level|default(2) %}
+{#
+  Add a special conditional for the style guide. Set a default video
+  if no video url is provided AND the modifier class == 'hero--video'.
+  Drupal should make sure that this value is always set.
+#}
+{% if not video and modifier_class == 'hero--video' %}
+  {%
+    set video = {
+      id: 'HJOUYnSZ3Is',
+      url: 'https://www.youtube.com/embed/HJOUYnSZ3Is?autoplay=1&showinfo=0&rel=0',
+      external_url: 'https://www.youtube.com/watch?v=HJOUYnSZ3Is'
+    }
+  %}
+{% endif %}
+{#
+  Set vars for a hero component in which the image field is empty.
+#}
+{% if modifier_class == 'hero--no-image' %}
+  {% set img = '' %}
+{% elseif not img %}
+  {% set modifier_class = 'hero--no-image ' ~ modifier_class %}
+{% endif %}
+<article class="hero {{ modifier_class }}">
+  {% if video %}
+    {%
+      include "@h4h_theme/video/video.twig" with {
+        video: video,
+        img: img
+      } only
+    %}
+  {% endif %}
+  {% if not video and img %}
+    <div class="hero__img">
+      {% if url %}
+        <a class="hero__img-link" href="{{ url }}">{{ img }}</a>
+      {% else %}
+        {{ img }}
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="hero__content">
+    {% if title %}
+      <h{{ heading_level }} class="hero__heading">
+        {% if url %}
+          <a class="hero__link" href="{{ url }}">{{ title }}</a>
+        {% else %}
+          {{ title }}
+        {% endif %}
+      </h{{ heading_level }}>
+    {% endif %}
+    {% if desc %}
+      <h{{ heading_level + 1 }} class="hero__desc">{{ desc }}</h{{ heading_level + 1 }}>
+    {% endif %}
+    {% if donate_form %}
+      {{ donate_form }}
+    {% elseif btn_text %}
+      <a href="{{ url }}" class="hero__btn btn btn--primary">{{ btn_text }}</a>
+    {% endif %}
+  </div>
+</article>

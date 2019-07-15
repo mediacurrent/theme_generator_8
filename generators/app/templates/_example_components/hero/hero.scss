@@ -1,0 +1,175 @@
+// Hero
+//
+// The hero is made up of two reusable components:
+// - [Btn](#kssref-components-btn)
+// - [Video](#kssref-components-video)
+//
+// It also contains an Image, a Title and a Description.
+//
+// .hero--video - If the hero image is a video, overlay a play button over the image.
+// .hero--no-image - If the image field is empty.
+// .hero--donate - denotes donate form is present.
+// .hero--dark - Adds a dark color as the textbox background.
+//
+// Markup: hero.twig
+//
+// Style guide: Components.hero
+
+// Import site utilities.
+@import '../../global/utils/init';
+
+.hero {
+  position: relative;
+  display: block;
+  background-color: $color-silver;
+  overflow: hidden;
+}
+
+/*** Hero Image ***/
+.hero__img {
+  position: relative;
+
+  img {
+    display: block;
+  }
+}
+
+/*** Hero Content Block ***/
+.hero__content {
+  display: block;
+  position: relative;
+  width: 100%;
+  background-color: rgba($color-pacific-blue, 0.9);
+  padding: 1rem;
+  z-index: 2;
+  transition: opacity 1.5s ease-out;
+
+  @include breakpoint($bp-sm) {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 34.5%;
+    padding: 3rem;
+  }
+
+  /**
+   * if donate form is present, background changes to orange.
+   */
+  .hero--donate & {
+    background-color: rgba($color-hot-orange, 0.9);
+  }
+
+  /**
+   * Make the background color dark for the dark modifier.
+   */
+  .hero--dark & {
+    background-color: rgba($color-black, 0.6);
+  }
+
+  /**
+   * removes form bg color to allow .hero_content bg to take over.
+   * also removes padding.
+   */
+  .form-cta--donate {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  /* Kill the bottom margin on the very last item. */
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Hide the content if a video is playing. */
+  .video-is-active & {
+    opacity: 0;
+    display: none;
+
+    @include breakpoint($bp-sm) {
+      display: block;
+    }
+  }
+
+  .hero--no-image & {
+    position: relative;
+    width: 100%;
+    padding: 1.5rem;
+
+    @include breakpoint($bp-sm) {
+      padding: 2.5rem;
+    }
+  }
+}
+
+.hero__img-link {
+  display: block;
+  position: relative;
+  opacity: 1;
+  transition: opacity 1.5s ease-out;
+  z-index: 1;
+}
+
+.hero__heading {
+  @include font-stack-secondary;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 500;
+  color: $color-white;
+
+  @include breakpoint($bp-sm) {
+    font-size: 2.8rem;
+    line-height: 1.1;
+  }
+
+  a {
+    color: $color-white;
+  }
+
+  .hero--no-image & {
+    max-width: 600px;
+    margin: 0 auto;
+
+    @include breakpoint($bp-xxsm) {
+      text-align: center;
+    }
+  }
+}
+
+.hero__desc {
+  @include font-stack-secondary;
+  color: $color-white;
+  margin-bottom: 1rem;
+  font-weight: normal;
+  font-size: 0.8rem;
+
+  @include breakpoint($bp-sm) {
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .hero--no-image & {
+    max-width: 600px;
+    margin: 0.5rem auto 0;
+
+    @include breakpoint($bp-xxsm) {
+      text-align: center;
+    }
+  }
+}
+
+.hero__btn {
+  display: block;
+  max-width: 50%;
+  margin: 0 auto;
+
+  @include breakpoint($bp-sm) {
+    display: inline-block;
+    max-width: none;
+    margin: 0;
+  }
+
+  .hero--no-image & {
+    display: none;
+  }
+}

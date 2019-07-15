@@ -1,0 +1,11 @@
+{
+  "title": "Donation Story Headline",
+  "desc": "Compelling feature story that entices to donate.",
+  "heading_level": 1,
+  "url": "#",
+  "video": "",
+  "img": "<img src='http://lorempixel.com/1200/600/people/' alt='test image' width='1200' height='600' />",
+  "btn_text": "Read Their Story",
+  "donate_form": "",
+  "modifier_class": ""
+}

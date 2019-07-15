@@ -6,6 +6,10 @@ const _ = require('lodash');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const path = require('path');
+const jsYaml = require('js-yaml');
+
+// Custom helper modules.
+const buildComponents = require('./build-components');
 
 module.exports = class extends Generator {
   prompting() {
@@ -64,21 +68,23 @@ module.exports = class extends Generator {
           {
             value: 'hero',
             name: 'Hero'
+          },
+          {
+            value: 'tabs',
+            name: 'Drupal Tabs'
+          },
+          {
+            value: 'messages',
+            name: 'Drupal Messages'
           }
         ]
       }
     ];
 
     return this.prompt(prompts).then(function (props) {
-      // Check available options and store them in as easy to use variables.
-      // Returns true or false depending on if the choice is selected.
-      var hasOption = function (choices, opt) {
-        return choices.indexOf(opt) !== -1;
-      };
-
-      // TODO: make this work. Could be an array maybe.
-      this.components.button = hasOption(props.howMuchTheme, 'button');
-      this.components.hero = hasOption(props.howMuchTheme, 'hero');
+      // props.howMuchTheme is an array of all selected options.
+      // i.e. [ 'hero', 'tabs', 'messages' ]
+      this.exampleComponents = props.howMuchTheme;
 
       // Add the base theme to the object.
       this.baseTheme = props.whichBaseTheme;
@@ -98,6 +104,39 @@ module.exports = class extends Generator {
       // To access props later use this.props.someAnswer;
       this.props = props;
     }.bind(this));
+  }
+
+  configuring() {
+    // If any example components were selected...
+    if (this.exampleComponents.length > 0) {
+      // ...copy over the example components.
+      buildComponents(this.exampleComponents, this)
+        .then(buildComponentsConfig => {
+          // And add the needed lines to the Drupal library file.
+          this.fs.copyTpl(
+            this.templatePath('_theme_name.libraries.yml'),
+            this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+            {
+              themeNameMachine: this.themeNameMachine,
+              exampleComponents: jsYaml.safeDump(buildComponentsConfig)
+            }
+          );
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } else {
+      // No example componets were selected, go ahead and copy over the default
+      // Drupal libraries file without any additional libraries.
+      this.fs.copyTpl(
+        this.templatePath('_theme_name.libraries.yml'),
+        this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+        {
+          themeNameMachine: this.themeNameMachine,
+          exampleComponents: ''
+        }
+      );
+    }
   }
 
   writing() {
@@ -139,8 +178,28 @@ module.exports = class extends Generator {
       this.destinationPath('patternlab-config.json')
     );
     this.fs.copy(
-      this.templatePath('_src'),
-      this.destinationPath('src')
+      this.templatePath('_src/patterns/00-global'),
+      this.destinationPath('src/patterns/00-global')
+    );
+    this.fs.copy(
+      this.templatePath('_src/patterns/01-components/.gitkeep'),
+      this.destinationPath('src/patterns/01-components/.gitkeep')
+    );
+    this.fs.copy(
+      this.templatePath('_src/patterns/02-pages/.gitkeep'),
+      this.destinationPath('src/patterns/02-pages/.gitkeep')
+    );
+    this.fs.copy(
+      this.templatePath('_src/styleguide'),
+      this.destinationPath('src/styleguide')
+    );
+    this.fs.copy(
+      this.templatePath('_src/templates/.gitkeep'),
+      this.destinationPath('src/templates/.gitkeep')
+    );
+    this.fs.copy(
+      this.templatePath('_src/favicon.ico'),
+      this.destinationPath('src/favicon.ico')
     );
 
     // Build out the compiled folders.
@@ -193,14 +252,6 @@ module.exports = class extends Generator {
         pkg: this.pkg
       }
     );
-    // Create theme.libraries.yml with data provided.
-    this.fs.copyTpl(
-      this.templatePath('_theme_name.libraries.yml'),
-      this.destinationPath(this.themeNameMachine + '.libraries.yml'),
-      {
-        themeNameMachine: this.themeNameMachine
-      }
-    );
     // Create theme.breakpoints.yml with data provided.
     this.fs.copyTpl(
       this.templatePath('_theme_name.breakpoints.yml'),
@@ -218,7 +269,8 @@ module.exports = class extends Generator {
         themeNameMachine: this.themeNameMachine
       }
     );
-    // TODO: this needs to be updated for the new example components.
+
+    // TODO: this needs to be updated for creating a new component.
     // If we're including sample sections, add a sample list component.
     // Use the component and js-behavior subgenerators to build the component.
     // if (this.kssSections === true) {
@@ -239,7 +291,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    // Install the following node modules dynamically each time.
+    // Install the following node modules specifically for Pattern Lab.
     var npmArray = [
       '@pattern-lab/cli',
       '@pattern-lab/core',
@@ -253,6 +305,7 @@ module.exports = class extends Generator {
       saveDev: true
     });
 
+    // Need to see if we still need this.
     this.npmInstall();
   }
 

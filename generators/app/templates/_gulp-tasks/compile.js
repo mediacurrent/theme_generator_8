@@ -8,7 +8,6 @@ const { src, dest } = require('gulp');
 const sass = require('gulp-sass');
 const prefix = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
-const sync = require('browser-sync');
 const babel = require('gulp-babel');
 const rename = require('gulp-rename');
 
@@ -39,8 +38,7 @@ module.exports = {
           return path;
         })
       )
-      .pipe(dest('./dist/css'))
-      .pipe(sync.stream({ match: '**/*.css' }));
+      .pipe(dest('./dist/css'));
   },
 
   // Compile JavaScript.
