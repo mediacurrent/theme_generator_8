@@ -1,5 +1,5 @@
 {
-  "cacheBust": false,
+  "cacheBust": true,
   "cleanPublic": true,
   "defaultPattern": "all",
   "defaultShowPatternInfo": false,
@@ -109,20 +109,6 @@
       "enabled": true,
       "excludedPatternStates": [],
       "excludedTags": []
-    },
-    {
-      "name": "uikit-workshop",
-      "outputDir": "",
-      "enabled": true,
-      "excludedPatternStates": [],
-      "excludedTags": []
-    },
-    {
-      "name": "uikit-workshop",
-      "outputDir": "",
-      "enabled": true,
-      "excludedPatternStates": [],
-      "excludedTags": []
     }
   ],
   "engines": {
@@ -136,10 +122,10 @@
           ]
         },
         {
-          "id": "patterns",
+          "id": "TODOtheme_name",
           "recursive": true,
           "paths": [
-            "./src/patterns/01-components"
+            "./src/patterns/components"
           ]
         }
       ],

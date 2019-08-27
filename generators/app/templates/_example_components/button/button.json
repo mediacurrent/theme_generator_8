@@ -1,7 +1,4 @@
 {
-  "items":[
-    {
-      "text": "Button"
-    }
-  ]
+  "text": "Button",
+  "modifier_class": ""
 }

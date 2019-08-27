@@ -1,158 +1,104 @@
-// Tabs
-//
-// The tabs component can be used to display an unordered
-// list as links or as a way to show and hide content.
-//
-// Stand alone tab styling can be used without JS or any tab content.
-// However, in order for tabs and tab content to work, JS must be added.
-// Add the class `js-tabs` to the wrapper if you'd like that functionality.
-//
-// **Requires:** `dist/js/tabs.bundle.js`
-//
-// Markup: tabs.twig
-//
-// .tabs--white - White tabs when using different bg color for component.
-//
-// Style guide: Components.tabs
+// Styling for Drupal tabs.
 
 // Import site utilities.
 @import '../../global/utils/init';
 
 .tabs {
-  // Setting a min-height helps there be less of a bounce
-  // when switching between tabs.
-  min-height: 128px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  position: relative;
 }
 
-.tabs__list {
-  display: block;
-  margin-bottom: 1.5rem;
+.tabs.primary {
+  padding: 0;
 
-  @include breakpoint($bp-md) {
-    display: flex;
-    padding: 0 0.5rem;
-    border-bottom: 3px solid $color-silver;
-
-    // Tabs may have to wrap.
-    .l-offset-2__right-column & {
-      flex-wrap: wrap;
-    }
-  }
-}
-
-.tabs--white {
-  background: $color-stiletto-red;
-  color: $color-white;
-
-  .tabs__list {
-    @include breakpoint($bp-md) {
-      border-bottom-color: $color-white;
-    }
-  }
-}
-
-.tabs__item {
-  display: block;
-  margin-bottom: 3px;
-  border: 3px solid rgba($color-silver, 0.5);
-  transition: border-color 0.2s ease;
-  overflow: hidden;
-
-  @include breakpoint($bp-md) {
-    /**
-     * Bring the bottom of the tabs item down to
-     * line up with the bottom tab list border.
-     */
-    margin-bottom: -3px;
-    margin-right: 0.2rem;
-    border-bottom-color: transparent;
-
-    // Tabs may have to wrap and this requires space..
-    .l-offset-2__right-column &,
-    .l-two-up__col & {
-      margin-top: 0.5rem;
+  @include breakpoint($bp-sm) {
+    &::after {
+      background-color: $color-gray-mid;
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      z-index: $zi-below-ground;
     }
   }
 
-  /* Active items have a solid bottom border. */
-  &.is-active,
-  &[data-tab-active] {
-    border-color: $color-silver;
-
-    .tabs--white & {
-      border-color: $color-white;
-    }
-
-    @include breakpoint($bp-md) {
-      border-bottom-color: $color-white;
-
-      .tabs--white & {
-        border-bottom-color: $color-stiletto-red;
-      }
-    }
-  }
-}
-
-.tabs__link {
-  padding: 10px 20px;
-  display: block;
-  font-weight: bold;
-  transition: color 0.5s ease-in;
-  white-space: nowrap;
-  overflow: hidden;
-
-  .tabs--white & {
-    color: $color-silver;
-  }
-
-  .is-active &,
-  [data-tab-active] & {
-    color: $color-tundora;
-
-    .tabs--white & {
-      color: $color-white;
-    }
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.tabs__panel-wrapper {
-  @include breakpoint($bp-md) {
-    border-bottom: 3px solid $color-silver;
-  }
-}
-
-.tabs--white .tabs__panel-wrapper {
-  border-bottom: 0;
-}
-
-/* Use aria-hidden to hide the hidden panels. */
-.tabs__panel {
-  @include clearfix;
-  padding-left: 1.5rem;
-  animation-name: fadeIn;
-  animation-duration: 1s;
-  animation-fill-mode: both;
-
-  @include breakpoint($bp-xxsm) {
+  li {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: $font-weight-bold;
+    margin: 0 0 8px;
     padding: 0;
+
+    @include breakpoint($bp-sm) {
+      display: inline-block;
+      margin: 0 8px 0 0;
+    }
   }
 
-  &[aria-hidden='true'] {
-    display: none;
+  a {
+    background-color: $color-gray-xlt;
+    border: 1px solid $color-gray-mid;
+    color: $color-gray-mid;
+    display: block;
+    padding: 8px 24px;
+    text-decoration: none;
+
+    @include breakpoint($bp-sm) {
+      border-bottom: 0;
+    }
   }
 
-  /* Add some default margins for paragraphs within panels. */
-  p {
-    margin-bottom: 1rem;
+  a:focus,
+  a:hover {
+    background-color: $color-white;
+    border: 1px solid $color-gray-mid;
+    border-bottom: 0;
+    color: $color-black;
   }
+
+  .is-active a {
+    background-color: $color-white;
+    border-bottom: 0;
+    color: $color-black;
+  }
+}
+
+.tabs.secondary {
+  margin-top: 10px;
+
+  li {
+    display: inline-block;
+    font-size: 0.875rem;
+    margin: 8px 16px 4px 0;
+  }
+
+  a {
+    background-color: transparent;
+    border-bottom: 2px solid $color-gray-lt;
+    color: $color-gray-mid;
+    display: block;
+    padding: 8px 12px 4px;
+  }
+
+  .is-active a,
+  a:focus,
+  a:hover {
+    background-color: transparent;
+    border-color: $color-black;
+    color: $color-black;
+    text-decoration: none;
+  }
+}
+
+.tabs__local-actions {
+  padding: 16px 0;
+}
+
+.tabs__local-actions-links {
+  margin: 0;
 }

@@ -4,7 +4,7 @@
   "scripts": {
     "build": "gulp && patternlab build --config ./patternlab-config.json",
     "compile": "gulp compile && patternlab build --config ./patternlab-config.json",
-    "watch": "concurrently \"npm:watch:*\"",
+    "watch": "gulp && concurrently \"npm:watch:*\"",
     "watch:patternlab": "patternlab serve --config ./patternlab-config.json",
     "watch:gulp": "gulp watch",
     "styleguide": "patternlab build --config ./patternlab-config.json",

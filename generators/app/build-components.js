@@ -11,16 +11,28 @@ module.exports = async function buildComponents(exampleComponents, app) {
   // with data for any selected example components.
   const libraries = await Promise.all(exampleComponents.map(async (component) => {
     // Copy the selected example component into the theme.
+    // Exclude the templates folder as that needs to go in a different directory.
+    // TODO: Why is this not copying the assets folder?
     app.fs.copy(
-      app.templatePath(`_example_components/${component}`),
-      app.destinationPath(`src/patterns/01-components/${component}`)
+      [
+        app.templatePath(`_example_components/${component}`),
+        `!${app.templatePath(`_example_components/${component}`)}/templates`
+      ],
+      app.destinationPath(`src/patterns/components/${component}`)
+    );
+
+    // Copy any Drupal templates into the templates directory.
+    app.fs.copy(
+      app.templatePath(`_example_components/${component}/templates/*`),
+      app.destinationPath(`src/templates`),
+      { ignoreNoMatch: true }
     );
 
     // Check to see if the example component contains a JS file.
     const jsFile = app.templatePath(`_example_components/${component}/${component}.js`);
     try {
-      const file = await fsPromises.access(jsFile, fs.constants.F_OK);
-      console.log(file);
+      await fsPromises.access(jsFile, fs.constants.F_OK);
+
       // If there's a JS file in the example component, add it to the
       // library.
       return {
@@ -48,11 +60,11 @@ module.exports = async function buildComponents(exampleComponents, app) {
       }
     }
   }));
-  // Convert the array into a flat object.
+  // Convert the array into a flat object needed for the libraries file.
   return { ...libraries.reduce((accumulator, currentValue) => {
     return {
       ...currentValue,
-      ...accumulator
+      ...accumulator,
     }
   }, {}) };
 };

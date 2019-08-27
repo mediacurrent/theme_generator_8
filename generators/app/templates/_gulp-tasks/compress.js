@@ -13,7 +13,7 @@ module.exports = {
   // Compress svg/png/jpg files.
   compressAssets: function() {
     return src([
-      './src/patterns/{global,layout,01-components}/**/*{.png,.jpg,.svg}'
+      './src/patterns/{global,layout,components}/**/*{.png,.jpg,.svg}'
     ])
       .pipe(
         imagemin({

@@ -42,7 +42,7 @@ If you're using `npm@5.2.0` or newer you already have [npx](https://medium.com/@
 npx allows you to run one off commands using the latest version of a package without installing it globally.
 
 ```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme'
+npm create yo mc-d8-theme
 ```
 
 Tools like this you only run once every so often. By the time you need to run it again it'll be so far out of date you'll have to update it.

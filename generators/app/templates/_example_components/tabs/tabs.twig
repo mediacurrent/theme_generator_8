@@ -1,8 +1,10 @@
-{{ attach_library('h4h_theme/tabs') }}
-<section class="tabs {{ modifier_class }} js-tabs">
+{{ attach_library('TODO/tabs') }}
+{# TODO: attach_library and add Drupal template. #}
+
+<section class="tabs {{ modifier_class }}">
   {% if title %}
     {% set heading_level = heading_level|default(2) %}
-    <h{{ heading_level }} class="section-title__heading">{{ title }}</h{{ heading_level }}>
+    <h{{ heading_level }}>{{ title }}</h{{ heading_level }}>
   {% endif %}
   <ul class="tabs__list">
     {% for tab in tabs %}

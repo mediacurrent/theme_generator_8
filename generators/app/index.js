@@ -1,4 +1,3 @@
-'use strict';
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
@@ -23,7 +22,7 @@ module.exports = class extends Generator {
       {
         name: 'themeName',
         message: 'What is your theme\'s human readable name?',
-        default: _.startCase(this.appname) // Default to current folder name
+        default: _.startCase(this.appname) // Default to current folder name.
       },
       {
         name: 'themeNameMachine',
@@ -60,6 +59,8 @@ module.exports = class extends Generator {
         type: 'checkbox',
         name: 'howMuchTheme',
         message: 'Would you like any starter components with your theme?',
+        // Be nice for these to be populated from an external repo
+        // and use a package.json to build this list.
         choices: [
           {
             value: 'button',
@@ -74,7 +75,7 @@ module.exports = class extends Generator {
             name: 'Drupal Tabs'
           },
           {
-            value: 'messages',
+            value: 'message',
             name: 'Drupal Messages'
           }
         ]
@@ -178,16 +179,16 @@ module.exports = class extends Generator {
       this.destinationPath('patternlab-config.json')
     );
     this.fs.copy(
-      this.templatePath('_src/patterns/00-global'),
-      this.destinationPath('src/patterns/00-global')
+      this.templatePath('_src/patterns/global'),
+      this.destinationPath('src/patterns/global')
     );
     this.fs.copy(
-      this.templatePath('_src/patterns/01-components/.gitkeep'),
-      this.destinationPath('src/patterns/01-components/.gitkeep')
+      this.templatePath('_src/patterns/components/.gitkeep'),
+      this.destinationPath('src/patterns/components/.gitkeep')
     );
     this.fs.copy(
-      this.templatePath('_src/patterns/02-pages/.gitkeep'),
-      this.destinationPath('src/patterns/02-pages/.gitkeep')
+      this.templatePath('_src/patterns/pages/.gitkeep'),
+      this.destinationPath('src/patterns/pages/.gitkeep')
     );
     this.fs.copy(
       this.templatePath('_src/styleguide'),
@@ -271,18 +272,9 @@ module.exports = class extends Generator {
     );
 
     // TODO: this needs to be updated for creating a new component.
-    // If we're including sample sections, add a sample list component.
-    // Use the component and js-behavior subgenerators to build the component.
-    // if (this.kssSections === true) {
-    //   // Add the sample .scss, .json and .twig files.
     //   this.composeWith('mc-d8-theme:component', {
     //     arguments: ['Sample List']
     //   });
-    //   // Add a sample JavaScript behavior.
-    //   this.composeWith('mc-d8-theme:js-behavior', {
-    //     arguments: ['sample-list']
-    //   });
-    // }
 
     this.fs.copy(
       this.templatePath('_screenshot.png'),
