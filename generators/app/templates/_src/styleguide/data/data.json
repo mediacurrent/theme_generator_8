@@ -2,42 +2,18 @@
   "title" : "Pattern Lab",
   "htmlClass": "pl",
   "bodyClass": "body",
-  "card": {
-    "image": "<img src=\"https://unsplash.it/1200/650\" alt=\"This is alt text\" />",
-    "heading": {
-      "title": "Get to know New Dental Choice",
-      "url": "",
-      "heading_level": "1",
-      "modifier": ""
+  "img": {
+    "landscape_4x3": {
+      "src": "https://via.placeholder.com/800x600?text=4:3",
+      "alt": "4:3 aspect ratio sample image"
     },
-    "subheading": {
-      "title": "Established dental care roots",
-      "url": "",
-      "heading_level": "2",
-      "modifier": ""
+    "landscape_16x9": {
+      "src": "https://via.placeholder.com/800x450?text=16:9",
+      "alt": "16:9 aspect ratio sample image"
     },
-    "body_text": "<p>At New Dental Choice, we’re here to help you save money on dental care – whether it’s basic or major.</p><p>We were established as a dental discount plan in 2001 by First Dental Health. And in 2012, we became part of the Principal® suite of dental programs when First Dental Health was purchased as a wholly owned subsidiary of Principal Financial Group®. We work with more than 100,000 dentist and specialist locations nationwide.</p><p>Please note: We currently do not offer New Dental Choice in Alaska, Hawaii, Maine, Montana, New Hampshire, Rhode Island, South Dakota, Vermont, Washington and Wyoming.</p>",
-    "btn": {
-      "text": "Choose your plan",
-      "url": "",
-      "modifier": "btn-primary "
-    },
-    "modifier": ""
-  },
-  "account_breaker": {
-    "image": "https://unsplash.it/1640/230",
-    "heading": {
-      "title": "Enjoy the advantages of quality, affordable dental care",
-      "heading_level": "2",
-      "modifier": "highlight-card__heading"
-    },
-    "subheading": {
-      "title": "New Dental Choice is for anyone at any age."
-    },
-    "cta": {
-      "text": "Choose your plan",
-      "url": "#"
-    },
-    "modifier": ""
+    "square": {
+      "src": "https://via.placeholder.com/450x450?text=1:1",
+      "alt": "1:1 aspect ratio sample image"
+    }
   }
 }

@@ -1,5 +1,4 @@
-{{ attach_library('TODO/messages') }}
-{# TODO: attach_library and add Drupal template. #}
+{{ attach_library('<%= themeNameMachine %>/messages') }}
 
 {% for type, messages in message_list %}
   <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes|without('role', 'aria-label') }} class="message message--{{ type }}">

@@ -4,6 +4,10 @@
 // Include gulp helpers.
 const { series, parallel, watch } = require('gulp');
 
+// Include Pattern Lab and config.
+const config = require('./patternlab-config.json');
+const patternlab = require('@pattern-lab/core')(config);
+
 // Include Our tasks.
 //
 // Each task is broken apart to it's own node module.
@@ -14,6 +18,7 @@ const { compressAssets } = require('./gulp-tasks/compress.js');
 const { cleanCSS, cleanJS } = require('./gulp-tasks/clean.js');
 const { concatCSS } = require('./gulp-tasks/concat.js');
 const { moveFonts, movePatternCSS } = require('./gulp-tasks/move.js');
+const server = require('browser-sync').create();
 
 // Compile Our Sass and JS
 exports.compile = parallel(compileSass, compileJS, moveFonts, movePatternCSS);
@@ -31,6 +36,55 @@ exports.concat = concatCSS;
 exports.clean = parallel(cleanCSS, cleanJS);
 
 /**
+ * Start browsersync server.
+ * @param {function} done callback function.
+ * @returns {undefined}
+ */
+function serve(done) {
+  // See https://browsersync.io/docs/options for more options.
+  server.init({
+    server: {
+      baseDir: './patternlab/'
+    },
+    notify: false,
+    open: false
+  });
+  done();
+}
+
+/**
+ * Start Pattern Lab build watch process.
+ * @param {function} done callback function.
+ * @returns {undefined}
+ */
+function watchPatternlab(done) {
+  patternlab
+    .build({
+      cleanPublic: false,
+      watch: true
+    })
+    .then(() => {
+      done();
+    });
+}
+
+/**
+ * Build Pattern Lab.
+ * @param {function} done callback function.
+ * @returns {undefined}
+ */
+function buildPatternlab(done) {
+  patternlab
+    .build({
+      cleanPublic: config.cleanPublic,
+      watch: false
+    })
+    .then(() => {
+      done();
+    });
+}
+
+/**
  * Watch Sass and JS files.
  * @returns {undefined}
  */
@@ -38,14 +92,32 @@ function watchFiles() {
   // Watch all my sass files and compile sass if a file changes.
   watch(
     './src/patterns/**/**/*.scss',
-    series(parallel(lintSass, compileSass), concatCSS)
+    series(parallel(lintSass, compileSass), concatCSS, (done) => {
+      server.reload('*.css');
+      done();
+    })
   );
 
   // Watch all my JS files and compile if a file changes.
-  watch('./src/patterns/**/**/*.js', parallel(lintJS, compileJS));
+  watch(
+    './src/patterns/**/**/*.js',
+    parallel(lintJS, compileJS, (done) => {
+      server.reload('*.js');
+      done();
+    })
+  );
+
+  // Reload the browser after patternlab updates.
+  patternlab.events.on('patternlab-build-end', () => {
+    server.reload('*.html');
+  });
 }
 
-exports.watch = watchFiles;
+// Watch task that runs a browsersync server.
+exports.watch = series(watchPatternlab, serve, watchFiles);
+
+// Build task for Pattern Lab.
+exports.styleguide = buildPatternlab;
 
 // Default Task
 exports.default = series(
@@ -59,5 +131,6 @@ exports.default = series(
     moveFonts,
     movePatternCSS
   ),
-  concatCSS
+  concatCSS,
+  buildPatternlab
 );

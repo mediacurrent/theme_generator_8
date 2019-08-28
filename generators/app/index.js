@@ -67,10 +67,6 @@ module.exports = class extends Generator {
             name: 'Button'
           },
           {
-            value: 'hero',
-            name: 'Hero'
-          },
-          {
             value: 'tabs',
             name: 'Drupal Tabs'
           },
@@ -126,7 +122,8 @@ module.exports = class extends Generator {
         .catch(error => {
           console.error(error);
         });
-    } else {
+    }
+    else {
       // No example componets were selected, go ahead and copy over the default
       // Drupal libraries file without any additional libraries.
       this.fs.copyTpl(
@@ -272,6 +269,7 @@ module.exports = class extends Generator {
     );
 
     // TODO: this needs to be updated for creating a new component.
+    // Can prob remove this for now.
     //   this.composeWith('mc-d8-theme:component', {
     //     arguments: ['Sample List']
     //   });
@@ -285,11 +283,9 @@ module.exports = class extends Generator {
   install() {
     // Install the following node modules specifically for Pattern Lab.
     var npmArray = [
-      '@pattern-lab/cli',
       '@pattern-lab/core',
       '@pattern-lab/engine-twig-php',
-      '@pattern-lab/uikit-workshop',
-      'concurrently'
+      '@pattern-lab/uikit-workshop'
     ];
 
     // This runs `npm install ... --save-dev` on the command line.
@@ -309,5 +305,4 @@ You can always rerun the generator some other time in a different directory
 and copy over what you're missing.`));
     this.log(chalk.red('🚀'));
   }
-
 };

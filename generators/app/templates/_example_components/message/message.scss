@@ -38,13 +38,13 @@
   color: #325e1c;
   background-color: #f3faef;
   border-color: #77b259;
-  background-image: url('../assets/check.svg');
+  background-image: url('../images/check.svg');
 }
 
 // See .color-warning in Seven's colors.css.
 .message--warning {
   background-color: #fdf8ed;
-  background-image: url('../assets/warning.svg');
+  background-image: url('../images/warning.svg');
   border-color: #e09600;
   color: #734c00;
 }
@@ -53,6 +53,6 @@
 .message--error {
   background-color: #ffddde;
   color: #a23433;
-  background-image: url('../assets/error.svg');
+  background-image: url('../images/error.svg');
   border-color: #a23433;
 }
