@@ -1,8 +1,9 @@
-// TODO: Need JS Doc.
 // Scaffolds out the component folders and returns the generated manifest
-// used to populate the Drupal libraries file.
+// used to populate the Drupal libraries file and copy over any
+// Drupal templates.
 
 const fs = require('fs');
+// Experimental, could switch to normal FS I suppose.
 const fsPromises = fs.promises;
 
 // Could still possibly be an async await function
@@ -32,10 +33,25 @@ module.exports = async function buildComponents(exampleComponents, app) {
     );
 
     // Copy any Drupal templates into the templates directory.
-    app.fs.copy(
-      app.templatePath(`_example_components/${component}/templates/*`),
-      app.destinationPath(`src/templates`),
-      { ignoreNoMatch: true }
+    fs.readdir(
+      app.templatePath(`_example_components/${component}/templates`),
+      (err, files) => {
+        if (!err) {
+          // Make sure the file is a twig file.
+          const twigFiles = files.filter(name => name.endsWith('.twig'))
+          // Loop over all template files, pass through the theme machine name,
+          // and copy them to the src/templates directory.
+          twigFiles.forEach(file => {
+            app.fs.copyTpl(
+              app.templatePath(`_example_components/${component}/templates/${file}`),
+              app.destinationPath(`src/templates/${file}`),
+              {
+                themeNameMachine: app.themeNameMachine
+              }
+            );
+          });
+        }
+      }
     );
 
     // Check to see if the example component contains a JS file.

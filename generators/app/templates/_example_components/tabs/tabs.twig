@@ -1,24 +1,26 @@
 {{ attach_library('<%= themeNameMachine %>/tabs') }}
 
-<section class="tabs {{ modifier_class }}">
-  {% if title %}
-    {% set heading_level = heading_level|default(2) %}
-    <h{{ heading_level }}>{{ title }}</h{{ heading_level }}>
-  {% endif %}
-  <ul class="tabs__list">
-    {% for tab in tabs %}
-      <li class="tabs__item {{ tab.classes }}">
-        <a class="tabs__link" href="{{ tab.link }}">{{ tab.text }}</a>
-      </li>
-    {% endfor %}
+{% if primary %}
+  <h2 class="visually-hidden">{{ 'Primary tabs'|t }}</h2>
+  <ul class="tabs primary">
+    {% block primary %}
+      {% for tab in tabs %}
+        <li class="{{is_active ? 'is-active'}}"}>
+          <a href="{{ tab.link }}">{{ tab.text }}</a>
+        </li>
+      {% endfor %}
+    {% endblock primary %}
   </ul>
-  {% if (tabs_content) %}
-    <div class="tabs__panel-wrapper">
-    {% for content in tabs_content %}
-      <section id="{{ content.id }}" class="tabs__panel {{ content.classes }}">
-        {{ content.body }}
-      </section>
-    {% endfor %}
-    </div>
-  {% endif %}
-</section>
+{% endif %}
+{% if secondary %}
+  <h2 class="visually-hidden">{{ 'Secondary tabs'|t }}</h2>
+  <ul class="tabs secondary">
+    {% block secondary %}
+      {% for tab in tabs %}
+        <li class="{{is_active ? 'is-active'}}"}>
+          <a href="{{ tab.link }}">{{ tab.text }}</a>
+        </li>
+      {% endfor %}
+    {% endblock secondary %}
+  </ul>
+{% endif %}

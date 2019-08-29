@@ -28,6 +28,10 @@ globals:
 
   drupalSettings: true
 
+parserOptions:
+
+  ecmaVersion: 8
+
 # Inherit settings from ESLint Recommended config.
 # Rules above override any rules configured here.
 extends: 'eslint:recommended'

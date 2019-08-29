@@ -13,7 +13,11 @@ module.exports = {
   // Concat all CSS into a master bundle.
   concatCSS: function() {
     return (
-      src(['./dist/css/*.css', '!./dist/css/all.css'])
+      src([
+        './dist/css/*.css',
+        '!./dist/css/all.css',
+        '!./dist/css/pattern-scaffolding.css'
+      ])
         // Reorder the files so global is first.
         // If you need to get fancier with the order here's an example:
         // .pipe(order([

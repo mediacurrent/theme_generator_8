@@ -1,38 +1,26 @@
 {
-  "title": "Optional Title",
-  "heading_level": 3,
+  "htmlClass": "no-padding",
+  "primary": true,
   "tabs": [
     {
-      "text": "Zip code",
-      "link": "#zip",
-      "classes": ""
+      "text": "View",
+      "link": "#view",
+      "is_active": true
     },
     {
-      "text": "State/Province",
-      "link": "#state",
-      "classes": ""
+      "text": "Edit",
+      "link": "#edit",
+      "is_active": false
     },
     {
-      "text": "Country",
-      "link": "#country",
-      "classes": ""
-    }
-  ],
-  "tabs_content": [
-    {
-      "id": "zip",
-      "body": "<p>Tab Body Zip</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique purus ante, ac pulvinar augue luctus eu. Donec erat ex, dictum ac libero eget, vestibulum commodo ipsum. Praesent erat libero, porttitor eget iaculis vel, rutrum sed elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lobortis ipsum, vitae iaculis odio. Donec elementum metus et orci convallis, a fermentum eros efficitur. Duis ligula leo, ornare vel justo vel, sagittis eleifend sem.</p>",
-      "classes": ""
+      "text": "Delete",
+      "link": "#delete",
+      "is_active": false
     },
     {
-      "id": "state",
-      "body": "<p>Tab Body State</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique purus ante, ac pulvinar augue luctus eu. Donec erat ex, dictum ac libero eget, vestibulum commodo ipsum. Praesent erat libero, ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lobortis ipsum, vitae iaculis odio. Donec elementum metus et orci convallis, a fermentum eros efficitur. Duis ligula leo, ornare vel justo vel, sagittis eleifend sem.</p>",
-      "classes": ""
-    },
-    {
-      "id": "country",
-      "body": "<p>Tab Body Country</p><p>Consectetur adipiscing elit. Cras tristique purus ante, ac pulvinar augue luctus eu. Donec erat ex, dictum ac libero eget, vestibulum commodo ipsum. Praesent erat libero, porttitor eget iaculis vel, rutrum sed elit. ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lobortis ipsum, vitae iaculis odio. Donec elementum metus et orci convallis, a fermentum eros efficitur. Duis ligula leo, ornare vel justo vel, sagittis eleifend sem.</p>",
-      "classes": ""
+      "text": "Revisions",
+      "link": "#revisions",
+      "is_active": false
     }
   ]
 }

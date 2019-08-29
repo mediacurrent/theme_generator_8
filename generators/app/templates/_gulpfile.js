@@ -43,9 +43,12 @@ exports.clean = parallel(cleanCSS, cleanJS);
 function serve(done) {
   // See https://browsersync.io/docs/options for more options.
   server.init({
-    server: {
-      baseDir: './patternlab/'
-    },
+    // We want to serve both the patternlab directory, so it gets
+    // loaded by default AND three directories up which is the
+    // Drupal core directory. This allows urls that reference
+    // Drupal core JS files to resolve correctly.
+    // i.e. /core/misc/drupal.js
+    server: ['./patternlab/', '../../../'],
     notify: false,
     open: false
   });
