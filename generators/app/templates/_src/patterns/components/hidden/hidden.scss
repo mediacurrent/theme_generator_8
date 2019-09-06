@@ -15,7 +15,6 @@
   display: none;
 }
 
-
 // Hide elements visually, but keep them available for screen readers.
 
 // Used for information required for screen reader users to understand and use
@@ -25,7 +24,6 @@
 .visually-hidden {
   @include element-invisible;
 }
-
 
 // The .focusable class extends the .visually-hidden class to allow
 // the element to be focusable when navigated to via the keyboard.

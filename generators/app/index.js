@@ -184,6 +184,24 @@ module.exports = class extends Generator {
       this.destinationPath('src/patterns/components')
     );
     this.fs.copy(
+      this.templatePath('_helper-components/icons'),
+      this.destinationPath('src/patterns/components/icons')
+    );
+    this.fs.copyTpl(
+      this.templatePath('_helper-components/icons/icons.md'),
+      this.destinationPath('src/patterns/components/icons/icons.md'),
+      {
+        themeNameMachine: this.themeNameMachine
+      }
+    );
+    this.fs.copyTpl(
+      this.templatePath('_helper-components/icons/_icons.twig'),
+      this.destinationPath('src/patterns/components/icons/_icons.twig'),
+      {
+        themeNameMachine: this.themeNameMachine
+      }
+    );
+    this.fs.copy(
       this.templatePath('_src/patterns/pages/.gitkeep'),
       this.destinationPath('src/patterns/pages/.gitkeep')
     );
@@ -269,7 +287,9 @@ module.exports = class extends Generator {
     );
 
     // TODO: this needs to be updated for creating a new component.
-    // Can prob remove this for now.
+    // May be able to repurpose to add example components. Would require
+    // Abstracting out pieces of 'build-components'.
+    //
     //   this.composeWith('mc-d8-theme:component', {
     //     arguments: ['Sample List']
     //   });
