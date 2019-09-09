@@ -65,7 +65,7 @@
   border: 3px solid rgba(0, 0, 0, 0.15);
 }
 
-.pl-icons__icon {
+.pl-icons .icon {
   vertical-align: middle;
   margin: 20px auto;
   fill: #222222;
@@ -75,6 +75,7 @@
 }
 
 .pl-icons__name {
+  margin: 0;
   font-size: small;
   padding: 15px;
   background-color: rgba(0, 0, 0, 0.25);

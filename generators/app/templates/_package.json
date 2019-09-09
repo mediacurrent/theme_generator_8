@@ -9,7 +9,8 @@
     "compress": "gulp compress",
     "lint": "gulp lint",
     "clean": "gulp clean",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "postinstall": "patch-package"
   },
   "babel": {
     "sourceType": "unambiguous",

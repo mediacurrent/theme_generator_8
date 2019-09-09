@@ -122,10 +122,13 @@
           ]
         },
         {
-          "id": "TODOtheme_name",
+          "id": "<%= themeNameMachine %>",
           "recursive": true,
           "paths": [
-            "./src/patterns/components"
+            "./src/patterns/components",
+            "./src/patterns/global",
+            "./src/patterns/pages",
+            "./src/patterns/layout"
           ]
         }
       ],

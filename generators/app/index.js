@@ -171,9 +171,14 @@ module.exports = class extends Generator {
       this.templatePath('sass-lint.yml'),
       this.destinationPath('.sass-lint.yml')
     );
-    this.fs.copy(
+    // We need the theme machine name so we can set
+    // correct namespaces.
+    this.fs.copyTpl(
       this.templatePath('_patternlab-config.json'),
-      this.destinationPath('patternlab-config.json')
+      this.destinationPath('patternlab-config.json'),
+      {
+        themeNameMachine: this.themeNameMachine
+      }
     );
     this.fs.copy(
       this.templatePath('_src/patterns/global'),
@@ -195,11 +200,26 @@ module.exports = class extends Generator {
       }
     );
     this.fs.copyTpl(
-      this.templatePath('_helper-components/icons/_icons.twig'),
-      this.destinationPath('src/patterns/components/icons/_icons.twig'),
+      this.templatePath('_helper-components/icons/icons.twig'),
+      this.destinationPath('src/patterns/components/icons/icons.twig'),
       {
         themeNameMachine: this.themeNameMachine
       }
+    );
+    this.fs.copyTpl(
+      this.templatePath('_helper-components/icons/_icons-macro.twig'),
+      this.destinationPath('src/patterns/components/icons/_icons-macro.twig'),
+      {
+        themeNameMachine: this.themeNameMachine
+      }
+    );
+    this.fs.copy(
+      this.templatePath('_src/patterns/layout/.gitkeep'),
+      this.destinationPath('src/patterns/layout/.gitkeep')
+    );
+    this.fs.copy(
+      this.templatePath('_patches'),
+      this.destinationPath('patches')
     );
     this.fs.copy(
       this.templatePath('_src/patterns/pages/.gitkeep'),
@@ -305,7 +325,8 @@ module.exports = class extends Generator {
     var npmArray = [
       '@pattern-lab/core',
       '@pattern-lab/engine-twig-php',
-      '@pattern-lab/uikit-workshop'
+      '@pattern-lab/uikit-workshop',
+      'patch-package'
     ];
 
     // This runs `npm install ... --save-dev` on the command line.
