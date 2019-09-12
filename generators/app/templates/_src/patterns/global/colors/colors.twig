@@ -1,41 +1,19 @@
-<h3>Primary</h3>
-<div class="pl-swatch" style="background-color: #dfeed8">
-  <div class="pl-swatch__hex">$color-green-lt<br>#dfeed8</div>
-</div>
-<div class="pl-swatch" style="background-color: #77b259">
-  <div class="pl-swatch__hex">$color-green-mid<br>#77b259</div>
-</div>
-<div class="pl-swatch" style="background-color: #325e1c">
-  <div class="pl-swatch__hex">$color-green-dk<br>#325e1c</div>
-</div>
-<div class="pl-swatch" style="background-color: #f9ecd1">
-  <div class="pl-swatch__hex">$color-yellow-lt<br>#f9ecd1</div>
-</div>
-<div class="pl-swatch" style="background-color: #e09600">
-  <div class="pl-swatch__hex">$color-yellow-mid<br>#e09600</div>
-</div>
-<div class="pl-swatch" style="background-color: #734c00">
-  <div class="pl-swatch__hex">$color-yellow-dk<br>#734c00</div>
-</div>
+{#
+/**
+ * @file
+ * Display for theme color swatches.
+ *
+ * Each color swatch is populated from the json file within
+ * this same directory (colors.json). Add or remove
+ * any colors there.
+ */
+#}
 
-<h3>Black &amp; White</h3>
-<div class="pl-swatch" style="background-color: #000000">
-  <div class="pl-swatch__hex">$color-black<br>#000000</div>
-</div>
-<div class="pl-swatch" style="background-color: #FFFFFF">
-  <div class="pl-swatch__hex">$color-white<br>#FFFFFF</div>
-</div>
-
-<h3>Grays</h3>
-<div class="pl-swatch" style="background-color: #404041">
-  <div class="pl-swatch__hex">$color-gray-dk<br>#404041</div>
-</div>
-<div class="pl-swatch" style="background-color: #6d6e71">
-  <div class="pl-swatch__hex">$color-gray-mid<br>#6d6e71</div>
-</div>
-<div class="pl-swatch" style="background-color: #d3d3d4">
-  <div class="pl-swatch__hex">$color-gray-lt<br>#d3d3d4</div>
-</div>
-<div class="pl-swatch" style="background-color: #f5f4f0">
-  <div class="pl-swatch__hex">$color-gray-xlt<br>#f5f4f0</div>
-</div>
+{% for title, section in sections %}
+  <h3>{{ title }}</h3>
+  {% for color in section %}
+    <div class="pl-swatch" style="background-color: {{ color.hex }}">
+      <div class="pl-swatch__hex">{{ color.name }}<br>{{ color.hex }}</div>
+    </div>
+  {% endfor %}
+{% endfor %}

@@ -4,7 +4,7 @@
   "scripts": {
     "build": "gulp",
     "compile": "gulp compile",
-    "watch": "gulp && gulp watch",
+    "watch": "gulp watch",
     "styleguide": "gulp styleguide",
     "compress": "gulp compress",
     "lint": "gulp lint",

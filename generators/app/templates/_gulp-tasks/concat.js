@@ -35,5 +35,19 @@ module.exports = {
         .pipe(concat('all.css'))
         .pipe(dest('./dist/css'))
     );
+  },
+  // Concat all JS into a master bundle.
+  concatJS: function() {
+    return (
+      src(['./dist/js/*.js', '!./dist/js/all.js'])
+        // If you need to reorder any of the JS files here's an example:
+        // .pipe(order([
+        //   'dist/js/header.js',
+        //   'dist/js/button.js',
+        //   'dist/js/*.js'
+        // ], { base: './' }))
+        .pipe(concat('all.js'))
+        .pipe(dest('./dist/js'))
+    );
   }
 };

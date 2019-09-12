@@ -16,7 +16,7 @@ const { compileSass, compileJS } = require('./gulp-tasks/compile.js');
 const { lintJS, lintSass } = require('./gulp-tasks/lint.js');
 const { compressAssets } = require('./gulp-tasks/compress.js');
 const { cleanCSS, cleanJS } = require('./gulp-tasks/clean.js');
-const { concatCSS } = require('./gulp-tasks/concat.js');
+const { concatCSS, concatJS } = require('./gulp-tasks/concat.js');
 const { moveFonts, movePatternCSS } = require('./gulp-tasks/move.js');
 const server = require('browser-sync').create();
 
@@ -29,8 +29,8 @@ exports.lint = parallel(lintSass, lintJS);
 // Compress Files
 exports.compress = compressAssets;
 
-// Concat all CSS files into a master bundle.
-exports.concat = concatCSS;
+// Concat all CSS and JS files into a master bundle.
+exports.concat = parallel(concatCSS, concatJS);
 
 // Clean all directories.
 exports.clean = parallel(cleanCSS, cleanJS);
@@ -63,7 +63,7 @@ function serve(done) {
 function watchPatternlab(done) {
   patternlab
     .build({
-      cleanPublic: false,
+      cleanPublic: config.cleanPublic,
       watch: true
     })
     .then(() => {
@@ -104,7 +104,7 @@ function watchFiles() {
   // Watch all my JS files and compile if a file changes.
   watch(
     './src/patterns/**/**/*.js',
-    parallel(lintJS, compileJS, (done) => {
+    series(parallel(lintJS, compileJS), concatJS, (done) => {
       server.reload('*.js');
       done();
     })
@@ -117,7 +117,20 @@ function watchFiles() {
 }
 
 // Watch task that runs a browsersync server.
-exports.watch = series(watchPatternlab, serve, watchFiles);
+exports.watch = series(
+  parallel(cleanCSS, cleanJS),
+  parallel(
+    lintSass,
+    compileSass,
+    lintJS,
+    compileJS,
+    compressAssets,
+    moveFonts,
+    movePatternCSS
+  ),
+  parallel(concatCSS, concatJS),
+  series(watchPatternlab, serve, watchFiles)
+);
 
 // Build task for Pattern Lab.
 exports.styleguide = buildPatternlab;
@@ -134,6 +147,6 @@ exports.default = series(
     moveFonts,
     movePatternCSS
   ),
-  concatCSS,
+  parallel(concatCSS, concatJS),
   buildPatternlab
 );

@@ -10,7 +10,7 @@
   text-align: center;
   line-height: 1;
   cursor: pointer;
-  background-color: $color-yellow-lt;
+  background-color: $color-tradewind;
   font-weight: bold;
   transition: background-color 0.25s ease-out, color 0.25s ease-out;
   vertical-align: middle;
@@ -20,7 +20,8 @@
 
   &:hover,
   &:active {
-    background-color: $color-yellow-mid;
+    color: $color-white;
+    background-color: darken($color-tradewind, 15);
   }
 
   &:disabled {
@@ -31,15 +32,16 @@
 
 .button--primary {
   padding: 10px 20px;
-  color: $color-green-mid;
+  color: $color-danube;
   background-color: $color-white;
   border: 3px solid $color-white;
   border-radius: 3px;
 
   &:hover,
   &:active {
-    color: $color-green-mid;
+    color: $color-danube;
     text-decoration: none;
+    border: 3px solid darken($color-danube, 15);
     background-color: rgba($color-white, 0.85);
   }
 }
