@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Display for theme color swatches.
+ *
+ * Each color swatch is populated from the json file within
+ * this same directory (colors.json). Add or remove
+ * any colors there.
+ */
+#}
+
+{% for title, section in sections %}
+  <h3>{{ title }}</h3>
+  {% for color in section %}
+    <div class="pl-swatch" style="background-color: {{ color.hex }}">
+      <div class="pl-swatch__hex">{{ color.name }}<br>{{ color.hex }}</div>
+    </div>
+  {% endfor %}
+{% endfor %}

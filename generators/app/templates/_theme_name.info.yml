@@ -25,25 +25,16 @@ base theme: <%= baseTheme %>
 # - Remove an entire library.
 # - Replace an asset in a library with another asset.
 # - Remove an asset from a library.
-# libraries-override:
-#   system/base:
-#     css:
-#       component:
-#         # Replace one library with another.
-#         /core/themes/stable/css/system/components/ajax-progress.module.css: components/ajax-progress/ajax-progress.module.css
-#         # Remove an entire library.
-#         /core/themes/stable/css/system/components/fieldgroup.module.css: false
-
-#   views/views.module:
-#     css:
-#       component:
-#         /core/themes/stable/css/views/views.module.css: false
-
+libraries-override:
+  system/base:
+    css:
+      component:
+        # Replace one file with another.
+        /core/themes/stable/css/system/components/hidden.module.css: dist/css/hidden.css
 
 # The "libraries-extend:" section will allow you to add your own JS or CSS to
 # existing libraries.
 # libraries-extend:
-
 
 # The "libraries:" section will add a library to _all_ pages.
 libraries:
@@ -52,7 +43,6 @@ libraries:
   # See <%= themeNameMachine %>.libraries.yml for more info.
   #- <%= themeNameMachine %>/webfonts
 
-
 # This section is used by the contrib module, Component Libraries. It allows you
 # to reference .twig files in your sass/ directory by using the Twig namespace:
 # @<%= themeNameMachine %>
@@ -60,8 +50,9 @@ libraries:
 component-libraries:
   <%= themeNameMachine %>:
     paths:
-      - src/components
-      - src/layout
+      - src/patterns/global
+      - src/patterns/components
+      - src/patterns/pages
       - src/templates
 
 # This section lists the regions defined in the theme (our base theme) default

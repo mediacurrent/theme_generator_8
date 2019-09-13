@@ -1,0 +1,18 @@
+// Variables.
+
+$zi-highest: 50;
+$zi-high: 40;
+$zi-medium: 30;
+$zi-low: 20;
+$zi-lowest: 10;
+$zi-ground: 0;
+$zi-below-ground: -1;
+
+// Transition speeds.
+$standard--transition-speed: 300ms;
+$transition: $standard--transition-speed ease-in-out;
+$transition-fast: 0.1s linear;
+$motion-slow: 1000ms ease-in-out;
+$motion-default: 500ms ease-in-out;
+$motion-fast: 200ms ease-in-out;
+$motion-super-fast: 50ms ease-in-out;

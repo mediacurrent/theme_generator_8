@@ -1,33 +1,43 @@
 /*eslint strict: ["error", "global"]*/
 'use strict';
 
-// If some JS components aren't es6 we want to simply move them
-// into the dist folder. This allows us to clean the dist/js
-// folder on build.
-
-//=======================================================
 // Include gulp
-//=======================================================
-var gulp = require('gulp');
+const { src, dest } = require('gulp');
 
-//=======================================================
 // Include Our Plugins
-//=======================================================
-var rename = require('gulp-rename');
+const rename = require('gulp-rename');
 
 // Export our tasks.
 module.exports = {
-
-  // Moves JavaScript.
-  js: function() {
-    return gulp.src([
-      './src/{global,layout,components}/**/*.js',
-      '!./src/{global,layout,components}/**/*.es6.js'
-    ], { base: './' })
-      .pipe(rename(function (path) {
-        path.dirname = '';
-        return path;
-      }))
-      .pipe(gulp.dest('./dist/js'));
+  // Move any fonts to where Pattern Lab is lookinging for them.
+  moveFonts: function() {
+    return src(
+      [
+        './src/patterns/global/fonts/**/*.woff',
+        './src/patterns/global/fonts/**/*.woff2',
+        './src/patterns/global/fonts/**/*.eot',
+        './src/patterns/global/fonts/**/*.ttf',
+        './src/patterns/global/fonts/**/*.svg'
+      ],
+      { base: './' }
+    )
+      .pipe(
+        rename(function(path) {
+          path.dirname = '';
+          return path;
+        })
+      )
+      .pipe(dest('./dist/fonts'));
+  },
+  // Move CSS specific to styling Pattern Lab.
+  movePatternCSS: function() {
+    return src(['./src/styleguide/**/*.css'], { base: './' })
+      .pipe(
+        rename(function(path) {
+          path.dirname = '';
+          return path;
+        })
+      )
+      .pipe(dest('./dist/css'));
   }
 };

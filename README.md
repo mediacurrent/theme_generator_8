@@ -2,13 +2,22 @@
 
 > [Yeoman generator](http://yeoman.io/) for Drupal Themes - lets you quickly set up a Drupal 8 theme with sensible defaults and best practices.
 
+- [What's New](#whats-new)
+- [Usage](#usage)
+  - [Node Version Manager](#first-a-note-about-using-nodejs-via-nvm)
+  - [Getting Started](#getting-started)
+- [The New Theme](#the-new-theme)
+  - [Support](#support)
+  - [Patches](#patches)
+  - [A Word About Commiting ./dist Files](#a-word-about-commiting-dist-files)
+  - [Stuff You Might Want To Change](#stuff-you-might-want-to-change)
+  - [Go Team](#go-team)
+- [Links](#links)
+- [Contributing](#contributing)
+
 ## What's New
 
 **[Read the ⚡️ Changelog!](CHANGELOG.md)**
-
-## Links
-* [`.sass-lint.yml`](generators/app/templates/sass-lint.yml)
-* [`.eslintrc.yml`](generators/app/templates/eslintrc.yml)
 
 ## Usage
 
@@ -19,7 +28,7 @@ I.E.
 themes/custom/my_awesome_theme
 ```
 
-### First a note about using Node.js via [NVM](https://github.com/creationix/nvm)
+### First a note about using Node.js via NVM
 
 While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project. Here's a quick one liner that will install the latest stable version of Node using NVM and create a `.nvmrc` file.
 
@@ -31,169 +40,68 @@ From now on, when working on this theme change into its directory and run `nvm u
 
 ### Getting Started
 
-There are **two ways** to install and use the theme generator:
-
-#### 1. Use [npx](https://www.npmjs.com/package/npx)
-
-**This is the recommended way of running the theme generator.**
-
-If you're using `npm@5.2.0` or newer you already have [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) available on the command line.
-
-npx allows you to run one off commands using the latest version of a package without installing it globally.
-
-```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme'
+To run the theme generator type the command:
+```
+npm create yo mc-d8-theme
 ```
 
-Tools like this you only run once every so often. By the time you need to run it again it'll be so far out of date you'll have to update it.
+You should be taken through a series of questions that allow you to pick the best options for your theme.
 
-#### 2. Install `yo` and `generator-mc-d8-theme` globally:
+**More info if you're interested in how this stuff works:**
 
-**This is NOT the recommended way of running the theme generator.**
-
-If you're using an older version of npm or just want to install it globally:
-
-```bash
-npm install -g yo generator-mc-d8-theme
-```
-
-**Run `yo mc-d8-theme`:**
-
-```
-yo mc-d8-theme
-```
-
-To see which generators and subgenerators you have, run `yo --help`.
-
-**Update the generator as needed.**
-
-```
-npm update -g generator-mc-d8-theme
-```
-
-## Generators
-
-The `mc-d8-theme` generator makes use of several subgenerators. Each of these can be called individually.
-
-Available generators:
-
-* [mc-d8-theme](#markdown-header-app) (aka [mc-d8-theme:app](#markdown-header-app), the main app)
-* [mc-d8-theme:component](#markdown-header-component)
-* [mc-d8-theme:js-behavior](#markdown-header-js-behavior)
-* [mc-d8-theme:kss-style-guide](#markdown-header-kss-style-guide)
-
-### App
-
-**Main generator**
-
-Sets up a new theme, generating all the boilerplate you need to get started. The app generator also adds normalize and sample components.
-
-Example:
-
-```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme'
-```
-
-Or:
-
-```bash
-yo mc-d8-theme
-```
-
-### Component
-Generates component boiler plate based on whatever name you pass it. Please delete whatever you don't need. If you haven't modified it, you don't need it.
-
-Example:
-
-```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:component "Site Logo"'
-```
-
-Or:
-
-```bash
-yo mc-d8-theme:component 'Site Logo'
-```
-
-This would generate the following files:
-
-- components/site-logo/site-logo.scss
-- components/site-logo/site-logo.json
-- components/site-logo/site-logo.twig
-
-### JS Behavior
-Generates a Drupal JS behavior based on whatever component file name you pass it.
-
-Example:
-
-```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:js-behavior "site-logo"'
-```
-
-Or:
-
-```bash
-yo mc-d8-theme:js-behavior 'site-logo'
-```
-
-By default this will put the new behavior in the components directory. For example if
-the component name you passed it was `site-logo`, it will generate a new behavior within:
-`src/components/site-logo/site-logo.es6.js`.
-
-The generated file is ES6 / ES2015 ready and can be compiled by the provided build tools.
-
-### KSS Style Guide
-Generates a KSS Node style guide. You must pass it a name and a machine name for the theme if run independently of the main app. If run by itself this subgenerator has no way to modify your existing `gulpfile.js` Instead it will provide code you can copy and paste into your `gulpfile.js` for it to work correctly.
-
-Example:
-
-```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:kss-style-guide "Super Sweet Theme" "super_sweet_theme"'
-```
-
-Or:
-
-```bash
-yo mc-d8-theme:kss-style-guide 'Super Sweet Theme' 'super_sweet_theme'
-```
-
-Use `--help` to see all usage info.
-
-Example:
-
-```bash
-npx -p yo -p generator-mc-d8-theme -c 'yo mc-d8-theme:kss-style-guide --help'
-```
-
-Or:
-
-```bash
-yo mc-d8-theme:kss-style-guide --help
-```
+`npm create` is an alias of `npm init` and uses [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) under the hood. Find out more about [npm init](https://docs.npmjs.com/cli/init.html).
 
 ## The New Theme
 
-### Sass & Gulp
-Currently your new theme uses [libSass](http://sass-lang.com/libsass) and [Gulp](http://gulpjs.com/). While you can add whichever Gulp plugins you'd like, by default only the basics are provided.
+### Support
 
-* Gulp Sass
-* Gulp Autoprefixer
-* Browser Sync
-* Source Maps
-* Gulp Sass lint
-* Gulp Eslint
-* Gulp Babel
-* Gulp imagemin
+The following is supported by your new theme.
 
-If you're not using `npm@5.0.0` or later (which generates a lockfile `package-lock.json`) consider using [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap).
+* [Pattern Lab (Node)](https://github.com/pattern-lab/patternlab-node/)
+* ES6+ (With Source Maps)
+* Sass
+* Image Compression
+* Live reloading
+* Sass and JavaScript linting
 
-After you've got the Gulp file modified to your hearts content, [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) the dependencies so everyone uses the _exact_ same node modules.
+The theme generator allows you to optionally add several example components.
 
-```bash
-npm shrinkwrap --save-dev
-```
+* Button
+* Drupal Messages (Based off of the Classy base theme)
+* Drupal Tabs
 
-Now running `npm install` will download the node modules specified in the npm-shrinkwrap.json file.
+These can include both component and Drupal templates that are added to the appropriate place during theme generation. Your theme.libraries.yml is also updated to include the relevant libraries.
+
+### Patches
+
+We're using the beta version of [Pattern Lab (Node)](https://github.com/pattern-lab/patternlab-node/). As you can imagine there are a few issues that come up that haven't been resolved yet. For this project we use [Patch Package](https://www.npmjs.com/package/patch-package) to patch the following issues.
+
+* [Menu & View All list breaks if pattern name and folder name are identical](https://github.com/pattern-lab/patternlab-node/issues/1049)
+* [Pseudo patterns not working with twig php engine](https://github.com/pattern-lab/patternlab-node/issues/1045)
+
+There's nothing special you have to do. `patch package` will run after the `npm install`.
+
+### A Word About Commiting ./dist Files
+
+**TLDR:** Don't do it if you can avoid it.
+
+Every time Pattern Lab is rebuilt the cache busting strings will change on CSS and JS files. `dependencyGraph.json` will also update every single time which makes reviewing pull requests rather difficult.
+
+Optimally we want to gitignore all `/.dist` files and run `npm run build` as part of a continuous integration process.
+
+### Stuff You Might Want To Change
+
+#### Supported Browsers
+
+Change what browsers your theme supports by updating *browserslist* within `package.json`. For options take a look at [browserslist](https://github.com/browserslist/browserslist);
+
+This impacts CSS browser prefixes and JavaScript compiled files.
+
+#### Dummy Files
+
+* Swap out `screenshot.png` with your own theme image.
+* Remove or replace the font files in `./src/patterns/global/fonts/`.
+* Change the colors in `/.src/patterns/global/colors/`.
 
 ### Go Team
 
@@ -220,7 +128,7 @@ Provided by default are seven npm scripts that point to Gulp tasks. We run gulp 
   npm run compress
   ```
 
-5. Build the KSS Style guide.
+5. Build Pattern Lab.
   ```
   npm run styleguide
   ```
@@ -234,6 +142,10 @@ Provided by default are seven npm scripts that point to Gulp tasks. We run gulp 
   ```
   npm run clean
   ```
+
+## Links
+* [`.sass-lint.yml`](generators/app/templates/sass-lint.yml)
+* [`.eslintrc.yml`](generators/app/templates/eslintrc.yml)
 
 ## Contributing
 Would you like to contribute? Want to make a few changes or fix a bug? COME ON OVER!
@@ -259,4 +171,4 @@ npm link
 
 Now whenever you run `yo mc-d8-theme` it'll use your locally cloned mc-d8-theme generator. Any updates done to the generator can be tested in real time.
 
-Break off a feature branch dive right in. After you've got something you'd like to add, push back to the repo and pull request against master.
+Break off a feature branch dive right in. After you've got something you'd like to add, push back to the repo and pull request against develop.

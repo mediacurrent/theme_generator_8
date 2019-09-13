@@ -1,0 +1,39 @@
+// Fonts generated using:
+// https://www.fontsquirrel.com/tools/webfont-generator
+//
+// For more information on font-face and browser support visit:
+// https://css-tricks.com/snippets/css/using-font-face/
+
+// Lato Bold.
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  // The browser will hide the text for about 100ms and, if the font has not yet
+  // been downloaded, will use the fallback text. It will swap to the new font
+  // after it is downloaded, but only during a short swap period
+  // https://css-tricks.com/almanac/properties/f/font-display/
+  font-display: fallback;
+  src: url('../fonts/lato-bold-webfont.woff2') format('woff2'),
+       url('../fonts/lato-bold-webfont.woff') format('woff'); // sass-lint:disable-line indentation
+}
+
+// Lato Regular.
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url('../fonts/lato-regular-webfont.woff2') format('woff2'),
+       url('../fonts/lato-regular-webfont.woff') format('woff'); // sass-lint:disable-line indentation
+}
+
+// Lato Regular Italic.
+@font-face {
+  font-family: 'Lato';
+  font-weight: 400;
+  font-style: italic;
+  font-display: fallback;
+  src: url('../fonts/lato-regularitalic-webfont.woff2') format('woff2'),
+       url('../fonts/lato-regularitalic-webfont.woff') format('woff'); // sass-lint:disable-line indentation
+}

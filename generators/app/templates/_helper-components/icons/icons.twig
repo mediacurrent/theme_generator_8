@@ -1,0 +1,9 @@
+{% import "@<%= themeNameMachine %>/icons/_icons-macro.twig" as icons %}
+<div class="pl-icons">
+{% for item in items %}
+  <div class="pl-icons__item">
+    {{ icons.get(item.icon, 'pl-icons__icon') }}
+    <p class="pl-icons__name">{{ item.icon }}</p>
+  </div>
+{% endfor %}
+</div>

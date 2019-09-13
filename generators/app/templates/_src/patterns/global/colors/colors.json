@@ -1,0 +1,58 @@
+{
+  "sections": {
+    "Primary": [
+      {
+        "name": "$color-mandy",
+        "hex": "#EC5f67"
+      },
+      {
+        "name": "$color-tan-hide",
+        "hex": "#F99157"
+      },
+      {
+        "name": "$color-saffron-mango",
+        "hex": "#FAC863"
+      },
+      {
+        "name": "$color-de-york",
+        "hex": "#99C794"
+      },
+      {
+        "name": "$color-tradewind",
+        "hex": "#5FB3B3"
+      },
+      {
+        "name": "$color-danube",
+        "hex": "#6699CC"
+      }
+    ],
+    "Black &amp; White": [
+      {
+        "name": "$color-black",
+        "hex": "#1B2B34"
+      },
+      {
+        "name": "$color-white",
+        "hex": "#D8DEE9"
+      }
+    ],
+    "Grays": [
+      {
+        "name": "$color-gray-dk",
+        "hex": "#343D46"
+      },
+      {
+        "name": "$color-gray-mid",
+        "hex": "#4F5B66"
+      },
+      {
+        "name": "$color-gray-lt",
+        "hex": "#65737E"
+      },
+      {
+        "name": "$color-gray-xlt",
+        "hex": "#A7ADBA"
+      }
+    ]
+  }
+}

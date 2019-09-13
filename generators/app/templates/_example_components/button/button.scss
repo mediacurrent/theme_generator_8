@@ -1,0 +1,47 @@
+// Buttons
+//
+// This is the button component. It provides basic styles for buttons throughout the site.
+
+// Import site utilities.
+@import '../../global/utils/init';
+
+.button {
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+  background-color: $color-tradewind;
+  font-weight: bold;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: 10px 20px;
+
+  &:hover,
+  &:active {
+    color: $color-white;
+    background-color: darken($color-tradewind, 15);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.button--primary {
+  padding: 10px 20px;
+  color: $color-danube;
+  background-color: $color-white;
+  border: 3px solid $color-white;
+  border-radius: 3px;
+
+  &:hover,
+  &:active {
+    color: $color-danube;
+    text-decoration: none;
+    border: 3px solid darken($color-danube, 15);
+    background-color: rgba($color-white, 0.85);
+  }
+}

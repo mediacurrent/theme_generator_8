@@ -1,70 +1,64 @@
 /*eslint strict: ["error", "global"]*/
 'use strict';
 
-//=======================================================
 // Include gulp
-//=======================================================
-var gulp = require('gulp');
+const { src, dest } = require('gulp');
 
-//=======================================================
 // Include Our Plugins
-//=======================================================
-var sass        = require('gulp-sass');
-var prefix      = require('gulp-autoprefixer');
-var sourcemaps  = require('gulp-sourcemaps');
-var sync        = require('browser-sync');
-var babel       = require('gulp-babel');
-var rename      = require('gulp-rename');
+const sass = require('gulp-sass');
+const prefix = require('gulp-autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
+const babel = require('gulp-babel');
+const rename = require('gulp-rename');
 
-// Small error handler helper function.
+/**
+ * Error handler function so we can see when errors happen.
+ * @param {object} err error that was thrown
+ * @returns {undefined}
+ */
 function handleError(err) {
-  console.log(err.toString());
+  console.error(err.toString());
   this.emit('end');
 }
 
 // Export our tasks.
 module.exports = {
-
   // Compile Sass.
-  sass: function() {
-    return gulp.src('./src/{global,layout,components}/**/*.scss')
+  compileSass: function() {
+    return src('./src/patterns/**/**/*.scss')
+      .pipe(sass({ outputStyle: 'nested' }).on('error', handleError))
       .pipe(
-        sass({ outputStyle: 'nested' })
-          .on('error', handleError)
+        prefix({
+          cascade: false
+        })
       )
-      .pipe(prefix({
-        cascade: false
-      }))
-      .pipe(rename(function (path) {
-        path.dirname = '';
-        return path;
-      }))
-      .pipe(gulp.dest('./dist/css'))
-      .pipe(sync.stream({match: '**/*.css'}));
+      .pipe(
+        rename(function(path) {
+          path.dirname = '';
+          return path;
+        })
+      )
+      .pipe(dest('./dist/css'));
   },
 
   // Compile JavaScript.
-  js: function() {
-    return gulp.src([
-      './src/{global,layout,components}/**/*.es6.js'
-    ], { base: './' })
+  compileJS: function() {
+    return src(['./src/patterns/**/**/*.js'], { base: './' })
       .pipe(sourcemaps.init())
+      .pipe(babel())
       .pipe(
-        babel()
-          .on('error', handleError)
+        rename(function(path) {
+          // Currently not using ES6 modules so for now
+          // es6 files are compiled into individual JS files.
+          // Eventually this can use ES6 Modules and compile
+          // all files within a component directory into a single
+          // foo.bundle.js file. In that case the bundle name should
+          // reflect the components directory name.
+          path.dirname = '';
+          return path;
+        })
       )
-      .pipe(rename(function (path) {
-        // Currently not using ES6 modules so for now
-        // es6 files are compiled into individual JS files.
-        // Eventually this can use ES6 Modules and compile
-        // all files within a component directory into a single
-        // foo.bundle.js file. In that case the bundle name should
-        // reflect the components directory name.
-        path.dirname = '';
-        path.basename = path.basename.replace(/\.es6/, '');
-        return path;
-      }))
       .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./dist/js'));
+      .pipe(dest('./dist/js'));
   }
 };

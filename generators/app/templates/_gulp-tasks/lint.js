@@ -1,35 +1,30 @@
 /*eslint strict: ["error", "global"]*/
 'use strict';
 
-//=======================================================
 // Include gulp
-//=======================================================
-var gulp = require('gulp');
+const { src } = require('gulp');
 
-//=======================================================
 // Include Our Plugins
-//=======================================================
-var sassLint = require('gulp-sass-lint');
-var eslint   = require('gulp-eslint');
+const sassLint = require('gulp-sass-lint');
+const eslint = require('gulp-eslint');
 
 // Export our tasks.
 module.exports = {
-
   // Lint Sass based on .sass-lint.yml config.
-  sass: function() {
-    return gulp.src([
-      './src/{global,layout,components}/**/*.scss',
-      '!./src/global/utils/*'
+  lintSass: function() {
+    return src([
+      './src/patterns/{global,layout,components}/**/*.scss',
+      '!./src/patterns/global/utils/*'
     ])
       .pipe(sassLint())
       .pipe(sassLint.format());
   },
 
   // Lint JavaScript based on .eslintrc config.
-  js: function() {
-    return gulp.src([
-      './src/{global,layout,components}/**/*.js',
-      '!./src/components/**/vendors/*'
+  lintJS: function() {
+    return src([
+      './src/patterns/{global,layout,components}/**/*.js',
+      '!./src/patterns/components/**/vendors/*'
     ])
       .pipe(eslint())
       .pipe(eslint.format());
