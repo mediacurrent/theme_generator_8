@@ -1,5 +1,24 @@
 # Changelog
 
+## 🏍 2.0.0 (2019-09-13)
+
+### New Feature
+* Switched from KSS to Pattern Lab.
+* Added optional example components (Drupal Tabs, Drupal Messages and buttons).
+* Added optional `.gitignore` for compiled files.
+* Added concat task for JS files so you don't have to manually add them to the style guide.
+* Upgraded Gulp to v4.
+* Added an easier way to display color swatches.
+* Updated base / Global CSS.
+* Removed breakpoint / singularity options.
+* Added example breakpoint mixin that provides similar functionality.
+* Added an example of how to use `@font-face` and locally hosted fonts.
+* Added prettier config.
+* Likely more stuff I forgot about.
+
+### Documentation
+* Updated `README.md` with information about Pattern Lab and advice on starting a new project using the generator.
+
 ## 🕷 1.4.0 (2017-09-01)
 
 ### Bug Fix
