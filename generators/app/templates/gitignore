@@ -9,7 +9,7 @@ npm-debug.log
 
 # Ignore any map files. These don't need to be committed.
 *.map
-
+<% if (ignoreDist) { %>
 # Ignore any artifact files.
 # The patternlab build needs the subfolder to exist but we don't
 # want to commit anything in them beyond the .gitkeep file.
@@ -25,3 +25,4 @@ dist/js/*
 # Ignore Patternlab files that change every time.
 patternlab
 dependencyGraph.json
+<% } %>

@@ -2,13 +2,22 @@
 
 > [Yeoman generator](http://yeoman.io/) for Drupal Themes - lets you quickly set up a Drupal 8 theme with sensible defaults and best practices.
 
+- [What's New](#whats-new)
+- [Usage](#usage)
+  - [Node Version Manager](#first-a-note-about-using-nodejs-via-nvm)
+  - [Getting Started](#getting-started)
+- [The New Theme](#the-new-theme)
+  - [Support](#support)
+  - [Patches](#patches)
+  - [A Word About Commiting ./dist Files](#a-word-about-commiting-dist-files)
+  - [Stuff You Might Want To Change](#stuff-you-might-want-to-change)
+  - [Go Team](#go-team)
+- [Links](#links)
+- [Contributing](#contributing)
+
 ## What's New
 
 **[Read the ⚡️ Changelog!](CHANGELOG.md)**
-
-## Links
-* [`.sass-lint.yml`](generators/app/templates/sass-lint.yml)
-* [`.eslintrc.yml`](generators/app/templates/eslintrc.yml)
 
 ## Usage
 
@@ -19,7 +28,7 @@ I.E.
 themes/custom/my_awesome_theme
 ```
 
-### First a note about using Node.js via [NVM](https://github.com/creationix/nvm)
+### First a note about using Node.js via NVM
 
 While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project. Here's a quick one liner that will install the latest stable version of Node using NVM and create a `.nvmrc` file.
 
@@ -31,8 +40,6 @@ From now on, when working on this theme change into its directory and run `nvm u
 
 ### Getting Started
 
-#### Use [npm create](https://www.npmjs.com/package/npx)
-
 To run the theme generator type the command:
 ```
 npm create yo mc-d8-theme
@@ -40,29 +47,47 @@ npm create yo mc-d8-theme
 
 You should be taken through a series of questions that allow you to pick the best options for your theme.
 
-**This is the recommended way of running the theme generator.**
+**More info if you're interested in how this stuff works:**
 
-`npm create` is an alias of `npm init` and uses [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) under the hood. Find out more about [npm init](https://docs.npmjs.com/cli/init.html)
+`npm create` is an alias of `npm init` and uses [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) under the hood. Find out more about [npm init](https://docs.npmjs.com/cli/init.html).
 
 ## The New Theme
 
 ### Support
 
-The following is supported by your new theme. Feel free to make any modifications to the build tools.
+The following is supported by your new theme.
 
-* ES6+
-* Sass
 * [Pattern Lab (Node)](https://github.com/pattern-lab/patternlab-node/)
-* Source Maps
+* ES6+ (With Source Maps)
+* Sass
 * Image Compression
 * Live reloading
 * Sass and JavaScript linting
 
+The theme generator allows you to optionally add several example components.
+
+* Button
+* Drupal Messages (Based off of the Classy base theme)
+* Drupal Tabs
+
+These can include both component and Drupal templates that are added to the appropriate place during theme generation. Your theme.libraries.yml is also updated to include the relevant libraries.
+
 ### Patches
+
+We're using the beta version of [Pattern Lab (Node)](https://github.com/pattern-lab/patternlab-node/). As you can imagine there are a few issues that come up that haven't been resolved yet. For this project we use [Patch Package](https://www.npmjs.com/package/patch-package) to patch the following issues.
+
+* [Menu & View All list breaks if pattern name and folder name are identical](https://github.com/pattern-lab/patternlab-node/issues/1049)
+* [Pseudo patterns not working with twig php engine](https://github.com/pattern-lab/patternlab-node/issues/1045)
+
+There's nothing special you have to do. `patch package` will run after the `npm install`.
 
 ### A Word About Commiting ./dist Files
 
-Don't do it if you don't have to.
+**TLDR:** Don't do it if you can avoid it.
+
+Every time Pattern Lab is rebuilt the cache busting strings will change on CSS and JS files. `dependencyGraph.json` will also update every single time which makes reviewing pull requests rather difficult.
+
+Optimally we want to gitignore all `/.dist` files and run `npm run build` as part of a continuous integration process.
 
 ### Stuff You Might Want To Change
 
@@ -70,12 +95,13 @@ Don't do it if you don't have to.
 
 Change what browsers your theme supports by updating *browserslist* within `package.json`. For options take a look at [browserslist](https://github.com/browserslist/browserslist);
 
-This impacts browser prefixes and JavaScript compiled files.
+This impacts CSS browser prefixes and JavaScript compiled files.
 
 #### Dummy Files
 
 * Swap out `screenshot.png` with your own theme image.
 * Remove or replace the font files in `./src/patterns/global/fonts/`.
+* Change the colors in `/.src/patterns/global/colors/`.
 
 ### Go Team
 
@@ -116,6 +142,10 @@ Provided by default are seven npm scripts that point to Gulp tasks. We run gulp 
   ```
   npm run clean
   ```
+
+## Links
+* [`.sass-lint.yml`](generators/app/templates/sass-lint.yml)
+* [`.eslintrc.yml`](generators/app/templates/eslintrc.yml)
 
 ## Contributing
 Would you like to contribute? Want to make a few changes or fix a bug? COME ON OVER!

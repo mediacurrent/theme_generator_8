@@ -1,6 +1,5 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
-const yosay = require('yosay');
 const _ = require('lodash');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
@@ -9,13 +8,12 @@ const jsYaml = require('js-yaml');
 
 // Custom helper modules.
 const buildComponents = require('./build-components');
+const mcLogo = require('./mc-logo');
 
 module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the cool ' + chalk.red('Mediacurrent D8 theme') + ' generator!'
-    ));
+    this.log(mcLogo);
 
     // Proved the user with prompts.
     var prompts = [
@@ -56,6 +54,12 @@ module.exports = class extends Generator {
         ]
       },
       {
+        name: 'ignoreDist',
+        type: 'confirm',
+        message: 'Should we update the .gitignore to ignore compiled files? (i.e. /dist)',
+        default: true
+      },
+      {
         type: 'checkbox',
         name: 'howMuchTheme',
         message: 'Would you like any starter components with your theme?',
@@ -82,6 +86,9 @@ module.exports = class extends Generator {
       // props.howMuchTheme is an array of all selected options.
       // i.e. [ 'hero', 'tabs', 'messages' ]
       this.exampleComponents = props.howMuchTheme;
+
+      // Should we ignore ./dist files or not?
+      this.ignoreDist = props.ignoreDist;
 
       // Add the base theme to the object.
       this.baseTheme = props.whichBaseTheme;
@@ -147,9 +154,14 @@ module.exports = class extends Generator {
         themeName: this.themeNameMachine
       }
     );
-    this.fs.copy(
+    // Only ignore ./dist files if the user has selected
+    // that option.
+    this.fs.copyTpl(
       this.templatePath('gitignore'),
-      this.destinationPath('.gitignore')
+      this.destinationPath('.gitignore'),
+      {
+        ignoreDist: this.ignoreDist
+      }
     );
     this.fs.copy(
       this.templatePath('editorconfig'),
@@ -322,9 +334,17 @@ module.exports = class extends Generator {
 
   install() {
     // Install the following node modules specifically for Pattern Lab.
+    // In the future we can add
+    //
+    // '@pattern-lab/core',
+    // '@pattern-lab/engine-twig-php',
+    //
+    // to the list too but for now we have to set the specific
+    // version in the _package.json so patch package works correctly.
+    //
+    // TODO: Add in pattern-lab core and engine-twig-php when those patches
+    // are no longer needed.
     var npmArray = [
-      '@pattern-lab/core',
-      '@pattern-lab/engine-twig-php',
       '@pattern-lab/uikit-workshop',
       'patch-package'
     ];

@@ -27,6 +27,8 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "@pattern-lab/core": "^3.0.3",
+    "@pattern-lab/engine-twig-php": "^3.0.2",
     "browser-sync": "^2.26.7",
     "del": "^4.1.1",
     "gulp": "^4.0.2",
