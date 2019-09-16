@@ -96,7 +96,7 @@ Optimally we want to gitignore all `/.dist` files and run `npm run build` as par
 
 #### Supported Browsers
 
-Change what browsers your theme supports by updating *browserslist* within `package.json`. For options take a look at [browserslist](https://github.com/browserslist/browserslist);
+Change what browsers your theme supports by updating *browserslist* within `package.json`. For options take a look at [browserslist](https://github.com/browserslist/browserslist).
 
 This impacts CSS browser prefixes and JavaScript compiled files.
 
