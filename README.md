@@ -1,9 +1,9 @@
-# Mediacurrent D8 Theme Generator
+# Mediacurrent Theme Generator
 
 > [Yeoman generator](http://yeoman.io/) for Drupal Themes - lets you quickly set up a Drupal 8 theme with sensible defaults and best practices.
 
 - [What's New](#whats-new)
-- [Usage](#usage)
+- [Using the Theme Generator](#using-the-theme-generator)
   - [Node Version Manager](#first-a-note-about-using-nodejs-via-nvm)
   - [Getting Started](#getting-started)
 - [The New Theme](#the-new-theme)
@@ -19,11 +19,11 @@
 
 **[Read the ⚡️ Changelog!](CHANGELOG.md)**
 
-## Usage
+## Using the Theme Generator
 
-While the mc-d8-theme generator can be run anywhere, it's happiest when it's run from an empty directory you'd like to become your theme.
+While the theme generator can be run anywhere, it's happiest when it's run from an empty directory you'd like to become your theme.
 
-I.E.
+* Create a new directory.  Example:
 ```
 themes/custom/my_awesome_theme
 ```
@@ -32,13 +32,15 @@ themes/custom/my_awesome_theme
 
 While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project. Here's a quick one liner that will install the latest stable version of Node using NVM and create a `.nvmrc` file.
 
+* Move into the new directory you created above, then run the following command:
+
 ```bash
 nvm install node && node -v > .nvmrc
 ```
 
 From now on, when working on this theme change into its directory and run `nvm use` and NVM will switch to the specified version for you.
 
-### Getting Started
+### Creating a new Theme
 
 To run the theme generator type the command:
 ```
@@ -58,6 +60,7 @@ You should be taken through a series of questions that allow you to pick the bes
 The following is supported by your new theme.
 
 * [Pattern Lab (Node)](https://github.com/pattern-lab/patternlab-node/)
+* Component-Based Workflow
 * ES6+ (With Source Maps)
 * Sass
 * Image Compression
@@ -66,7 +69,7 @@ The following is supported by your new theme.
 
 The theme generator allows you to optionally add several example components.
 
-* Button
+* Button (with variations)
 * Drupal Messages (Based off of the Classy base theme)
 * Drupal Tabs
 
@@ -85,7 +88,7 @@ There's nothing special you have to do. `patch package` will run after the `npm 
 
 **TLDR:** Don't do it if you can avoid it.
 
-Every time Pattern Lab is rebuilt the cache busting strings will change on CSS and JS files. `dependencyGraph.json` will also update every single time which makes reviewing pull requests rather difficult.
+Every time Pattern Lab is rebuilt the cache busting strings will change on CSS and JS files. `dependencyGraph.json` will also be updated every single time which makes reviewing pull requests rather difficult.
 
 Optimally we want to gitignore all `/.dist` files and run `npm run build` as part of a continuous integration process.
 
@@ -101,7 +104,7 @@ This impacts CSS browser prefixes and JavaScript compiled files.
 
 * Swap out `screenshot.png` with your own theme image.
 * Remove or replace the font files in `./src/patterns/global/fonts/`.
-* Change the colors in `/.src/patterns/global/colors/`.
+* Change the colors in `./src/patterns/global/colors/`.
 
 ### Go Team
 
