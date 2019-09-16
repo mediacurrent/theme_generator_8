@@ -5,7 +5,7 @@
 - [What's New](#whats-new)
 - [Using the Theme Generator](#using-the-theme-generator)
   - [Node Version Manager](#first-a-note-about-using-nodejs-via-nvm)
-  - [Getting Started](#getting-started)
+  - [Creating a new Theme](#creating-a-new-theme)
 - [The New Theme](#the-new-theme)
   - [Support](#support)
   - [Patches](#patches)
