@@ -1,5 +1,5 @@
 diff --git a/node_modules/@pattern-lab/engine-twig-php/lib/engine_twig_php.js b/node_modules/@pattern-lab/engine-twig-php/lib/engine_twig_php.js
-index ac29cba..0e8b08e 100644
+index 461a10d..060e37e 100644
 --- a/node_modules/@pattern-lab/engine-twig-php/lib/engine_twig_php.js
 +++ b/node_modules/@pattern-lab/engine-twig-php/lib/engine_twig_php.js
 @@ -26,10 +26,9 @@ const engine_twig_php = {
@@ -123,7 +123,74 @@ index ac29cba..0e8b08e 100644
    },
  
    findPartialsWithStyleModifiers(pattern) {
-@@ -144,7 +177,7 @@ const engine_twig_php = {
+@@ -138,13 +171,72 @@ const engine_twig_php = {
+     return null;
+   },
+ 
+-  findPartial(partialString) {
+-    return null;
++  // Given a pattern, and a partial string, tease out the "pattern key" and
++  // return it.
++  findPartial: function(partialString) {
++    try {
++      let partial = partialString.match(this.findPartialKeyRE)[0];
++      partial = partial.replace(/"/g, '');
++      partial = partial.replace(/'/g, '');
++
++      // Check if namespaces is not empty.
++      const selectedNamespace = this.namespaces.filter((namespace) => {
++        // Check to see if this partial contains within the namespace id.
++        return partial.indexOf(`@${namespace.id}`) !== -1;
++      });
++
++      let namespaceResolvedPartial = '';
++
++      if (selectedNamespace.length > 0) {
++        // Loop through all namespaces and try to resolve the namespace to a file path.
++        for (
++          let index = 0;
++          index < selectedNamespace[0].paths.length;
++          index++
++        ) {
++          const path = selectedNamespace[0].paths[index];
++          // Replace the name space with the actual path.
++          // i.e. @atoms -> source/_patterns/00-atoms
++          const tempPartial = partial.replace(
++            `@${selectedNamespace[0].id}`,
++            path
++          );
++
++          try {
++            // Check to see if the file exists.
++            if (fs.existsSync(tempPartial)) {
++              // If it does, find the last directory in the namespace path.
++              // i.e. source/_patterns/00-atoms -> 00-atoms.
++              const lastDirectory = path.split('/').reverse()[0];
++              // Replace the namespace in the path with the directory name.
++              // i.e. @atoms/04-images/04-avatar.twig -> 00-atoms/04-images/04-avatar.twig
++              namespaceResolvedPartial = partial.replace(
++                `@${selectedNamespace[0].id}`,
++                lastDirectory
++              );
++              // After it matches one time, set the resolved partial and exit the loop.
++              break;
++            }
++          }
++          catch (err) {
++            console.error(err);
++          }
++        }
++      }
++      // Return the path with the namespace resolved OR the regex'd partial.
++      return namespaceResolvedPartial || partial;
++    }
++    catch (err) {
++      console.error(
++        'Error occured when trying to find partial name in: ' + partialString
++      );
++      return null;
++    }
+   },
  
    patternMatcher(pattern, regex) {
      return null;
