@@ -1,5 +1,10 @@
 # Changelog
 
+## 🏍 2.0.1 (2019-09-27)
+
+### Bug Fix
+* Repatched @pattern-lab+engine-twig-php so includes work correctly.
+
 ## 🏍 2.0.0 (2019-09-13)
 
 ### New Feature
