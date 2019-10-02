@@ -15,7 +15,7 @@ module.exports = class extends Generator {
     // Have Yeoman greet the user.
     this.log(mcLogo);
 
-    // Proved the user with prompts.
+    // Provide the user with prompts.
     var prompts = [
       {
         name: 'themeName',
