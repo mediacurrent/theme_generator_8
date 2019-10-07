@@ -1,0 +1,19 @@
+// Forms
+//
+// Mixins for form elements
+
+// sass-lint:disable no-vendor-prefixes no-important
+
+@mixin input-styles {
+  @include font-stack-primary;
+  @include placeholder {
+    color: $color-black;
+  }
+  border: 1px solid $color-black;
+  box-shadow: inset 0 1px 3px 0 rgba($color-black, 0.5);
+  font-size: 1.125rem;
+  line-height: 1.5;
+  margin-bottom: 0;
+  padding: 0.5rem 1rem;
+  width: 100%;
+}

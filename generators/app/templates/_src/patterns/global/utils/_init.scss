@@ -9,11 +9,17 @@
 // Import functions
 @import 'functions';
 
-// Import mixins
-@import 'mixins';
+// Import mixins.
+@import 'mixins/init';
 
-// Import breakpoints
+// Import breakpoints.
 @import 'breakpoints';
 
-// Import typography
+// Import z-index.
+@import 'zindex';
+
+// Import transitions.
+@import 'transitions';
+
+// Import typography.
 @import 'typography';

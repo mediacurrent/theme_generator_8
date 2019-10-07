@@ -1,0 +1,19 @@
+// Mixins -- Text
+//
+// Mixins for controlling text.
+
+@mixin link-hover {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@mixin link-hover-reverse {
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

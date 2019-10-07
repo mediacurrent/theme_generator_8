@@ -1,0 +1,23 @@
+// Colors
+//
+// Mixins for color setup and manipulations.
+
+// Background colors from color set.
+@mixin button-base {
+  @include font-stack-primary;
+  align-items: center;
+  border: 2px solid;
+  display: inline-flex;
+  font-size: 1rem;
+  font-weight: $font-weight-bold;
+  justify-content: center;
+  line-height: 1.15;
+  padding: 0.5rem 1rem;
+  width: 100%;
+
+  &:active,
+  &:hover {
+    text-decoration: none;
+  }
+}
+

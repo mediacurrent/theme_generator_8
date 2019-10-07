@@ -1,0 +1,26 @@
+// Colors
+//
+// Mixins for color setup and manipulations.
+
+// Background colors from color set.
+
+@mixin overlay(
+  $color: rgba($color-black, 0.5),
+  $opacity: 0.75,
+  $top: 0
+) {
+
+  &::before {
+    background-color: $color;
+    content: '';
+    display: block;
+    height: 100%;
+    left: 50%;
+    opacity: $opacity;
+    position: absolute;
+    top: $top;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: $zi-lowest;
+  }
+}

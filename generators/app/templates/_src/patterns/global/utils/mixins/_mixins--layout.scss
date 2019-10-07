@@ -1,0 +1,12 @@
+// Mixins -- Layout
+//
+// Mixins for controlling layout
+
+@mixin site-width {
+  margin-left: auto;
+  margin-right: auto;
+  // Content width + left/right padding.
+  max-width: calc(#{$site-width} + 2rem);
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
