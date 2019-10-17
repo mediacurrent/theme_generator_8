@@ -8,7 +8,6 @@
   - [Creating a new Theme](#creating-a-new-theme)
 - [The New Theme](#the-new-theme)
   - [Support](#support)
-  - [Patches](#patches)
   - [A Word About Commiting ./dist Files](#a-word-about-commiting-dist-files)
   - [Stuff You Might Want To Change](#stuff-you-might-want-to-change)
   - [Go Team](#go-team)
@@ -74,15 +73,6 @@ The theme generator allows you to optionally add several example components.
 * Drupal Tabs
 
 These can include both component and Drupal templates that are added to the appropriate place during theme generation. Your theme.libraries.yml is also updated to include the relevant libraries.
-
-### Patches
-
-We're using the beta version of [Pattern Lab (Node)](https://github.com/pattern-lab/patternlab-node/). As you can imagine there are a few issues that come up that haven't been resolved yet. For this project we use [Patch Package](https://www.npmjs.com/package/patch-package) to patch the following issues.
-
-* [Menu & View All list breaks if pattern name and folder name are identical](https://github.com/pattern-lab/patternlab-node/issues/1049)
-* [Pseudo patterns not working with twig php engine](https://github.com/pattern-lab/patternlab-node/issues/1045)
-
-There's nothing special you have to do. `patch package` will run after the `npm install`.
 
 ### A Word About Commiting ./dist Files
 
