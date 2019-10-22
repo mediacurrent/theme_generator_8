@@ -1,3 +1,4 @@
+'use strict';
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const _ = require('lodash');
@@ -35,12 +36,14 @@ module.exports = class extends Generator {
         message: 'What is your theme\'s description?',
         default: function (answers) {
           // Default to a helpful reminder to change the description later.
+          // eslint-disable-next-line max-len
           return 'Update ' + answers.themeName + '.info.yml if you want to change the theme description later.';
         }
       },
       {
         type: 'list',
         name: 'whichBaseTheme',
+        // eslint-disable-next-line max-len
         message: 'Which base theme would you like to use? If you don\'t want to use a base theme pick "stable" as that\'s what\'s used by Drupal if you don\'t specify a base.',
         choices: [
           {
@@ -56,6 +59,7 @@ module.exports = class extends Generator {
       {
         name: 'ignoreDist',
         type: 'confirm',
+        // eslint-disable-next-line max-len
         message: 'Should we update the .gitignore to ignore compiled files? (i.e. /dist)',
         default: true
       },
@@ -103,7 +107,11 @@ module.exports = class extends Generator {
       this.dashedThemeName = _.kebabCase(props.themeName);
 
       // Get pkg info so we can create a 'generated on' comment.
-      this.pkg = JSON.parse(fs.readFileSync(path.resolve(path.join(__dirname, '../../package.json')), 'utf8'));
+      this.pkg = JSON.parse(
+        fs.readFileSync(
+          path.resolve(path.join(__dirname, '../../package.json')), 'utf8'
+        )
+      );
 
       // To access props later use this.props.someAnswer;
       this.props = props;
@@ -127,6 +135,7 @@ module.exports = class extends Generator {
           );
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.error(error);
         });
     }
@@ -176,8 +185,8 @@ module.exports = class extends Generator {
       this.destinationPath('README.md')
     );
     this.fs.copy(
-      this.templatePath('eslintrc.yml'),
-      this.destinationPath('.eslintrc.yml')
+      this.templatePath('eslintrc.json'),
+      this.destinationPath('.eslintrc.json')
     );
     this.fs.copy(
       this.templatePath('sass-lint.yml'),
@@ -360,6 +369,7 @@ module.exports = class extends Generator {
 
   end() {
     this.log(chalk.cyan.bgBlack.bold(
+      // eslint-disable-next-line indent
 `☠️  NOTE: Your new generated theme contains a fair bit of boilerplate code.
 This is by design. If you don't need it PLEASE delete it.
 You can always rerun the generator some other time in a different directory

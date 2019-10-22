@@ -1,3 +1,5 @@
+/* eslint-disable max-len, quotes */
+'use strict';
 const chalk = require('chalk');
 
 const mcLogo =

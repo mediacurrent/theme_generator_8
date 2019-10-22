@@ -1,4 +1,3 @@
-/*eslint strict: ["error", "global"]*/
 'use strict';
 
 // Include Our Plugins

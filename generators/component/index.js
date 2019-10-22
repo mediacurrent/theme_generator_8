@@ -24,6 +24,7 @@ module.exports = class extends Generator {
     // Create a dashed version of the layout name.
     this.componentName.dashed = _.kebabCase(this.options.name);
 
+    // eslint-disable-next-line max-len
     this.log('Creating a new theme component called ' + this.options.name + ' (' + this.componentName.dashed + ').');
   }
 
@@ -32,6 +33,7 @@ module.exports = class extends Generator {
     // name where needed.
     this.fs.copyTpl(
       this.templatePath('_component/_component.json'),
+      // eslint-disable-next-line max-len
       this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.json'),
       {
         name: this.componentName.raw
@@ -39,6 +41,7 @@ module.exports = class extends Generator {
     );
     this.fs.copyTpl(
       this.templatePath('_component/_component.scss'),
+      // eslint-disable-next-line max-len
       this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.scss'),
       {
         name: this.componentName.raw,
@@ -47,6 +50,7 @@ module.exports = class extends Generator {
     );
     this.fs.copyTpl(
       this.templatePath('_component/_component.twig'),
+      // eslint-disable-next-line max-len
       this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.twig'),
       {
         dashed: this.componentName.dashed
@@ -55,8 +59,9 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.log('=========================================');
-    this.log('Created a new component named ' + chalk.red(this.options.name) + '.');
+    const name = chalk.red(this.options.name);
+    this.log('-----------------------------------------');
+    this.log('Created a new component named: "' + name + '".');
     this.log('-----------------------------------------');
   }
 
