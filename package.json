@@ -24,8 +24,7 @@
     "yosay": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^4.18.2",
-    "eslint-config-xo-space": "^0.13.0",
+    "eslint": "^5.0.0",
     "eslint-plugin-ejs": "0.0.2",
     "gulp": "^4.0.0",
     "gulp-eslint": "^5.0.0",
@@ -39,12 +38,6 @@
     "path": "^0.12.7",
     "yeoman-assert": "^2.0.0",
     "yeoman-test": "^1.9.1"
-  },
-  "eslintConfig": {
-    "extends": "xo-space",
-    "env": {
-      "mocha": true
-    }
   },
   "scripts": {
     "prepublishOnly": "npm audit",

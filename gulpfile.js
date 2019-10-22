@@ -1,4 +1,3 @@
-'use strict';
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var excludeGitignore = require('gulp-exclude-gitignore');
@@ -9,9 +8,7 @@ var plumber = require('gulp-plumber');
 gulp.task('static', function () {
   return gulp.src('**/*.js')
     .pipe(excludeGitignore())
-    .pipe(eslint({
-      ignorePattern: ['generators/kss-style-guide/templates/_style-guide/builder/kss-assets']
-    }))
+    .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
