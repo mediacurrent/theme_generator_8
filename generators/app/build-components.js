@@ -89,11 +89,9 @@ module.exports = async function buildComponents(exampleComponents, app) {
       };
     }
   }));
+
   // Convert the array into a flat object needed for the libraries file.
-  return { ...libraries.reduce((accumulator, currentValue) => {
-    return {
-      ...currentValue,
-      ...accumulator,
-    };
-  }, {}) };
+  return libraries.reduce((accumulator, currentValue) => {
+    return Object.assign(accumulator, currentValue);
+  }, {});
 };

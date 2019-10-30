@@ -33,6 +33,7 @@
     "gulp-line-ending-corrector": "^1.0.1",
     "gulp-mocha": "^6.0.0",
     "gulp-plumber": "^1.0.0",
+    "isparta": "^4.1.1",
     "lodash": "^4.17.15",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7",
