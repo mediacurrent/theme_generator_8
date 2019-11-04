@@ -138,7 +138,7 @@ Provided by default are seven npm scripts that point to Gulp tasks. We run gulp 
 
 ## Links
 * [`.sass-lint.yml`](generators/app/templates/sass-lint.yml)
-* [`.eslintrc.yml`](generators/app/templates/eslintrc.yml)
+* [`.eslintrc.json`](generators/app/templates/eslintrc.json)
 
 ## Contributing
 Would you like to contribute? Want to make a few changes or fix a bug? COME ON OVER!
