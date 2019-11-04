@@ -338,6 +338,9 @@ module.exports = class extends Generator {
   }
 
   install() {
+    // Need to see if we still need this.
+    this.npmInstall();
+
     // Install the following node modules specifically for Pattern Lab.
     var npmArray = [
       '@pattern-lab/core',
@@ -349,9 +352,6 @@ module.exports = class extends Generator {
     this.npmInstall(npmArray, {
       saveDev: true
     });
-
-    // Need to see if we still need this.
-    this.npmInstall();
   }
 
   end() {
