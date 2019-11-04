@@ -27,27 +27,8 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
    *   The cleaned ID.
    */
   public static function getId($id) {
-    $id = str_replace([
-      ' ',
-      '_',
-      '[',
-      ']',
-    ], [
-      '-',
-      '-',
-      '-',
-      '',
-    ], Unicode::strtolower($id));
-
-    // As defined in http://www.w3.org/TR/html4/types.html#type-name, HTML IDs can
-    // only contain letters, digits ([0-9]), hyphens ("-"), underscores ("_"),
-    // colons (":"), and periods ("."). We strip out any character not in that
-    // list. Note that the CSS spec doesn't allow colons or periods in identifiers
-    // (http://www.w3.org/TR/CSS21/syndata.html#characters), so we strip those two
-    // characters as well.
+    $id = str_replace([' ', '_', '[', ']'], ['-', '-', '-', ''], strtolower($id));
     $id = preg_replace('/[^A-Za-z0-9\\-_]/', '', $id);
-
-    // Removing multiple consecutive hyphens.
     $id = preg_replace('/\\-+/', '-', $id);
     return $id;
   }
