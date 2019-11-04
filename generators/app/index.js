@@ -239,10 +239,6 @@ module.exports = class extends Generator {
       this.destinationPath('src/patterns/layout/.gitkeep')
     );
     this.fs.copy(
-      this.templatePath('_patches'),
-      this.destinationPath('patches')
-    );
-    this.fs.copy(
       this.templatePath('_src/patterns/pages/.gitkeep'),
       this.destinationPath('src/patterns/pages/.gitkeep')
     );
@@ -342,29 +338,20 @@ module.exports = class extends Generator {
   }
 
   install() {
+    // Need to see if we still need this.
+    this.npmInstall();
+
     // Install the following node modules specifically for Pattern Lab.
-    // In the future we can add
-    //
-    // '@pattern-lab/core',
-    // '@pattern-lab/engine-twig-php',
-    //
-    // to the list too but for now we have to set the specific
-    // version in the _package.json so patch package works correctly.
-    //
-    // TODO: Add in pattern-lab core and engine-twig-php when those patches
-    // are no longer needed.
     var npmArray = [
-      '@pattern-lab/uikit-workshop',
-      'patch-package'
+      '@pattern-lab/core',
+      '@pattern-lab/engine-twig-php',
+      '@pattern-lab/uikit-workshop'
     ];
 
     // This runs `npm install ... --save-dev` on the command line.
     this.npmInstall(npmArray, {
       saveDev: true
     });
-
-    // Need to see if we still need this.
-    this.npmInstall();
   }
 
   end() {

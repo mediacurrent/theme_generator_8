@@ -18,6 +18,22 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
   }
 
   /**
+   * Prepares a string for use as a valid HTML ID.
+   *
+   * @param string $id
+   *   The ID to clean.
+   *
+   * @return string
+   *   The cleaned ID.
+   */
+  public static function getId($id) {
+    $id = str_replace([' ', '_', '[', ']'], ['-', '-', '-', ''], strtolower($id));
+    $id = preg_replace('/[^A-Za-z0-9\\-_]/', '', $id);
+    $id = preg_replace('/\\-+/', '-', $id);
+    return $id;
+  }
+
+  /**
    * Dummy function that returns a simple '#'.
    *
    * @return string
@@ -52,6 +68,7 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
       new Twig_SimpleFilter('placeholder', [$this, 'returnParam']),
       new Twig_SimpleFilter('without', [$this, 'returnParam']),
       new Twig_SimpleFilter('clean_class', [$this, 'returnParam']),
+      new Twig_SimpleFilter('clean_id', [$this, 'getId']),
     ];
   }
 

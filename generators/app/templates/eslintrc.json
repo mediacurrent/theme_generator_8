@@ -50,8 +50,10 @@
     // Prohibit use of == and != in favor of === and !==.
     "eqeqeq": "error",
 
-    // Enforce placing 'use strict' at the top function scope.
-    "strict": ["error", "function"],
+    // If ESlint considers a file to be a Node module one 'use strict'
+    // is needed at the top of the file. If not 'use strict' needs to
+    // be added at the top of the function scope.
+    "strict": ["error", "safe"],
 
     // Prohibit use of a variable before it is defined.
     "no-undef": "error",

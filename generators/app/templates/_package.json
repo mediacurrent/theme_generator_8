@@ -9,8 +9,7 @@
     "compress": "gulp compress",
     "lint": "gulp lint",
     "clean": "gulp clean",
-    "gulp": "gulp",
-    "postinstall": "patch-package"
+    "gulp": "gulp"
   },
   "babel": {
     "sourceType": "unambiguous",
@@ -25,18 +24,16 @@
     "not dead"
   ],
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "@pattern-lab/core": "^3.0.3",
-    "@pattern-lab/engine-twig-php": "^3.0.2",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
     "browser-sync": "^2.26.7",
-    "del": "^4.1.1",
+    "del": "^5.1.0",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^6.1.0",
+    "gulp-autoprefixer": "^7.0.1",
     "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-eslint": "^5.0.0",
-    "gulp-imagemin": "^6.0.0",
+    "gulp-eslint": "^6.0.0",
+    "gulp-imagemin": "^6.1.1",
     "gulp-order": "^1.2.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
