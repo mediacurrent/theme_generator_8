@@ -1,5 +1,16 @@
 # Changelog
 
+## ⚔️ 2.1.0 (2019-11-04)
+
+### Bug Fix
+* Removed patches used by Pattern Lab since the latest release merges in those fixes.
+* Updated readme ESlintrc file link to point to new `.json` file.
+* Updated theme build tool dependencies.
+
+### New Feature
+* Added in support for using the `|clean_id` filter in Pattern Lab the same way you can in Drupal Twig.
+* Migrated eslintrc file from yaml to json.
+
 ## 🏍 2.0.1 (2019-09-27)
 
 ### Bug Fix
