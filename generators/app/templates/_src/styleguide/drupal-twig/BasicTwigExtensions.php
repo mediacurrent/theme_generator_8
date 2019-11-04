@@ -18,6 +18,41 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
   }
 
   /**
+   * Prepares a string for use as a valid HTML ID.
+   *
+   * @param string $id
+   *   The ID to clean.
+   *
+   * @return string
+   *   The cleaned ID.
+   */
+  public static function getId($id) {
+    $id = str_replace([
+      ' ',
+      '_',
+      '[',
+      ']',
+    ], [
+      '-',
+      '-',
+      '-',
+      '',
+    ], Unicode::strtolower($id));
+
+    // As defined in http://www.w3.org/TR/html4/types.html#type-name, HTML IDs can
+    // only contain letters, digits ([0-9]), hyphens ("-"), underscores ("_"),
+    // colons (":"), and periods ("."). We strip out any character not in that
+    // list. Note that the CSS spec doesn't allow colons or periods in identifiers
+    // (http://www.w3.org/TR/CSS21/syndata.html#characters), so we strip those two
+    // characters as well.
+    $id = preg_replace('/[^A-Za-z0-9\\-_]/', '', $id);
+
+    // Removing multiple consecutive hyphens.
+    $id = preg_replace('/\\-+/', '-', $id);
+    return $id;
+  }
+
+  /**
    * Dummy function that returns a simple '#'.
    *
    * @return string
@@ -52,6 +87,7 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
       new Twig_SimpleFilter('placeholder', [$this, 'returnParam']),
       new Twig_SimpleFilter('without', [$this, 'returnParam']),
       new Twig_SimpleFilter('clean_class', [$this, 'returnParam']),
+      new Twig_SimpleFilter('clean_id', [$this, 'getId']),
     ];
   }
 
