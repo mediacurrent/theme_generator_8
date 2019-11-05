@@ -1,4 +1,3 @@
-/*eslint strict: ["error", "global"]*/
 'use strict';
 
 // Include gulp
@@ -17,6 +16,7 @@ const rename = require('gulp-rename');
  * @returns {undefined}
  */
 function handleError(err) {
+  // eslint-disable-next-line no-console
   console.error(err.toString());
   this.emit('end');
 }
