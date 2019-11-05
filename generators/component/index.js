@@ -9,94 +9,101 @@ module.exports = class extends Generator {
     super(args, options);
 
     // Allow the theme generator main app to pass through the machine name.
-    this.argument('theme_machine_name', {
-      required: false,
+    // --theme-name=hey_yall
+    this.option('theme-name', {
       type: String,
       desc: 'The theme machine name'
     });
-  }
 
-  prompting() {
-    let prompts = [];
-
-    // If there's no theme machine name provided, prompt the user for it.
-    if (!this.options.theme_machine_name) {
-      // TODO: Test if this works in the following scenarios:
-      // 1. There is a package.json
-      // 2. There is no package.json
-      // 3. This is called from the main generator app.
-      this.pkg = JSON.parse(
-        fs.readFileSync(
-          path.resolve(path.join(__dirname, './package.json')), 'utf8'
-        )
-      );
-
-      prompts.push({
-        name: 'themeNameMachine',
-        message: 'What is your theme\'s machine name? EX: unicorn_theme',
-        default: function () {
-          // Try to guess what it is based on the package.json name.
-          // If we can't figure it out default to the directory name.
-          return this.pkg ? this.pkg.name : _.snakeCase(this.appname);
-        }
-      });
-    }
-
-    // Proved the user with prompts.
-    // TODO: need to think more about this flow.
-    // In theory we want users to use this to quickly scaffold a new component.
-    // We ALSO want users to be able to add demo components.
-    // These may actually do better to seperate them to two
-    // different sub-generators.
-    // 1. component
-    // 2. starter
-    prompts.push({
-      type: 'checkbox',
-      name: 'howMuchTheme',
-      message: 'Would you like to add any starter components?',
-      // Be nice for these to be populated from an external repo
-      // and use a package.json to build this list.
-      choices: [
-        {
-          value: 'button',
-          name: 'Button'
-        },
-        {
-          value: 'tabs',
-          name: 'Drupal Tabs'
-        },
-        {
-          value: 'message',
-          name: 'Drupal Messages'
-        }
-      ]
+    // Allow the user to pass in a component name.
+    // --name=HeyYall
+    this.option('name', {
+      type: String,
+      desc: 'The component name'
     });
 
-    return this.prompt(prompts).then(function (props) {
-      // props.howMuchTheme is an array of all selected options.
-      // i.e. [ 'hero', 'tabs', 'messages' ]
-      this.exampleComponents = props.howMuchTheme;
-
-      // Use the user provided theme machine name.
-      this.themeNameMachine = props.themeNameMachine;
-
-      // To access props later use this.props.someAnswer;
-      this.props = props;
-    }.bind(this));
+    // Allow the user to opt in to a JS behavior file.
+    // --include-js
+    this.option('include-js', {
+      type: Boolean,
+      desc: 'Include a JS file'
+    });
   }
 
   initializing() {
     // Create an object to contain all our name variations.
     this.componentName = {};
 
+    const rawName = this.options.name || '';
     // Preserve the raw layout name.
-    this.componentName.raw = this.options.name;
-
+    this.componentName.raw = rawName;
     // Create a dashed version of the layout name.
-    this.componentName.dashed = _.kebabCase(this.options.name);
+    this.componentName.dashed = _.kebabCase(rawName);
 
-    // eslint-disable-next-line max-len
-    this.log('Creating a new theme component called ' + this.options.name + ' (' + this.componentName.dashed + ').');
+    // Grab the theme machine name if it's passed in.
+    const themeName = this.options.themeName || '';
+    this.themeNameMachine = _.snakeCase(themeName);
+
+    // Check to see if we need to include a JS file.
+    this.includeJS = this.options.includeJs || false;
+  }
+
+  // Prompts need at least two arguments passed in to work:
+  // theme name and Component name. Without those we can't create
+  // a basic component.
+  prompting() {
+    // If we DO have both the theme name _and_ component name passed
+    // as arguments we can skip all the prompts.
+    if (this.options.themeName && this.options.name) {
+      return;
+    }
+
+    // TODO: Test if this works in the following scenarios:
+    // 1. There is a package.json
+    // 2. There is no package.json
+    this.pkg = JSON.parse(
+      fs.readFileSync(
+        path.resolve(this.destinationPath('package.json')), 'utf8'
+      )
+    );
+
+    let prompts = [{
+      name: 'themeNameMachine',
+      message: 'What is your theme\'s machine name? EX: unicorn_theme',
+      default: () => {
+        // Try to guess what it is based on the package.json name.
+        // If we can't figure it out default to the directory name.
+        return this.pkg ? this.pkg.name : _.snakeCase(this.appname);
+      }
+    },
+    {
+      name: 'name',
+      message: 'What should we name your component? EX: Hero',
+      default: 'Hero'
+    },
+    {
+      name: 'includeJSBehavior',
+      type: 'confirm',
+      message: 'Would you like to include a JavaScript Behavior file?',
+      default: false
+    }];
+
+    return this.prompt(prompts).then(function (props) {
+
+      // Use the user provided theme machine name.
+      this.themeNameMachine = _.snakeCase(props.themeNameMachine);
+
+      // Use the component name provided.
+      this.componentName.raw = props.name;
+      // Create a dashed version of the layout name.
+      this.componentName.dashed = _.kebabCase(props.name);
+
+      // See if we need to include a JS behavior file.
+      this.includeJSBehavior = props.includeJSBehavior;
+
+      // To access props later use this.props.someAnswer;
+      this.props = props;
+    }.bind(this));
   }
 
   writing() {
@@ -105,15 +112,16 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath('_component/_component.json'),
       // eslint-disable-next-line max-len
-      this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.json'),
+      this.destinationPath('src/patterns/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.json'),
       {
-        name: this.componentName.raw
+        name: this.componentName.raw,
+        dashed: this.componentName.dashed
       }
     );
     this.fs.copyTpl(
       this.templatePath('_component/_component.scss'),
       // eslint-disable-next-line max-len
-      this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.scss'),
+      this.destinationPath('src/patterns/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.scss'),
       {
         name: this.componentName.raw,
         dashed: this.componentName.dashed
@@ -122,18 +130,31 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath('_component/_component.twig'),
       // eslint-disable-next-line max-len
-      this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.twig'),
+      this.destinationPath('src/patterns/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.twig'),
       {
-        dashed: this.componentName.dashed
+        dashed: this.componentName.dashed,
+        themeNameMachine: this.themeNameMachine
       }
     );
   }
 
-  install() {
-    const name = chalk.red(this.options.name);
+  end() {
     this.log('-----------------------------------------');
-    this.log('Created a new component named: "' + name + '".');
+    // eslint-disable-next-line max-len
+    this.log(`🎉 Created a new component named: "${chalk.red(this.componentName.raw)}"!`);
     this.log('-----------------------------------------');
-  }
 
+    // If the user followed the prompt workflow, make sure they know they
+    // can run all this on the command line without the prompts.
+    if (!this.options.name) {
+      // eslint-disable-next-line max-len
+      this.log('To generate components faster you can pass in arguments to the subgenerator!');
+      this.log('For example: 👇');
+      // eslint-disable-next-line max-len
+      this.log(chalk.blue(`npm run generate -- --name=${this.componentName.raw} --theme-name=${this.themeNameMachine}`));
+      this.log('Or add a Drupal JavaScript behavior to that with:');
+      // eslint-disable-next-line max-len
+      this.log(chalk.blue(`npm run generate -- --name=${this.componentName.raw} --theme-name=${this.themeNameMachine} --include-js`));
+    }
+  }
 };

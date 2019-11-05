@@ -6,10 +6,14 @@ const fs = require('fs');
 // Experimental, could switch to normal FS I suppose.
 const fsPromises = fs.promises;
 
-module.exports = async function buildComponents(exampleComponents, app) {
+module.exports = async function buildComponents({
+  exampleComponents,
+  app,
+  pathBase = '_example_components'
+}) {
+
   // Build an object that will be used to populate the *.libraries.yml file
   // with data for any selected example components.
-  const pathBase = '_example_components';
   // eslint-disable-next-line max-len
   const libraries = await Promise.all(exampleComponents.map(async (component) => {
     // Copy the selected example component into the theme.
