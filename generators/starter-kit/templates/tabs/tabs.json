@@ -1,0 +1,26 @@
+{
+  "htmlClass": "no-padding",
+  "primary": true,
+  "tabs": [
+    {
+      "text": "View",
+      "link": "#view",
+      "is_active": true
+    },
+    {
+      "text": "Edit",
+      "link": "#edit",
+      "is_active": false
+    },
+    {
+      "text": "Delete",
+      "link": "#delete",
+      "is_active": false
+    },
+    {
+      "text": "Revisions",
+      "link": "#revisions",
+      "is_active": false
+    }
+  ]
+}

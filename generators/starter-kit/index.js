@@ -1,14 +1,17 @@
 var Generator = require('yeoman-generator');
 var _ = require('lodash');
-var chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
+const jsYaml = require('js-yaml');
+
+// Helper to generate component libraries.
+const buildComponents = require('../app/build-components');
 
 module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
 
-    // Allow the theme generator main app to pass through the machine name.
+    // TODO: rewrite this with options.
     this.argument('theme_machine_name', {
       required: false,
       type: String,
@@ -17,17 +20,38 @@ module.exports = class extends Generator {
   }
 
   prompting() {
-    let prompts = [];
+    const prompts = [
+      {
+        type: 'checkbox',
+        name: 'howMuchTheme',
+        message: 'Would you like any starter components with your theme?',
+        // Be nice for these to be populated from an external repo
+        // and use a package.json to build this list.
+        choices: [
+          {
+            value: 'button',
+            name: 'Button'
+          },
+          {
+            value: 'tabs',
+            name: 'Drupal Tabs'
+          },
+          {
+            value: 'message',
+            name: 'Drupal Messages'
+          }
+        ]
+      }
+    ];
 
     // If there's no theme machine name provided, prompt the user for it.
     if (!this.options.theme_machine_name) {
       // TODO: Test if this works in the following scenarios:
       // 1. There is a package.json
       // 2. There is no package.json
-      // 3. This is called from the main generator app.
       this.pkg = JSON.parse(
         fs.readFileSync(
-          path.resolve(path.join(__dirname, './package.json')), 'utf8'
+          path.resolve(this.destinationPath('package.json')), 'utf8'
         )
       );
 
@@ -42,36 +66,6 @@ module.exports = class extends Generator {
       });
     }
 
-    // Proved the user with prompts.
-    // TODO: need to think more about this flow.
-    // In theory we want users to use this to quickly scaffold a new component.
-    // We ALSO want users to be able to add demo components.
-    // These may actually do better to seperate them to two
-    // different sub-generators.
-    // 1. component
-    // 2. starter
-    prompts.push({
-      type: 'checkbox',
-      name: 'howMuchTheme',
-      message: 'Would you like to add any starter components?',
-      // Be nice for these to be populated from an external repo
-      // and use a package.json to build this list.
-      choices: [
-        {
-          value: 'button',
-          name: 'Button'
-        },
-        {
-          value: 'tabs',
-          name: 'Drupal Tabs'
-        },
-        {
-          value: 'message',
-          name: 'Drupal Messages'
-        }
-      ]
-    });
-
     return this.prompt(prompts).then(function (props) {
       // props.howMuchTheme is an array of all selected options.
       // i.e. [ 'hero', 'tabs', 'messages' ]
@@ -85,55 +79,47 @@ module.exports = class extends Generator {
     }.bind(this));
   }
 
-  initializing() {
-    // Create an object to contain all our name variations.
-    this.componentName = {};
-
-    // Preserve the raw layout name.
-    this.componentName.raw = this.options.name;
-
-    // Create a dashed version of the layout name.
-    this.componentName.dashed = _.kebabCase(this.options.name);
-
-    // eslint-disable-next-line max-len
-    this.log('Creating a new theme component called ' + this.options.name + ' (' + this.componentName.dashed + ').');
-  }
-
   writing() {
-    // Write each file the component needs, adding the component
-    // name where needed.
-    this.fs.copyTpl(
-      this.templatePath('_component/_component.json'),
-      // eslint-disable-next-line max-len
-      this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.json'),
-      {
-        name: this.componentName.raw
-      }
-    );
-    this.fs.copyTpl(
-      this.templatePath('_component/_component.scss'),
-      // eslint-disable-next-line max-len
-      this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.scss'),
-      {
-        name: this.componentName.raw,
-        dashed: this.componentName.dashed
-      }
-    );
-    this.fs.copyTpl(
-      this.templatePath('_component/_component.twig'),
-      // eslint-disable-next-line max-len
-      this.destinationPath('src/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.twig'),
-      {
-        dashed: this.componentName.dashed
-      }
-    );
-  }
+    // If any example components were selected...
+    if (this.exampleComponents.length > 0) {
+      // ...copy over the example components.
+      buildComponents({
+        exampleComponents: this.exampleComponents,
+        app: this,
+        pathBase: 'templates'
+      })
+        .then(buildComponentsConfig => {
+          // And add the needed lines to the Drupal library file.
 
-  install() {
-    const name = chalk.red(this.options.name);
-    this.log('-----------------------------------------');
-    this.log('Created a new component named: "' + name + '".');
-    this.log('-----------------------------------------');
+          // Loop through the different components and append them to the
+          // libraries.yml file.
+          buildComponentsConfig.forEach((component) => {
+            // Make sure there's a blank line added between libraries.
+            this.fs.append(
+              this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+              jsYaml.safeDump(component),
+              {
+                trimEnd: false,
+                separator: '\r\n'
+              }
+            );
+          });
+        })
+        .catch(error => {
+          // eslint-disable-next-line no-console
+          console.error(error);
+        });
+    }
+    else {
+      // No example componets were selected, go ahead and copy over the default
+      // Drupal libraries file without any additional libraries.
+      this.fs.copyTpl(
+        this.templatePath('_theme_name.libraries.yml'),
+        this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+        {
+          themeNameMachine: this.themeNameMachine
+        }
+      );
+    }
   }
-
 };

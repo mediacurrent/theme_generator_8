@@ -1,0 +1,20 @@
+{
+  "htmlClass": "no-padding",
+  "message_list": {
+    "status": [
+      "This is a status message"
+    ],
+    "warning": [
+      "This is a warning message"
+    ],
+    "error": [
+      "This is a error message"
+    ]
+  },
+  "status_headings": {
+    "status": "Status message",
+    "error": "Error message",
+    "warning": "Warning message",
+    "moderation": "Moderation message"
+  }
+}
