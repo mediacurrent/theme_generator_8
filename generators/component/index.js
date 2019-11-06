@@ -3,6 +3,7 @@ var _ = require('lodash');
 var chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
+const jsYaml = require('js-yaml');
 
 module.exports = class extends Generator {
   constructor(args, options) {
@@ -99,7 +100,7 @@ module.exports = class extends Generator {
       this.componentName.dashed = _.kebabCase(props.name);
 
       // See if we need to include a JS behavior file.
-      this.includeJSBehavior = props.includeJSBehavior;
+      this.includeJS = props.includeJSBehavior;
 
       // To access props later use this.props.someAnswer;
       this.props = props;
@@ -107,6 +108,58 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    // Build out the library structure so we can append it to the
+    // libraries.yml file.
+    let componentLibrary = {};
+    const component = this.componentName.dashed;
+
+    // Could prob break this out to it's own thing eventually.
+    if (this.includeJS) {
+      componentLibrary = {
+        [component]: {
+          css: {
+            component: {
+              [`dist/css/${component}.css`]: {}
+            }
+          },
+          js: {
+            [`dist/js/${component}.js`]: {}
+          }
+        }
+      };
+    }
+    else {
+      componentLibrary = {
+        [component]: {
+          css: {
+            component: {
+              [`dist/css/${component}.css`]: {}
+            }
+          }
+        }
+      };
+    }
+
+    // Add a blank line so the file is nicely formatted and the
+    // appended data doesn't run into the current data within the file.
+    fs.appendFileSync(
+      this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+      '\r\n'
+    );
+
+    // Update the libraries.yml file with the new component library.
+    fs.appendFile(
+      this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+      jsYaml.safeDump(componentLibrary),
+      (err) => {
+        if (err) {
+          this.log(
+            chalk.red(`Failed to update ${this.themeNameMachine}.libraries.yml`)
+          );
+        }
+      }
+    );
+
     // Write each file the component needs, adding the component
     // name where needed.
     this.fs.copyTpl(
@@ -136,13 +189,23 @@ module.exports = class extends Generator {
         themeNameMachine: this.themeNameMachine
       }
     );
+    if (this.includeJS) {
+      this.fs.copyTpl(
+        this.templatePath('_component/_component.ejs'),
+        // eslint-disable-next-line max-len
+        this.destinationPath('src/patterns/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.js'),
+        {
+          camel: _.camelCase(this.componentName.raw)
+        }
+      );
+    }
   }
 
   end() {
-    this.log('-----------------------------------------');
+    this.log('------------------------------------------------------------');
     // eslint-disable-next-line max-len
     this.log(`🎉 Created a new component named: "${chalk.red(this.componentName.raw)}"!`);
-    this.log('-----------------------------------------');
+    this.log('------------------------------------------------------------');
 
     // If the user followed the prompt workflow, make sure they know they
     // can run all this on the command line without the prompts.
@@ -150,11 +213,12 @@ module.exports = class extends Generator {
       // eslint-disable-next-line max-len
       this.log('To generate components faster you can pass in arguments to the subgenerator!');
       this.log('For example: 👇');
+      // TODO: test to make sure spaces are ok with this format.
       // eslint-disable-next-line max-len
-      this.log(chalk.blue(`npm run generate -- --name=${this.componentName.raw} --theme-name=${this.themeNameMachine}`));
+      this.log(chalk.blue(`npm run generate -- --name="${this.componentName.raw}" --theme-name="${this.themeNameMachine}"`));
       this.log('Or add a Drupal JavaScript behavior to that with:');
       // eslint-disable-next-line max-len
-      this.log(chalk.blue(`npm run generate -- --name=${this.componentName.raw} --theme-name=${this.themeNameMachine} --include-js`));
+      this.log(chalk.blue(`npm run generate -- --name="${this.componentName.raw}" --theme-name="${this.themeNameMachine}" --include-js`));
     }
   }
 };

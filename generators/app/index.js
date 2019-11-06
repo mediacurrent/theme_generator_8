@@ -122,17 +122,36 @@ module.exports = class extends Generator {
     // If any example components were selected...
     if (this.exampleComponents.length > 0) {
       // ...copy over the example components.
-      buildComponents(this.exampleComponents, this)
+      // TODO: this can eventually be a subgenerator.
+      // STARTED: starter-kit subgenerator
+      buildComponents({
+        exampleComponents: this.exampleComponents,
+        app: this
+      })
         .then(buildComponentsConfig => {
           // And add the needed lines to the Drupal library file.
+          // Copy over the libraries.yml file.
           this.fs.copyTpl(
             this.templatePath('_theme_name.libraries.yml'),
             this.destinationPath(this.themeNameMachine + '.libraries.yml'),
             {
-              themeNameMachine: this.themeNameMachine,
-              exampleComponents: jsYaml.safeDump(buildComponentsConfig)
+              themeNameMachine: this.themeNameMachine
             }
           );
+
+          // Loop through the different components and append them to the
+          // libraries.yml file.
+          buildComponentsConfig.forEach((component) => {
+            // Make sure there's a blank line added between libraries.
+            this.fs.append(
+              this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+              jsYaml.safeDump(component),
+              {
+                trimEnd: false,
+                separator: '\r\n'
+              }
+            );
+          });
         })
         .catch(error => {
           // eslint-disable-next-line no-console
@@ -146,8 +165,7 @@ module.exports = class extends Generator {
         this.templatePath('_theme_name.libraries.yml'),
         this.destinationPath(this.themeNameMachine + '.libraries.yml'),
         {
-          themeNameMachine: this.themeNameMachine,
-          exampleComponents: ''
+          themeNameMachine: this.themeNameMachine
         }
       );
     }
@@ -341,11 +359,16 @@ module.exports = class extends Generator {
     // Need to see if we still need this.
     this.npmInstall();
 
-    // Install the following node modules specifically for Pattern Lab.
+    // Install the following node modules specifically for Pattern Lab
+    // and theme generator.
+    // Adding the `yo generator-mc-d8-theme` so users can quickly
+    // run the component sub-generator locally.
     var npmArray = [
       '@pattern-lab/core',
       '@pattern-lab/engine-twig-php',
-      '@pattern-lab/uikit-workshop'
+      '@pattern-lab/uikit-workshop',
+      'yo',
+      'generator-mc-d8-theme'
     ];
 
     // This runs `npm install ... --save-dev` on the command line.

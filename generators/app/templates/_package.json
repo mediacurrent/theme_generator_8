@@ -9,7 +9,8 @@
     "compress": "gulp compress",
     "lint": "gulp lint",
     "clean": "gulp clean",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "generate": "yo mc-d8-theme:component"
   },
   "babel": {
     "sourceType": "unambiguous",

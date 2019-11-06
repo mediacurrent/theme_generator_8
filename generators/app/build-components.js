@@ -11,11 +11,10 @@ module.exports = async function buildComponents({
   app,
   pathBase = '_example_components'
 }) {
-
   // Build an object that will be used to populate the *.libraries.yml file
   // with data for any selected example components.
   // eslint-disable-next-line max-len
-  const libraries = await Promise.all(exampleComponents.map(async (component) => {
+  return await Promise.all(exampleComponents.map(async (component) => {
     // Copy the selected example component into the theme.
     // Exclude the templates folder, it needs to go in a different directory.
     app.fs.copy(
@@ -93,9 +92,4 @@ module.exports = async function buildComponents({
       };
     }
   }));
-
-  // Convert the array into a flat object needed for the libraries file.
-  return libraries.reduce((accumulator, currentValue) => {
-    return Object.assign(accumulator, currentValue);
-  }, {});
 };
