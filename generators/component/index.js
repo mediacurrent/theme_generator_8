@@ -124,7 +124,11 @@ module.exports = class extends Generator {
           },
           js: {
             [`dist/js/${component}.js`]: {}
-          }
+          },
+          dependencies: [
+            'core/drupal',
+            'core/jquery'
+          ]
         }
       };
     }
