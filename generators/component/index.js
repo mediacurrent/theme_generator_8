@@ -195,7 +195,9 @@ module.exports = class extends Generator {
         // eslint-disable-next-line max-len
         this.destinationPath('src/patterns/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.js'),
         {
-          camel: _.camelCase(this.componentName.raw)
+          camel: _.camelCase(this.componentName.raw),
+          dashed: this.componentName.dashed,
+          themeNameMachine: this.themeNameMachine
         }
       );
     }

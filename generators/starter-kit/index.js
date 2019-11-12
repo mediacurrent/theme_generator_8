@@ -1,22 +1,29 @@
-var Generator = require('yeoman-generator');
-var _ = require('lodash');
+const Generator = require('yeoman-generator');
+const _ = require('lodash');
+const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
 const jsYaml = require('js-yaml');
 
 // Helper to generate component libraries.
-const buildComponents = require('../app/build-components');
+const buildComponents = require('./build-components');
 
 module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
 
-    // TODO: rewrite this with options.
-    this.argument('theme_machine_name', {
-      required: false,
+    // Allow the theme generator main app to pass through the machine name.
+    // --theme-name=hey_yall
+    this.option('theme-name', {
       type: String,
       desc: 'The theme machine name'
     });
+  }
+
+  initializing() {
+    // Grab the theme machine name if it's passed in.
+    const themeName = this.options.themeName || '';
+    this.themeNameMachine = _.snakeCase(themeName);
   }
 
   prompting() {
@@ -24,9 +31,10 @@ module.exports = class extends Generator {
       {
         type: 'checkbox',
         name: 'howMuchTheme',
-        message: 'Would you like any starter components with your theme?',
+        message: 'Which starter components do you want to add to your theme?',
         // Be nice for these to be populated from an external repo
         // and use a package.json to build this list.
+        // Or just do it based on folder name. /shrug
         choices: [
           {
             value: 'button',
@@ -45,7 +53,7 @@ module.exports = class extends Generator {
     ];
 
     // If there's no theme machine name provided, prompt the user for it.
-    if (!this.options.theme_machine_name) {
+    if (!this.themeNameMachine) {
       // TODO: Test if this works in the following scenarios:
       // 1. There is a package.json
       // 2. There is no package.json
@@ -58,7 +66,7 @@ module.exports = class extends Generator {
       prompts.push({
         name: 'themeNameMachine',
         message: 'What is your theme\'s machine name? EX: unicorn_theme',
-        default: function () {
+        default: () => {
           // Try to guess what it is based on the package.json name.
           // If we can't figure it out default to the directory name.
           return this.pkg ? this.pkg.name : _.snakeCase(this.appname);
@@ -71,8 +79,9 @@ module.exports = class extends Generator {
       // i.e. [ 'hero', 'tabs', 'messages' ]
       this.exampleComponents = props.howMuchTheme;
 
-      // Use the user provided theme machine name.
-      this.themeNameMachine = props.themeNameMachine;
+      // Try to use the name passed in via option else use
+      // the user provided theme machine name.
+      this.themeNameMachine = this.themeNameMachine || props.themeNameMachine;
 
       // To access props later use this.props.someAnswer;
       this.props = props;
@@ -85,8 +94,7 @@ module.exports = class extends Generator {
       // ...copy over the example components.
       buildComponents({
         exampleComponents: this.exampleComponents,
-        app: this,
-        pathBase: 'templates'
+        app: this
       })
         .then(buildComponentsConfig => {
           // And add the needed lines to the Drupal library file.
@@ -94,32 +102,57 @@ module.exports = class extends Generator {
           // Loop through the different components and append them to the
           // libraries.yml file.
           buildComponentsConfig.forEach((component) => {
-            // Make sure there's a blank line added between libraries.
-            this.fs.append(
-              this.destinationPath(this.themeNameMachine + '.libraries.yml'),
-              jsYaml.safeDump(component),
-              {
-                trimEnd: false,
-                separator: '\r\n'
-              }
-            );
+            // This is a little weird:
+            // 1. If this is being run from the parent generator we need to use
+            // this.fs.append() since we're copying the original libraries.yml
+            // template. If we just use fs.appendFileSync() there
+            // will be a conflict.
+            // 2. However if this is being run as a standalone sub generator
+            // this has to use this.appendFileSync() because otherwise it tries
+            // to overwrite the existing libraries file.
+
+            // Find out if this was called via the parent generator:
+            if (this.options.themeName) {
+              this.fs.append(
+                this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+                jsYaml.safeDump(component),
+                {
+                  trimEnd: false,
+                  separator: '\r\n'
+                }
+              );
+            }
+            else {
+              // Add a blank line so the file is nicely formatted and the
+              // appended data doesn't run into the current data within
+              // the file.
+              fs.appendFileSync(
+                this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+                '\r\n'
+              );
+
+              // Update the libraries.yml file with the new component library.
+              fs.appendFileSync(
+                this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+                jsYaml.safeDump(component),
+                (err) => {
+                  if (err) {
+                    this.log(
+                      chalk.red(
+                        // eslint-disable-next-line max-len
+                        `Failed to update ${this.themeNameMachine}.libraries.yml`
+                      )
+                    );
+                  }
+                }
+              );
+            }
           });
         })
         .catch(error => {
           // eslint-disable-next-line no-console
           console.error(error);
         });
-    }
-    else {
-      // No example componets were selected, go ahead and copy over the default
-      // Drupal libraries file without any additional libraries.
-      this.fs.copyTpl(
-        this.templatePath('_theme_name.libraries.yml'),
-        this.destinationPath(this.themeNameMachine + '.libraries.yml'),
-        {
-          themeNameMachine: this.themeNameMachine
-        }
-      );
     }
   }
 };

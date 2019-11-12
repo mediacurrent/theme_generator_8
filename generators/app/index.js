@@ -8,7 +8,6 @@ const path = require('path');
 const jsYaml = require('js-yaml');
 
 // Custom helper modules.
-const buildComponents = require('./build-components');
 const mcLogo = require('./mc-logo');
 
 module.exports = class extends Generator {
@@ -62,35 +61,10 @@ module.exports = class extends Generator {
         // eslint-disable-next-line max-len
         message: 'Should we update the .gitignore to ignore compiled files? (i.e. /dist)',
         default: true
-      },
-      {
-        type: 'checkbox',
-        name: 'howMuchTheme',
-        message: 'Would you like any starter components with your theme?',
-        // Be nice for these to be populated from an external repo
-        // and use a package.json to build this list.
-        choices: [
-          {
-            value: 'button',
-            name: 'Button'
-          },
-          {
-            value: 'tabs',
-            name: 'Drupal Tabs'
-          },
-          {
-            value: 'message',
-            name: 'Drupal Messages'
-          }
-        ]
       }
     ];
 
     return this.prompt(prompts).then(function (props) {
-      // props.howMuchTheme is an array of all selected options.
-      // i.e. [ 'hero', 'tabs', 'messages' ]
-      this.exampleComponents = props.howMuchTheme;
-
       // Should we ignore ./dist files or not?
       this.ignoreDist = props.ignoreDist;
 
@@ -119,56 +93,22 @@ module.exports = class extends Generator {
   }
 
   configuring() {
-    // If any example components were selected...
-    if (this.exampleComponents.length > 0) {
-      // ...copy over the example components.
-      // TODO: this can eventually be a subgenerator.
-      // STARTED: starter-kit subgenerator
-      buildComponents({
-        exampleComponents: this.exampleComponents,
-        app: this
-      })
-        .then(buildComponentsConfig => {
-          // And add the needed lines to the Drupal library file.
-          // Copy over the libraries.yml file.
-          this.fs.copyTpl(
-            this.templatePath('_theme_name.libraries.yml'),
-            this.destinationPath(this.themeNameMachine + '.libraries.yml'),
-            {
-              themeNameMachine: this.themeNameMachine
-            }
-          );
+    // Add the Drupal libraries file so we can append additional
+    // libraries to it if selected by the user.
+    this.fs.copyTpl(
+      this.templatePath('_theme_name.libraries.yml'),
+      this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+      {
+        themeNameMachine: this.themeNameMachine
+      }
+    );
 
-          // Loop through the different components and append them to the
-          // libraries.yml file.
-          buildComponentsConfig.forEach((component) => {
-            // Make sure there's a blank line added between libraries.
-            this.fs.append(
-              this.destinationPath(this.themeNameMachine + '.libraries.yml'),
-              jsYaml.safeDump(component),
-              {
-                trimEnd: false,
-                separator: '\r\n'
-              }
-            );
-          });
-        })
-        .catch(error => {
-          // eslint-disable-next-line no-console
-          console.error(error);
-        });
-    }
-    else {
-      // No example componets were selected, go ahead and copy over the default
-      // Drupal libraries file without any additional libraries.
-      this.fs.copyTpl(
-        this.templatePath('_theme_name.libraries.yml'),
-        this.destinationPath(this.themeNameMachine + '.libraries.yml'),
-        {
-          themeNameMachine: this.themeNameMachine
-        }
-      );
-    }
+    // Prompt the user for start kit components. If any are selected
+    // they will be copied over to the patterns folder and the libraries.yml
+    // file will be appended with the component library.
+    this.composeWith('mc-d8-theme:starter-kit', {
+      themeName: this.themeNameMachine
+    });
   }
 
   writing() {
@@ -340,14 +280,6 @@ module.exports = class extends Generator {
         themeNameMachine: this.themeNameMachine
       }
     );
-
-    // TODO: this needs to be updated for creating a new component.
-    // May be able to repurpose to add example components. Would require
-    // Abstracting out pieces of 'build-components'.
-    //
-    //   this.composeWith('mc-d8-theme:component', {
-    //     arguments: ['Sample List']
-    //   });
 
     this.fs.copy(
       this.templatePath('_screenshot.png'),
