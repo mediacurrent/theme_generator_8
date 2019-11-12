@@ -8,7 +8,6 @@
   // Which environments your script is designed to run in.
   // Each environment brings with it a certain set of predefined global variables.
   "env": {
-    "node": true,
     "browser": true,
     "es6": true,
     "jquery": true
@@ -27,6 +26,20 @@
   // Inherit settings from ESLint Recommended config.
   // Rules above override any rules configured here.
   "extends": "eslint:recommended",
+
+  // Let ESLint know that the Gulpfile and any Gulp
+  // tasks run in Node not the browser.
+  "overrides": [
+    {
+      "files": [
+        "gulpfile.js",
+        "gulp-tasks/**/*.js"
+      ],
+      "env": {
+        "node": true
+      }
+    }
+  ],
 
   //  0 - turn the rule off
   // 1 - turn the rule on as a warning (doesn't affect exit code)
