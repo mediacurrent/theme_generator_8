@@ -5,7 +5,6 @@ const _ = require('lodash');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const path = require('path');
-const jsYaml = require('js-yaml');
 
 // Custom helper modules.
 const mcLogo = require('./mc-logo');
@@ -205,8 +204,8 @@ module.exports = class extends Generator {
       this.destinationPath('src/styleguide')
     );
     this.fs.copy(
-      this.templatePath('_src/templates/.gitkeep'),
-      this.destinationPath('src/templates/.gitkeep')
+      this.templatePath('_src/templates'),
+      this.destinationPath('src/templates')
     );
     this.fs.copy(
       this.templatePath('_src/favicon.ico'),

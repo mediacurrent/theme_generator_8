@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
 const jsYaml = require('js-yaml');
+const assert = require('assert');
 
 // Helper to generate component libraries.
 const buildComponents = require('./build-components');
@@ -54,23 +55,32 @@ module.exports = class extends Generator {
 
     // If there's no theme machine name provided, prompt the user for it.
     if (!this.themeNameMachine) {
-      // TODO: Test if this works in the following scenarios:
-      // 1. There is a package.json
-      // 2. There is no package.json
-      this.pkg = JSON.parse(
-        fs.readFileSync(
-          path.resolve(this.destinationPath('package.json')), 'utf8'
-        )
-      );
+      let defaultThemeName = '';
+
+      try {
+        // See if package.json exists.
+        fs.accessSync(this.destinationPath('package.json'), fs.constants.R_OK);
+        // If it does, read it and use the name as our default
+        // theme machine name.
+        const pkg = JSON.parse(
+          fs.readFileSync(
+            path.resolve(this.destinationPath('package.json')), 'utf8'
+          )
+        );
+        defaultThemeName = pkg.name;
+      }
+      catch (err) {
+        assert.fail(
+          `
+🚨 ${chalk.red(this.destinationPath('package.json'))} ${chalk.red('is missing')}.
+${chalk.blue('Make sure you\'re running this command from your theme root.')}`
+        );
+      }
 
       prompts.push({
         name: 'themeNameMachine',
         message: 'What is your theme\'s machine name? EX: unicorn_theme',
-        default: () => {
-          // Try to guess what it is based on the package.json name.
-          // If we can't figure it out default to the directory name.
-          return this.pkg ? this.pkg.name : _.snakeCase(this.appname);
-        }
+        default: defaultThemeName
       });
     }
 

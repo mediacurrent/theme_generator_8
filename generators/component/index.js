@@ -4,6 +4,7 @@ var chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
 const jsYaml = require('js-yaml');
+const assert = require('assert');
 
 module.exports = class extends Generator {
   constructor(args, options) {
@@ -59,23 +60,34 @@ module.exports = class extends Generator {
       return;
     }
 
-    // TODO: Test if this works in the following scenarios:
-    // 1. There is a package.json
-    // 2. There is no package.json
-    this.pkg = JSON.parse(
-      fs.readFileSync(
-        path.resolve(this.destinationPath('package.json')), 'utf8'
-      )
-    );
+    let defaultThemeName = '';
+
+    try {
+      // See if package.json exists.
+      fs.accessSync(this.destinationPath('package.json'), fs.constants.R_OK);
+      // If it does, read it and use the name as our default
+      // theme machine name.
+      const pkg = JSON.parse(
+        fs.readFileSync(
+          path.resolve(this.destinationPath('package.json')), 'utf8'
+        )
+      );
+      defaultThemeName = pkg.name;
+    }
+    // If it doesn't, let the user know we can't continue. We need to run from
+    // the theme root.
+    catch (err) {
+      assert.fail(
+        `
+🚨 ${chalk.red(this.destinationPath('package.json'))} ${chalk.red('is missing')}.
+${chalk.blue('Make sure you\'re running this command from your theme root.')}`
+      );
+    }
 
     let prompts = [{
       name: 'themeNameMachine',
       message: 'What is your theme\'s machine name? EX: unicorn_theme',
-      default: () => {
-        // Try to guess what it is based on the package.json name.
-        // If we can't figure it out default to the directory name.
-        return this.pkg ? this.pkg.name : _.snakeCase(this.appname);
-      }
+      default: defaultThemeName
     },
     {
       name: 'name',
@@ -219,7 +231,6 @@ module.exports = class extends Generator {
       // eslint-disable-next-line max-len
       this.log('To generate components faster you can pass in arguments to the subgenerator!');
       this.log('For example: 👇');
-      // TODO: test to make sure spaces are ok with this format.
       // eslint-disable-next-line max-len
       this.log(chalk.blue(`npm run generate -- --name="${this.componentName.raw}" --theme-name="${this.themeNameMachine}"`));
       this.log('Or add a Drupal JavaScript behavior to that with:');
