@@ -1,0 +1,87 @@
+// Import site utilities.
+@import '../../global/utils/init';
+
+.carousel__wrapper {
+  margin: 0 auto;
+  max-width: 1024px;
+}
+
+.carousel-item {
+  position: relative;
+}
+
+.carousel-item__content {
+  @include center-align(absolute);
+  background: $color-gray-dk;
+  min-width: 300px;
+  padding: 1rem 0.5rem;
+  top: 35%;
+  text-align: center;
+
+  @include breakpoint($bp-xsm) {
+    padding: 1rem 1.5rem;
+  }
+}
+
+.carousel-item__title {
+  @include wire-large-heading;
+}
+
+// Repositions prev & next button,
+// also makes them larger
+.carousel__slick {
+  .slick-prev,
+  .slick-next {
+    top: 80%;
+    z-index: 1;
+    height: 50px;
+    width: 50px;
+
+    @include breakpoint($bp-xsm) {
+      top: 90%;
+    }
+
+    &::before {
+      font-size: 48px;
+    }
+  }
+
+  .slick-prev {
+    left: 20%;
+
+    @include breakpoint($bp-xsm) {
+      left: 40%;
+    }
+  }
+
+  .slick-next {
+    right: 20%;
+
+    @include breakpoint($bp-xsm) {
+      right: 40%;
+    }
+  }
+}
+
+// Make dots below carousel larger.
+// Improves navigation UX, especially mobile.
+.slick-dots {
+  bottom: -35px;
+
+  li {
+    height: 35px;
+    width: 35px;
+
+    button {
+      height: 35px;
+      width: 35px;
+
+      &::before {
+        font-size: 20px;
+        height: 35px;
+        position: initial;
+        width: 35px;
+      }
+    }
+  }
+}

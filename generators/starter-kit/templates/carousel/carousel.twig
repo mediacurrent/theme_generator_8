@@ -1,0 +1,16 @@
+{{ attach_library('<%= themeNameMachine %>/carousel') }}
+
+<section class="carousel__wrapper{{ attributes ? ' ' ~ attributes.class}}"
+  {{- attributes ? attributes|without(class) -}}>
+  <ul class="carousel__list carousel__slick">
+    {% block carousel_items %}
+      {% for item in list %}
+        {%
+          include '@<%= themeNameMachine %>/carousel/_carousel-item.twig' with {
+            "item": item
+          } only
+        %}
+      {% endfor %}
+    {% endblock %}
+  </ul>
+</section>

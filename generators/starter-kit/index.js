@@ -38,16 +38,48 @@ module.exports = class extends Generator {
         // Or just do it based on folder name. /shrug
         choices: [
           {
+            value: 'accordion',
+            name: 'Accordion'
+          },
+          {
             value: 'button',
             name: 'Button'
           },
           {
-            value: 'tabs',
-            name: 'Drupal Tabs'
+            value: 'card',
+            name: 'Card'
+          },
+          {
+            value: 'card-list',
+            name: 'Card List'
+          },
+          {
+            value: 'carousel',
+            name: 'Carousel'
+          },
+          {
+            value: 'eyebrow',
+            name: 'Eyebrow'
+          },
+          {
+            value: 'heading',
+            name: 'Heading'
+          },
+          {
+            value: 'hero',
+            name: 'Hero'
+          },
+          {
+            value: 'media',
+            name: 'Media'
           },
           {
             value: 'message',
             name: 'Drupal Messages'
+          },
+          {
+            value: 'tabs',
+            name: 'Drupal Tabs'
           }
         ]
       }
@@ -164,5 +196,13 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
           console.error(error);
         });
     }
+  }
+
+  install() {
+    // TODO: Install slick-js or any library dependencies if `carousel` is selected.
+    // https://yeoman.io/authoring/dependencies.html
+    // composer require npm-asset/slick-carousel
+    // https://lightning.acquia.com/blog/round-your-front-end-javascript-libraries-composer
+    // this.spawnCommand('composer', ['install']);
   }
 };

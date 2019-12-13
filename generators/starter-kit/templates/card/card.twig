@@ -1,0 +1,52 @@
+{{ attach_library('<%= themeNameMachine %>/card') }}
+
+<article class="card{{ card.modifier ? ' ' ~ card.modifier }}
+  {{- attributes ? ' ' ~ attributes.class -}}"
+  {{- attributes ? attributes|without(class) -}}>
+
+  <div class="card__media">
+    {% if card.media.image %}
+      {{ card.media.image }}
+    {% elseif card.media.video %}
+      {{ card.media.video }}
+    {% endif %}
+      {{ card.media.caption }}
+  </div>
+
+  <div class="card__content">
+    {% if card.eyebrow %}
+      {%
+        include '@<%= themeNameMachine %>/eyebrow/eyebrow.twig' with {
+          "eyebrow": card.eyebrow
+        } only
+      %}
+    {% endif %}
+
+    {%
+      include '@<%= themeNameMachine %>/heading/heading.twig' with {
+        "heading": card.heading
+      } only
+    %}
+
+    {% if card.subhead %}
+      {%
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
+          "heading": card.subhead
+        } only
+      %}
+    {% endif %}
+
+    {% if card.summary_text %}
+      {%
+        include '@<%= themeNameMachine %>/body-text/body-text.twig' with {
+          "body_text": card.summary_text
+        } only
+      %}
+    {% endif %}
+
+    {% if card.link %}
+      <a href="{{ card.link.url }}" class="card__link">{{ card.link.text }}</a>
+    {% endif %}
+  </div>
+
+</article>

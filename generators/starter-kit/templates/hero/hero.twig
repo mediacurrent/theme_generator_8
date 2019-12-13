@@ -1,0 +1,46 @@
+{{ attach_library('<%= themeNameMachine %>/hero') }}
+
+<section class="hero">
+  {% if hero.media %}
+    {%
+      include '@rain_theme/media/media.twig' with {
+        "media": hero.media
+      } only
+    %}
+  {% endif %}
+
+  <div class="hero__content">
+    {% if hero.eyebrow %}
+      {%
+        include '@rain_theme/eyebrow/eyebrow.twig' with {
+          "eyebrow": hero.eyebrow,
+        } only
+      %}
+    {% endif %}
+
+    {% if hero.eyebrow %}
+      {%
+        include '@rain_theme/heading/heading.twig' with {
+          "heading": hero.heading
+        } only
+      %}
+    {% endif %}
+
+    {% if hero.body %}
+      {%
+        include '@rain_theme/body-text/body-text.twig' with {
+          "body_text": hero.body.body_text,
+          "classes": hero.body.classes
+        } only
+      %}
+    {% endif %}
+
+    {% if hero.button %}
+      {%
+        include '@rain_theme/button/button.twig' with {
+          "button": hero.button
+        } only
+      %}
+    {% endif %}
+  </div>
+</section>

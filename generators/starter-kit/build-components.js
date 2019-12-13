@@ -44,11 +44,11 @@ module.exports = async function buildComponents({
           // Make sure the file is a twig file.
           const twigFiles = files.filter(name => name.endsWith('.twig'));
           // Loop over all template files, pass through the theme machine name,
-          // and copy them to the src/templates directory.
+          // and copy them to the src/templates/${component} directory.
           twigFiles.forEach(file => {
             app.fs.copyTpl(
               app.templatePath(`${component}/templates/${file}`),
-              app.destinationPath(`src/templates/${file}`),
+              app.destinationPath(`src/templates/${component}/${file}`),
               {
                 themeNameMachine: app.themeNameMachine
               }
@@ -65,6 +65,9 @@ module.exports = async function buildComponents({
 
       // If there's a JS file in the example component, add it to the
       // library.
+
+      // Need a special use case here for the carousel which will need
+      // a depenency on slick-js.
       return {
         [component]: {
           css: {

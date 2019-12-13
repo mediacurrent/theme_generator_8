@@ -1,5 +1,19 @@
 # Changelog
 
+## ☕️ 2.2.0 (xxxxxxxxxx)
+
+### Bug Fix
+* Fixed a bug with ESlint not being able to tell the difference between node (gulp) and Drupal JS files. This would throw the wrong 'use strict' error.
+
+### New Feature
+* Added a new component subgenerator that can be run as a normal build script `npm run generate`.
+* Updated the start-kit components so they can be easily added to an existing Drupal theme.
+* Added a default `field.html.twig` template that's got less markup in it so that we start new themes in a cleaner state.
+
+### Documentation
+* TODO: Updated the `README.md` with examples of how to use the new component generator and rerun the starter-kit.
+* TODO: Add info about prettier.
+
 ## ⚔️ 2.1.0 (2019-11-04)
 
 ### Bug Fix
