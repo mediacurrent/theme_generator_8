@@ -1,16 +1,16 @@
 {{ attach_library('<%= themeNameMachine %>/media') }}
 
 <div class="media-item">
-  {% if media.video %}
+  {% if video %}
     <div class="media-item__responsive-video">
-      {{ media.video }}
+      {{ video }}
     </div>
   {% else %}
-    {{ media.image }}
+    {{ image }}
   {% endif %}
-  {% if media.caption %}
+  {% if caption %}
     <div class="media-item__caption">
-      {{ media.caption }}
+      {{ caption }}
     </div>
   {% endif %}
 </div>

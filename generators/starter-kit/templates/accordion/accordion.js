@@ -3,7 +3,7 @@
  * Behaviors for the Filter Accordion.
  */
 
-!((document, Drupal, $) => {
+!((Drupal, $) => {
   'use strict';
 
   /**
@@ -48,4 +48,4 @@
       }
     },
   };
-})(document, Drupal, jQuery);
+})(Drupal, jQuery);

@@ -8,6 +8,8 @@ const assert = require('assert');
 
 // Helper to generate component libraries.
 const buildComponents = require('./build-components');
+// Helper to add in third party dependencies.
+const addThirdParty = require('./add-third-party');
 
 module.exports = class extends Generator {
   constructor(args, options) {
@@ -47,15 +49,15 @@ module.exports = class extends Generator {
           },
           {
             value: 'card',
-            name: 'Card'
+            name: 'Card (Depends on Eyebrow and Heading components.)'
           },
           {
             value: 'card-list',
-            name: 'Card List'
+            name: 'Card List (Depends on Card, Eyebrow and Heading components.)'
           },
           {
             value: 'carousel',
-            name: 'Carousel'
+            name: 'Carousel (Depends on Heading, Media and Button components.)'
           },
           {
             value: 'eyebrow',
@@ -67,7 +69,7 @@ module.exports = class extends Generator {
           },
           {
             value: 'hero',
-            name: 'Hero'
+            name: 'Hero (Depends on Heading, Media and Button components.)'
           },
           {
             value: 'media',
@@ -119,6 +121,7 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
     return this.prompt(prompts).then(function (props) {
       // props.howMuchTheme is an array of all selected options.
       // i.e. [ 'hero', 'tabs', 'messages' ]
+
       this.exampleComponents = props.howMuchTheme;
 
       // Try to use the name passed in via option else use
@@ -139,7 +142,9 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
         app: this
       })
         .then(buildComponentsConfig => {
-          // And add the needed lines to the Drupal library file.
+          // Add in any third party dependencies before we write
+          // to the libraries.yml file.
+          buildComponentsConfig = addThirdParty(buildComponentsConfig);
 
           // Loop through the different components and append them to the
           // libraries.yml file.
@@ -199,10 +204,28 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
   }
 
   install() {
-    // TODO: Install slick-js or any library dependencies if `carousel` is selected.
-    // https://yeoman.io/authoring/dependencies.html
-    // composer require npm-asset/slick-carousel
-    // https://lightning.acquia.com/blog/round-your-front-end-javascript-libraries-composer
-    // this.spawnCommand('composer', ['install']);
+    // If `carousel` is selected, attempt to install the slick
+    // carousel dependency.
+    if (this.exampleComponents.indexOf('carousel') !== -1) {
+      // eslint-disable-next-line max-len
+      // https://lightning.acquia.com/blog/round-your-front-end-javascript-libraries-composer
+      this.log('------------------------------------------------------------');
+      // eslint-disable-next-line max-len
+      this.log('⏳ Attempting to install the slick-carousel dependency using composer.');
+      this.log('This is needed by the carousel component.');
+      // eslint-disable-next-line max-len
+      this.log(`If this fails you'll have to manually add Slick to your project and update the carousel library in the ${this.themeNameMachine}.libraries.yml file.`);
+      this.log('https://github.com/kenwheeler/slick/');
+      this.log('------------------------------------------------------------');
+      // When running composer install, assume that we'll be using the
+      // composer.json file found at the root of the project. As long as
+      // that file is above the docroot and the theme is in a
+      // theme/custom directory, this should work.
+      this.spawnCommand('composer', [
+        'require',
+        'npm-asset/slick-carousel',
+        '--working-dir=../../../../'
+      ]);
+    }
   }
 };

@@ -5,6 +5,8 @@
 const fs = require('fs');
 // Experimental, could switch to normal FS I suppose.
 const fsPromises = fs.promises;
+// Special helper for adding additional library dependencies.
+const addDependency = require('./add-dependency');
 
 module.exports = async function buildComponents({
   exampleComponents,
@@ -16,13 +18,16 @@ module.exports = async function buildComponents({
   return await Promise.all(exampleComponents.map(async (component) => {
     // Copy the selected example component into the theme.
     // Exclude the templates folder, it needs to go in a different directory.
-    app.fs.copy(
+    app.fs.copyTpl(
       [
         app.templatePath(`${component}`),
         `!${app.templatePath(`${component}`)}/templates`,
         `!${app.templatePath(`${component}/${component}.twig`)}`
       ],
-      app.destinationPath(`src/patterns/components/${component}`)
+      app.destinationPath(`src/patterns/components/${component}`),
+      {
+        themeNameMachine: app.themeNameMachine
+      }
     );
 
     // Copy the twig template, passing in the themeMachineName
@@ -66,9 +71,9 @@ module.exports = async function buildComponents({
       // If there's a JS file in the example component, add it to the
       // library.
 
-      // Need a special use case here for the carousel which will need
-      // a depenency on slick-js.
-      return {
+      // Add in additional dependencies OR provide a basic fallback for
+      // components with JS files.
+      return addDependency(component, app.themeNameMachine) || {
         [component]: {
           css: {
             component: {

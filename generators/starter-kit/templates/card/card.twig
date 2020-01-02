@@ -10,7 +10,7 @@
     {% elseif card.media.video %}
       {{ card.media.video }}
     {% endif %}
-      {{ card.media.caption }}
+    {{ card.media.caption }}
   </div>
 
   <div class="card__content">
@@ -37,11 +37,7 @@
     {% endif %}
 
     {% if card.summary_text %}
-      {%
-        include '@<%= themeNameMachine %>/body-text/body-text.twig' with {
-          "body_text": card.summary_text
-        } only
-      %}
+      {{ card.summary_text }}
     {% endif %}
 
     {% if card.link %}
