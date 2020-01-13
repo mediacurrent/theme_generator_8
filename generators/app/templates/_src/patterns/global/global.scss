@@ -23,8 +23,8 @@
 // There should be NO classes, IDs, etc.
 //=======================================================
 
-// Sass Lint needs to ignore some Normalize specific things:
-// sass-lint:disable no-duplicate-properties, no-vendor-prefixes
+// StyleLint needs to ignore some Normalize specific things:
+/* stylelint-disable property-no-vendor-prefix */
 
 html {
   @include font-stack-primary;

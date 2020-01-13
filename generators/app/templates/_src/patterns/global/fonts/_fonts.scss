@@ -15,7 +15,7 @@
   // https://css-tricks.com/almanac/properties/f/font-display/
   font-display: fallback;
   src: url('../fonts/lato-bold-webfont.woff2') format('woff2'),
-       url('../fonts/lato-bold-webfont.woff') format('woff'); // sass-lint:disable-line indentation
+       url('../fonts/lato-bold-webfont.woff') format('woff');
 }
 
 // Lato Regular.
@@ -25,7 +25,7 @@
   font-weight: 400;
   font-display: fallback;
   src: url('../fonts/lato-regular-webfont.woff2') format('woff2'),
-       url('../fonts/lato-regular-webfont.woff') format('woff'); // sass-lint:disable-line indentation
+       url('../fonts/lato-regular-webfont.woff') format('woff');
 }
 
 // Lato Regular Italic.
@@ -35,5 +35,5 @@
   font-style: italic;
   font-display: fallback;
   src: url('../fonts/lato-regularitalic-webfont.woff2') format('woff2'),
-       url('../fonts/lato-regularitalic-webfont.woff') format('woff'); // sass-lint:disable-line indentation
+       url('../fonts/lato-regularitalic-webfont.woff') format('woff');
 }
