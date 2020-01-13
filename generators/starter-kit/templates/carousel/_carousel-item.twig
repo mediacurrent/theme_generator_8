@@ -2,9 +2,7 @@
   <div class="carousel-item__media">
     {%
       include '@<%= themeNameMachine %>/media/media.twig' with {
-        "media": {
-          "image": item.image,
-        }
+        "image": item.image,
       } only
     %}
   </div>
@@ -12,20 +10,16 @@
     <div class="carousel-item__content">
       {%
         include '@<%= themeNameMachine %>/heading/heading.twig' with {
-          "heading": {
-            "title": item.title,
-            "heading_level": 2,
-            "modifier": "carousel-item__title",
-          }
+          "title": item.title,
+          "heading_level": 3,
+          "modifier": "carousel-item__title",
         } only
       %}
       {% if item.button.text %}
         {%
           include '@<%= themeNameMachine %>/button/button.twig' with {
-            "button": {
-              "text": item.button.text,
-              "url": item.button.url,
-            }
+            "text": item.button.text,
+            "url": item.button.url,
           } only
         %}
       {% endif %}

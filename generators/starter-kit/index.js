@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const jsYaml = require('js-yaml');
 const assert = require('assert');
+const replace = require('replace-in-file');
 
 // Helper to generate component libraries.
 const buildComponents = require('./build-components');
@@ -119,10 +120,27 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
     }
 
     return this.prompt(prompts).then(function (props) {
+      // Check to see if any of the components that need dependencies
+      // are selected.
+      // card requires eyebrow, heading
+      if (props.howMuchTheme.includes('card')) {
+        props.howMuchTheme.push('eyebrow', 'heading');
+      }
+      // card-list requires card, eyebrow, heading
+      if (props.howMuchTheme.includes('card-list')) {
+        props.howMuchTheme.push('card', 'eyebrow', 'heading');
+      }
+      // carousel OR hero requires heading, media, button
+      if (
+        props.howMuchTheme.includes('carousel') ||
+        props.howMuchTheme.includes('hero')
+      ) {
+        props.howMuchTheme.push('heading', 'media', 'button');
+      }
       // props.howMuchTheme is an array of all selected options.
       // i.e. [ 'hero', 'tabs', 'messages' ]
-
-      this.exampleComponents = props.howMuchTheme;
+      // Remove any duplicate components using uniq().
+      this.exampleComponents = _.uniq(props.howMuchTheme);
 
       // Try to use the name passed in via option else use
       // the user provided theme machine name.
@@ -207,6 +225,28 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
     // If `carousel` is selected, attempt to install the slick
     // carousel dependency.
     if (this.exampleComponents.indexOf('carousel') !== -1) {
+      // If a carousel third party library is required, add it to Pattern Lab
+      // so it works there.
+      replace({
+        files: this.destinationPath('src/styleguide/meta/_00-head.twig'),
+        from: /<!-- Vendor CSS placeholder -->/g,
+        // eslint-disable-next-line max-len
+        to: '<link rel="stylesheet" href="/libraries/slick-carousel/slick/slick.css" media="all" />'
+      })
+        .catch(() => {
+          // eslint-disable-next-line max-len
+          this.log('Failed to append slick css to Pattern Lab file styleguide/meta/_00-head.twig');
+        });
+      replace({
+        files: this.destinationPath('src/styleguide/meta/_01-foot.twig'),
+        from: /<!-- Vendor JS placeholder -->/g,
+        // eslint-disable-next-line max-len
+        to: '<script src="/libraries/slick-carousel/slick/slick.min.js"></script>'
+      })
+        .catch(() => {
+          // eslint-disable-next-line max-len
+          this.log('Failed to append slick js to Pattern Lab file styleguide/meta/_01-foot.twig');
+        });
       // eslint-disable-next-line max-len
       // https://lightning.acquia.com/blog/round-your-front-end-javascript-libraries-composer
       this.log('------------------------------------------------------------');

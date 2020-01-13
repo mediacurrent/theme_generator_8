@@ -294,7 +294,7 @@ module.exports = class extends Generator {
     // and theme generator.
     // Adding the `yo generator-mc-d8-theme` so users can quickly
     // run the component sub-generator locally.
-    var npmArray = [
+    const npmArray = [
       '@pattern-lab/core',
       '@pattern-lab/engine-twig-php',
       '@pattern-lab/uikit-workshop',
