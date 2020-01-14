@@ -1,4 +1,3 @@
-/*eslint strict: ["error", "global"]*/
 'use strict';
 
 // Include gulp helpers.
@@ -12,12 +11,13 @@ const patternlab = require('@pattern-lab/core')(config);
 //
 // Each task is broken apart to it's own node module.
 // Check out the ./gulp-tasks directory for more.
-const { compileSass, compileJS } = require('./gulp-tasks/compile.js');
-const { lintJS, lintSass } = require('./gulp-tasks/lint.js');
-const { compressAssets } = require('./gulp-tasks/compress.js');
-const { cleanCSS, cleanJS } = require('./gulp-tasks/clean.js');
-const { concatCSS, concatJS } = require('./gulp-tasks/concat.js');
-const { moveFonts, movePatternCSS } = require('./gulp-tasks/move.js');
+const { compileSass, compileJS } = require('./gulp-tasks/compile');
+const { lintJS, lintSass } = require('./gulp-tasks/lint');
+const { compressAssets } = require('./gulp-tasks/compress');
+const { cleanCSS, cleanJS } = require('./gulp-tasks/clean');
+const { concatCSS, concatJS } = require('./gulp-tasks/concat');
+const { moveFonts, movePatternCSS } = require('./gulp-tasks/move');
+const { prettier } = require('./gulp-tasks/format');
 const server = require('browser-sync').create();
 
 // Compile Our Sass and JS
@@ -25,6 +25,9 @@ exports.compile = parallel(compileSass, compileJS, moveFonts, movePatternCSS);
 
 // Lint Sass and JavaScript
 exports.lint = parallel(lintSass, lintJS);
+
+// Format JS files with Prettier and ESlint
+exports.format = prettier;
 
 // Compress Files
 exports.compress = compressAssets;
@@ -104,10 +107,13 @@ function watchFiles() {
   // Watch all my JS files and compile if a file changes.
   watch(
     './src/patterns/**/**/*.js',
-    series(parallel(lintJS, compileJS), concatJS, (done) => {
-      server.reload('*.js');
-      done();
-    })
+    series(
+      prettier,
+      parallel(lintJS, compileJS), concatJS, (done) => {
+        server.reload('*.js');
+        done();
+      }
+    )
   );
 
   // Reload the browser after patternlab updates.

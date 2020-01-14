@@ -1,0 +1,70 @@
+// Import site utilities.
+@import '../../global/utils/init';
+
+.accordion__wrapper {
+  max-width: 725px;
+}
+
+.accordion {
+  background: $color-gray-xlt;
+  border-top: 0;
+  border-right: 1px solid $color-gray-mid;
+  border-bottom: 1px solid $color-gray-mid;
+  border-left: 1px solid $color-gray-mid;
+  padding: 1rem 1.5rem;
+  transition: background-color 0.75s;
+
+  &:first-of-type {
+    border: 1px solid $color-gray-mid;
+  }
+
+  &.open {
+    background: $color-white;
+  }
+}
+
+.accordion__toggle {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  outline: inherit;
+  padding: 0 32px 0 0;
+  position: relative;
+  text-align: left;
+  width: 100%;
+
+  &::after {
+    content: url('../images/accordion__arrow.svg');
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 8px;
+    transition: transform 0.35s, top 0.35s;
+    will-change: transform;
+
+    .open & {
+      transform: rotate(-180deg);
+      top: 18px;
+    }
+  }
+}
+
+.accordion__heading {
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.625;
+}
+
+.accordion__content {
+  max-height: 0;
+  line-height: 1.625;
+  margin-top: 0;
+  overflow: hidden;
+  padding: 0 32px 0 0;
+  transition: max-height 0.15s, margin-top 0.35s;
+
+  .open & {
+    margin-top: 20px;
+    max-height: 500px;
+  }
+}

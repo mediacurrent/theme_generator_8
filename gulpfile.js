@@ -1,26 +1,28 @@
-'use strict';
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var excludeGitignore = require('gulp-exclude-gitignore');
 var mocha = require('gulp-mocha');
+var isparta = require('isparta');
 var istanbul = require('gulp-istanbul');
 var plumber = require('gulp-plumber');
 
 gulp.task('static', function () {
   return gulp.src('**/*.js')
     .pipe(excludeGitignore())
-    .pipe(eslint({
-      ignorePattern: ['generators/kss-style-guide/templates/_style-guide/builder/kss-assets']
-    }))
+    .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
 
 gulp.task('pre-test', function () {
-  return gulp.src('generators/**/*.js')
+  return gulp.src([
+    'generators/**/*.js',
+    '!generators/**/annotations/annotations.js'
+  ])
     .pipe(excludeGitignore())
     .pipe(istanbul({
-      includeUntested: true
+      includeUntested: true,
+      instrumenter: isparta.Instrumenter
     }))
     .pipe(istanbul.hookRequire());
 });

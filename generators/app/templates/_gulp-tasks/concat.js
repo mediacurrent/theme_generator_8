@@ -1,6 +1,3 @@
-/*eslint strict: ["error", "global"]*/
-'use strict';
-
 // Include gulp
 const { src, dest } = require('gulp');
 
@@ -11,7 +8,7 @@ var order = require('gulp-order');
 // Export our tasks.
 module.exports = {
   // Concat all CSS into a master bundle.
-  concatCSS: function() {
+  concatCSS: function () {
     return (
       src([
         './dist/css/*.css',

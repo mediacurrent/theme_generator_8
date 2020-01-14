@@ -1,13 +1,12 @@
+'use strict';
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const _ = require('lodash');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const path = require('path');
-const jsYaml = require('js-yaml');
 
 // Custom helper modules.
-const buildComponents = require('./build-components');
 const mcLogo = require('./mc-logo');
 
 module.exports = class extends Generator {
@@ -35,12 +34,14 @@ module.exports = class extends Generator {
         message: 'What is your theme\'s description?',
         default: function (answers) {
           // Default to a helpful reminder to change the description later.
+          // eslint-disable-next-line max-len
           return 'Update ' + answers.themeName + '.info.yml if you want to change the theme description later.';
         }
       },
       {
         type: 'list',
         name: 'whichBaseTheme',
+        // eslint-disable-next-line max-len
         message: 'Which base theme would you like to use? If you don\'t want to use a base theme pick "stable" as that\'s what\'s used by Drupal if you don\'t specify a base.',
         choices: [
           {
@@ -56,37 +57,13 @@ module.exports = class extends Generator {
       {
         name: 'ignoreDist',
         type: 'confirm',
+        // eslint-disable-next-line max-len
         message: 'Should we update the .gitignore to ignore compiled files? (i.e. /dist)',
         default: true
-      },
-      {
-        type: 'checkbox',
-        name: 'howMuchTheme',
-        message: 'Would you like any starter components with your theme?',
-        // Be nice for these to be populated from an external repo
-        // and use a package.json to build this list.
-        choices: [
-          {
-            value: 'button',
-            name: 'Button'
-          },
-          {
-            value: 'tabs',
-            name: 'Drupal Tabs'
-          },
-          {
-            value: 'message',
-            name: 'Drupal Messages'
-          }
-        ]
       }
     ];
 
     return this.prompt(prompts).then(function (props) {
-      // props.howMuchTheme is an array of all selected options.
-      // i.e. [ 'hero', 'tabs', 'messages' ]
-      this.exampleComponents = props.howMuchTheme;
-
       // Should we ignore ./dist files or not?
       this.ignoreDist = props.ignoreDist;
 
@@ -103,7 +80,11 @@ module.exports = class extends Generator {
       this.dashedThemeName = _.kebabCase(props.themeName);
 
       // Get pkg info so we can create a 'generated on' comment.
-      this.pkg = JSON.parse(fs.readFileSync(path.resolve(path.join(__dirname, '../../package.json')), 'utf8'));
+      this.pkg = JSON.parse(
+        fs.readFileSync(
+          path.resolve(path.join(__dirname, '../../package.json')), 'utf8'
+        )
+      );
 
       // To access props later use this.props.someAnswer;
       this.props = props;
@@ -111,37 +92,22 @@ module.exports = class extends Generator {
   }
 
   configuring() {
-    // If any example components were selected...
-    if (this.exampleComponents.length > 0) {
-      // ...copy over the example components.
-      buildComponents(this.exampleComponents, this)
-        .then(buildComponentsConfig => {
-          // And add the needed lines to the Drupal library file.
-          this.fs.copyTpl(
-            this.templatePath('_theme_name.libraries.yml'),
-            this.destinationPath(this.themeNameMachine + '.libraries.yml'),
-            {
-              themeNameMachine: this.themeNameMachine,
-              exampleComponents: jsYaml.safeDump(buildComponentsConfig)
-            }
-          );
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
-    else {
-      // No example componets were selected, go ahead and copy over the default
-      // Drupal libraries file without any additional libraries.
-      this.fs.copyTpl(
-        this.templatePath('_theme_name.libraries.yml'),
-        this.destinationPath(this.themeNameMachine + '.libraries.yml'),
-        {
-          themeNameMachine: this.themeNameMachine,
-          exampleComponents: ''
-        }
-      );
-    }
+    // Add the Drupal libraries file so we can append additional
+    // libraries to it if selected by the user.
+    this.fs.copyTpl(
+      this.templatePath('_theme_name.libraries.yml'),
+      this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+      {
+        themeNameMachine: this.themeNameMachine
+      }
+    );
+
+    // Prompt the user for start kit components. If any are selected
+    // they will be copied over to the patterns folder and the libraries.yml
+    // file will be appended with the component library.
+    this.composeWith('mc-d8-theme:starter-kit', {
+      themeName: this.themeNameMachine
+    });
   }
 
   writing() {
@@ -176,8 +142,8 @@ module.exports = class extends Generator {
       this.destinationPath('README.md')
     );
     this.fs.copy(
-      this.templatePath('eslintrc.yml'),
-      this.destinationPath('.eslintrc.yml')
+      this.templatePath('eslintrc.json'),
+      this.destinationPath('.eslintrc.json')
     );
     this.fs.copy(
       this.templatePath('stylelintrc.yml'),
@@ -230,10 +196,6 @@ module.exports = class extends Generator {
       this.destinationPath('src/patterns/layout/.gitkeep')
     );
     this.fs.copy(
-      this.templatePath('_patches'),
-      this.destinationPath('patches')
-    );
-    this.fs.copy(
       this.templatePath('_src/patterns/pages/.gitkeep'),
       this.destinationPath('src/patterns/pages/.gitkeep')
     );
@@ -242,8 +204,8 @@ module.exports = class extends Generator {
       this.destinationPath('src/styleguide')
     );
     this.fs.copy(
-      this.templatePath('_src/templates/.gitkeep'),
-      this.destinationPath('src/templates/.gitkeep')
+      this.templatePath('_src/templates'),
+      this.destinationPath('src/templates')
     );
     this.fs.copy(
       this.templatePath('_src/favicon.ico'),
@@ -318,14 +280,6 @@ module.exports = class extends Generator {
       }
     );
 
-    // TODO: this needs to be updated for creating a new component.
-    // May be able to repurpose to add example components. Would require
-    // Abstracting out pieces of 'build-components'.
-    //
-    //   this.composeWith('mc-d8-theme:component', {
-    //     arguments: ['Sample List']
-    //   });
-
     this.fs.copy(
       this.templatePath('_screenshot.png'),
       this.destinationPath('screenshot.png')
@@ -333,33 +287,30 @@ module.exports = class extends Generator {
   }
 
   install() {
-    // Install the following node modules specifically for Pattern Lab.
-    // In the future we can add
-    //
-    // '@pattern-lab/core',
-    // '@pattern-lab/engine-twig-php',
-    //
-    // to the list too but for now we have to set the specific
-    // version in the _package.json so patch package works correctly.
-    //
-    // TODO: Add in pattern-lab core and engine-twig-php when those patches
-    // are no longer needed.
-    var npmArray = [
+    // Need to see if we still need this.
+    this.npmInstall();
+
+    // Install the following node modules specifically for Pattern Lab
+    // and theme generator.
+    // Adding the `yo generator-mc-d8-theme` so users can quickly
+    // run the component sub-generator locally.
+    const npmArray = [
+      '@pattern-lab/core',
+      '@pattern-lab/engine-twig-php',
       '@pattern-lab/uikit-workshop',
-      'patch-package'
+      'yo',
+      'generator-mc-d8-theme'
     ];
 
     // This runs `npm install ... --save-dev` on the command line.
     this.npmInstall(npmArray, {
       saveDev: true
     });
-
-    // Need to see if we still need this.
-    this.npmInstall();
   }
 
   end() {
     this.log(chalk.cyan.bgBlack.bold(
+      // eslint-disable-next-line indent
 `☠️  NOTE: Your new generated theme contains a fair bit of boilerplate code.
 This is by design. If you don't need it PLEASE delete it.
 You can always rerun the generator some other time in a different directory

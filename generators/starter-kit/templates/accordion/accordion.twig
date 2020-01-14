@@ -1,0 +1,12 @@
+{{ attach_library('<%= themeNameMachine %>/accordion') }}
+
+<section class="accordion__wrapper{{ attributes ? ' ' ~ attributes.class}}"
+{{- attributes ? attributes|without(class) -}}>
+  {% block accordion_items %}
+    {% for item in items %}
+      {%
+        include '@<%= themeNameMachine %>/accordion/_accordion-item.twig' with {item: item} only
+      %}
+    {% endfor %}
+  {% endblock %}
+</section>

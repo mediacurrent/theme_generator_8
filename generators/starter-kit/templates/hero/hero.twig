@@ -1,0 +1,33 @@
+{{ attach_library('<%= themeNameMachine %>/hero') }}
+
+<section class="hero">
+  {% if media %}
+    {%
+      include '@<%= themeNameMachine %>/media/media.twig' with {
+        "media": media
+      } only
+    %}
+  {% endif %}
+
+  <div class="hero__content">
+    {% if heading %}
+      {%
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
+          "heading": heading
+        } only
+      %}
+    {% endif %}
+
+    {% if body %}
+      {{ body }}
+    {% endif %}
+
+    {% if button %}
+      {%
+        include '@<%= themeNameMachine %>/button/button.twig' with {
+          "button": button
+        } only
+      %}
+    {% endif %}
+  </div>
+</section>

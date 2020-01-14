@@ -1,0 +1,12 @@
+{{ attach_library('<%= themeNameMachine %>/heading') }}
+
+{# Defaults to h2 (heading level 2) if no heading level is supplied. #}
+<h{{ heading_level|default('2')}} class="heading{{ modifier ? ' ' ~ modifier }}
+  {{- attributes ? ' ' ~ attributes.class -}}"
+  {{- attributes ? attributes|without(class) -}}>
+  {% if url %}
+    <a href="{{ url }}" class="heading--link">{{ title }}</a>
+  {% else %}
+    {{ title }}
+  {% endif %}
+</h{{ heading_level|default('2')}}>
