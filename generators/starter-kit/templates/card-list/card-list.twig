@@ -32,7 +32,7 @@
         {% for item in card_list.items %}
           <li class="card-list__item">
             {%
-              include '@<%= themeNameMachine %>/card/card.twig' with {
+              include '@<%= themeNameMachine %>/card/_card.twig' with {
                 "card": item.card
               } only
             %}

@@ -30,16 +30,16 @@
 
 .button--primary {
   background-color: $color-white;
-  border: 3px solid $color-danube;
+  border: 3px solid $color-tradewind;
   border-radius: 3px;
-  color: $color-danube;
+  color: $color-tradewind;
   text-decoration: none;
 
   &:hover,
   &:active {
     background-color: rgba($color-white, 0.85);
-    border: 3px solid darken($color-danube, 15);
-    color: $color-danube;
+    border: 3px solid darken($color-tradewind, 15);
+    color: darken($color-tradewind, 15);
     text-decoration: none;
   }
 }

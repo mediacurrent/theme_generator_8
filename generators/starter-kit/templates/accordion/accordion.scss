@@ -2,11 +2,11 @@
 @import '../../global/utils/init';
 
 .accordion {
-  border-top: 0;
-  border-right: 1px solid $color-gray-mid;
   border-bottom: 1px solid $color-gray-mid;
   border-left: 1px solid $color-gray-mid;
-  transition: background-color 750ms;
+  border-right: 1px solid $color-gray-mid;
+  border-top: 0;
+  transition: background-color $transition;
 
   &:first-child {
     border-top: 1px solid $color-gray-mid;

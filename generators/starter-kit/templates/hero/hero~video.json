@@ -2,7 +2,6 @@
   "hero": {
     "media": {
       "video": "<iframe width='560' height='315' src='https://www.youtube.com/embed/i4jiTZ76XPk?controls=0' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>",
-      "caption": "Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vestibulum id ligula porta felis euismod semper."
     },
     "eyebrow": {
       "text": "Subhead Could Be Here",
@@ -13,7 +12,7 @@
       "level": "2",
       "classes": "hero__heading"
     },
-    "body": "Some sites need a tagline mauris ac dui sit amet sem facilisis finibus vitae et mi.<br>And some sites will need a min-height",
+    "body": "Some sites need a tagline mauris ac dui sit amet sem facilisis finibus vitae et mi.",
     "button": {
       "text": "Learn more",
       "url": "#"

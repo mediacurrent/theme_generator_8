@@ -12,7 +12,7 @@
       "level": "2",
       "classes": "hero__heading"
     },
-    "body": "Some sites need a tagline mauris ac dui sit amet sem facilisis finibus vitae et mi.<br>And some sites will need a min-height",
+    "body": "Some sites need a tagline mauris ac dui sit amet sem facilisis finibus vitae et mi.",
     "button": {
       "text": "Learn more",
       "url": "#"

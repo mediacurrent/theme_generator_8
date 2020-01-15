@@ -2,7 +2,7 @@
 {%
   set classes = [
     'media-item',
-    media_item.modifier,
+    media.modifier,
   ]
 %}
 
@@ -14,18 +14,18 @@
   {{ title_prefix }}
   {{ title_suffix }}
 
-  {% if media_item.video %}
+  {% if media.video %}
     <div class="media-item__responsive-video">
-      {{ media_item.video }}
+      {{ media.video }}
     </div>
   {% else %}
     <div class="media-item__image">
-      {{ media_item.image }}
+      {{ media.image }}
     </div>
   {% endif %}
-  {% if media_item.caption %}
+  {% if media.caption %}
     <div class="media-item__caption">
-      {{ media_item.caption }}
+      {{ media.caption }}
     </div>
   {% endif %}
 </div>
