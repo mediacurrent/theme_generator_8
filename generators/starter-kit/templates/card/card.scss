@@ -9,11 +9,6 @@
   margin-top: 2rem;
 }
 
-.card__eyebrow {
-  display: block;
-  font-size: 0.75rem;
-}
-
 .card__title {
   font-size: 1.5rem;
   font-weight: normal;
@@ -37,4 +32,37 @@
   color: inherit;
   display: inline-block;
   margin-top: 1.5rem;
+}
+
+// Styles for Wide variation of Card
+.card--wide {
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint($bp-xsm) {
+    flex-direction: row;
+  }
+
+  .card__media {
+    flex: 1;
+  }
+
+  .card__content {
+    flex: 1;
+
+    @include breakpoint($bp-xsm) {
+      margin: 0 0 0 1.5rem;
+    }
+  }
+
+  .card__eyebrow {
+    margin-top: 0;
+  }
+}
+
+.card--media-right {
+
+  @include breakpoint($bp-xsm) {
+    flex-direction: row-reverse;
+  }
 }

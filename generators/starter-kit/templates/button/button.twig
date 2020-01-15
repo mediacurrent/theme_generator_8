@@ -1,6 +1,17 @@
 {{ attach_library('<%= themeNameMachine %>/button') }}
-{% if url %}
-  <a href="{{ url }}" class="button{{ modifier_class ? ' ' ~ modifier_class }}">{{ text }}</a>
+
+{%
+  set classes = [
+    'button',
+    button.modifier,
+  ]
+%}
+{% if button.url %}
+  <a href="{{ button.url }}" class="{{ classes|join(' ') }}">
+    {{ button.text }}
+  </a>
 {% else %}
-  <button class="button {{ modifier_class }}"{{ modifier_class == 'is-disabled' ? ' disabled' }}>{{ text }}</button>
+  <button class="{{ classes|join(' ') }}"{{ button.modifier == 'is-disabled' ? ' disabled' }}>
+    {{ button.text }}
+  </button>
 {% endif %}

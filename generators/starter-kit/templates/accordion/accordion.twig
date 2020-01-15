@@ -1,11 +1,25 @@
 {{ attach_library('<%= themeNameMachine %>/accordion') }}
+{%
+  set classes = [
+    'accordion__wrapper',
+    accordion.modifier,
+  ]
+%}
 
-<section class="accordion__wrapper{{ attributes ? ' ' ~ attributes.class}}"
-{{- attributes ? attributes|without(class) -}}>
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<section{{ attributes|raw }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
   {% block accordion_items %}
-    {% for item in items %}
+    {% for accordion_item in accordion.items %}
       {%
-        include '@<%= themeNameMachine %>/accordion/_accordion-item.twig' with {item: item} only
+        include '@<%= themeNameMachine %>/accordion/_accordion-item.twig' with {
+          accordion_item: accordion_item
+        } only
       %}
     {% endfor %}
   {% endblock %}

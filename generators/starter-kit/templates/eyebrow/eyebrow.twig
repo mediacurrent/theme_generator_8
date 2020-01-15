@@ -1,5 +1,20 @@
 {{ attach_library('<%= themeNameMachine %>/eyebrow') }}
+{%
+  set classes = [
+    'eyebrow',
+    eyebrow.modifier,
+  ]
+%}
 
-<p class="eyebrow{{ eyebrow.modifier ? ' ' ~ eyebrow.modifier }}">
-  {{ eyebrow.text }}
-</p>
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<div{{ attributes|raw }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  <p class="eyebrow__text">
+    {{ eyebrow.text }}
+  </p>
+</div>

@@ -1,18 +1,31 @@
 {{ attach_library('<%= themeNameMachine %>/media') }}
+{%
+  set classes = [
+    'media-item',
+    media_item.modifier,
+  ]
+%}
 
-<div class="media-item">
-  {% if video %}
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<div{{ attributes|raw }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {% if media_item.video %}
     <div class="media-item__responsive-video">
-      {{ video }}
+      {{ media_item.video }}
     </div>
   {% else %}
     <div class="media-item__image">
-      {{ image }}
+      {{ media_item.image }}
     </div>
   {% endif %}
-  {% if caption %}
+  {% if media_item.caption %}
     <div class="media-item__caption">
-      {{ caption }}
+      {{ media_item.caption }}
     </div>
   {% endif %}
 </div>

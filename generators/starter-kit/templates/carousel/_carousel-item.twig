@@ -1,27 +1,45 @@
-<li class="carousel-item">
-  <div class="carousel-item__media">
-    {%
-      include '@<%= themeNameMachine %>/media/media.twig' with {
-        "image": item.image,
-      } only
-    %}
-  </div>
-  {% if item.title %}
+{%
+  set classes = [
+    'carousel-item',
+    carousel_item.modifier,
+  ]
+%}
+
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<li{{ attributes|raw }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {% if carousel_item.image %}
+    <div class="carousel-item__media">
+      {%
+        include '@<%= themeNameMachine %>/media/media.twig' with {
+          "media": {
+            "image": carousel_item.image,
+          },
+        } only
+      %}
+    </div>
+  {% endif %}
+
+  {% if carousel_item.title %}
     <div class="carousel-item__content">
       {%
         include '@<%= themeNameMachine %>/heading/heading.twig' with {
           "heading": {
-            "title": item.title,
+            "title": carousel_item.title,
             "heading_level": 3,
             "modifier": "carousel-item__title",
           }
         } only
       %}
-      {% if item.button.text %}
+      {% if carousel_item.button.text %}
         {%
           include '@<%= themeNameMachine %>/button/button.twig' with {
-            "text": item.button.text,
-            "url": item.button.url,
+            "button": carousel_item.button
           } only
         %}
       {% endif %}

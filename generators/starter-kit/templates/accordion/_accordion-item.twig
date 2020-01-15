@@ -1,11 +1,25 @@
-<article class="accordion">
-  <button type="button" class="accordion__toggle" aria-controls="accordion__content-{{ item.accordion_instance }}" aria-expanded="false" id="accordion__toggle-{{ item.accordion_instance }}" aria-selected="false">
-    <span class="accordion__heading">{{ item.heading }}</span>
+{%
+  set classes = [
+    'accordion',
+    accordion_item.modifier,
+  ]
+%}
+
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<article{{ attributes|raw }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  <button type="button" class="accordion__toggle" aria-controls="accordion__content-{{ accordion_item.accordion_instance }}" aria-expanded="false" id="accordion__toggle-{{ accordion_item.accordion_instance }}" aria-selected="false">
+    <span class="accordion__heading">{{ accordion_item.heading }}</span>
   </button>
-  <div class="accordion__content-wrapper" id="accordion__content-{{ item.accordion_instance }}" aria-hidden="true" aria-labelledby="accordion__content-{{ item.accordion_instance }}">
+  <div class="accordion__content-wrapper" id="accordion__content-{{ accordion_item.accordion_instance }}" aria-hidden="true" aria-labelledby="accordion__content-{{ accordion_item.accordion_instance }}">
     <div class="accordion__content">
       {% block accordion_content %}
-        {{ item.content }}
+        {{ accordion_item.content }}
       {% endblock %}
     </div>
   </div>

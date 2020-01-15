@@ -1,31 +1,50 @@
 {{ attach_library('<%= themeNameMachine %>/hero') }}
+{%
+  set classes = [
+    'hero',
+    hero.modifier,
+  ]
+%}
 
-<section class="hero">
-  {% if media %}
-    {%
-      include '@<%= themeNameMachine %>/media/media.twig' with {
-        "media": media
-      } only
-    %}
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<section{{ attributes|raw }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {% if hero.media %}
+    <div class="hero__media">
+      {%
+        include '@<%= themeNameMachine %>/media/media.twig' with {
+          "media": hero.media
+        } only
+      %}
+    </div>
   {% endif %}
 
   <div class="hero__content">
-    {% if heading %}
-      {%
-        include '@<%= themeNameMachine %>/heading/heading.twig' with {
-          "heading": heading
-        } only
-      %}
+    {% if hero.heading %}
+      <div class="hero__heading">
+        {%
+          include '@<%= themeNameMachine %>/heading/heading.twig' with {
+            "heading": hero.heading
+          } only
+        %}
+      </div>
     {% endif %}
 
-    {% if body %}
-      {{ body }}
+    {% if hero.body %}
+      <div class="hero__body">
+        {{ hero.body }}
+      </div>
     {% endif %}
 
-    {% if button %}
+    {% if hero.button %}
       {%
         include '@<%= themeNameMachine %>/button/button.twig' with {
-          "button": button
+          "button": hero.button
         } only
       %}
     {% endif %}

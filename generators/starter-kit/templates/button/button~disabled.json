@@ -1,4 +1,6 @@
 {
-  "text": "Disabled Button",
-  "modifier_class": "is-disabled"
+  "button": {
+    "text": "Disabled Button",
+    "modifier": "is-disabled"
+  }
 }

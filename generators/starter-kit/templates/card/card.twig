@@ -1,8 +1,18 @@
 {{ attach_library('<%= themeNameMachine %>/card') }}
+{%
+  set classes = [
+    'card',
+    card.modifier,
+  ]
+%}
 
-<article class="card{{ card.modifier ? ' ' ~ card.modifier }}
-  {{- attributes ? ' ' ~ attributes.class -}}"
-  {{- attributes ? attributes|without(class) -}}>
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<section{{ attributes|raw }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
 
   <div class="card__media">
     {% if card.media.image %}
