@@ -10,34 +10,40 @@
     {% elseif card.media.video %}
       {{ card.media.video }}
     {% endif %}
-    {{ card.media.caption }}
+    <span class="card__media-caption">
+      {{ card.media.caption }}
+    </span>
   </div>
 
   <div class="card__content">
     {% if card.eyebrow %}
       {%
-        include '@<%= themeNameMachine %>/eyebrow/eyebrow.twig' with {
+        include '@booya/eyebrow/eyebrow.twig' with {
           "eyebrow": card.eyebrow
         } only
       %}
     {% endif %}
 
-    {%
-      include '@<%= themeNameMachine %>/heading/heading.twig' with {
-        "heading": card.heading
-      } only
-    %}
-
-    {% if card.subhead %}
+    {% if card.heading.title %}
       {%
-        include '@<%= themeNameMachine %>/heading/heading.twig' with {
+        include '@booya/heading/heading.twig' with {
+          "heading": card.heading
+        } only
+      %}
+    {% endif %}
+
+    {% if card.subhead.title %}
+      {%
+        include '@booya/heading/heading.twig' with {
           "heading": card.subhead
         } only
       %}
     {% endif %}
 
     {% if card.summary_text %}
-      {{ card.summary_text }}
+      <div class="card__summary">
+        {{ card.summary_text }}
+      </div>
     {% endif %}
 
     {% if card.link %}

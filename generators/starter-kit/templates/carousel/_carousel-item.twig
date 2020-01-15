@@ -10,9 +10,11 @@
     <div class="carousel-item__content">
       {%
         include '@<%= themeNameMachine %>/heading/heading.twig' with {
-          "title": item.title,
-          "heading_level": 3,
-          "modifier": "carousel-item__title",
+          "heading": {
+            "title": item.title,
+            "heading_level": 3,
+            "modifier": "carousel-item__title",
+          }
         } only
       %}
       {% if item.button.text %}

@@ -1,12 +1,12 @@
 // Import site utilities.
 @import '../../global/utils/init';
 
-.card {
-  background-color: $color-white;
+.card__media-caption {
+  display: block;
+}
 
-  .card__content {
-    margin: 2rem 0 0;
-  }
+.card__content {
+  margin-top: 2rem;
 }
 
 .card__eyebrow {
@@ -17,7 +17,7 @@
 .card__title {
   font-size: 1.5rem;
   font-weight: normal;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 
   @include breakpoint($bp-sm) {
     font-size: 2rem;
@@ -34,46 +34,7 @@
 }
 
 .card__link {
+  color: inherit;
   display: inline-block;
   margin-top: 1.5rem;
-}
-
-// Styles for Wide variation of Card
-.card--wide {
-  display: flex;
-  flex-direction: column;
-
-  @include breakpoint($bp-xsm) {
-    flex-direction: row;
-  }
-
-  .card__media {
-    flex: 1;
-  }
-
-  .card__content {
-    flex: 1;
-
-    @include breakpoint($bp-xsm) {
-      margin: 0 0 0 1.5rem;
-    }
-  }
-
-  .card__eyebrow {
-    margin-top: 0;
-  }
-}
-
-.card--media-right {
-
-  @include breakpoint($bp-xsm) {
-    flex-direction: row-reverse;
-  }
-}
-
-.card__content {
-
-  @include breakpoint($bp-xsm) {
-    margin: 0 1.5rem 0 0;
-  }
 }
