@@ -18,7 +18,7 @@
   <div class="card__content">
     {% if card.eyebrow %}
       {%
-        include '@booya/eyebrow/eyebrow.twig' with {
+        include '@<%= themeNameMachine %>/eyebrow/eyebrow.twig' with {
           "eyebrow": card.eyebrow
         } only
       %}
@@ -26,7 +26,7 @@
 
     {% if card.heading.title %}
       {%
-        include '@booya/heading/heading.twig' with {
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
           "heading": card.heading
         } only
       %}
@@ -34,7 +34,7 @@
 
     {% if card.subhead.title %}
       {%
-        include '@booya/heading/heading.twig' with {
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
           "heading": card.subhead
         } only
       %}

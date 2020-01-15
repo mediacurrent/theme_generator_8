@@ -3,7 +3,7 @@
 <div class="card-list">
   {% if section_title %}
     {%
-      include '@booya/heading/heading.twig' with {
+      include '@<%= themeNameMachine %>/heading/heading.twig' with {
         "heading": {
           "title": section_title,
           "heading_level": 2,
@@ -19,7 +19,7 @@
         {% for item in items %}
           <li class="card-list__item">
             {%
-              include '@booya/card/card.twig' with {
+              include '@<%= themeNameMachine %>/card/card.twig' with {
                 "card": item.card
               } only
             %}
