@@ -64,12 +64,16 @@
   }
 }
 
-@include breakpoint($bp-xsm) {
-  .card--media-right {
-    flex-direction: row-reverse;
+.card--media-right {
 
-    .card__content {
-      margin: 0 1.5rem 0 0;
-    }
+  @include breakpoint($bp-xsm) {
+    flex-direction: row-reverse;
+  }
+}
+
+.card__content {
+
+  @include breakpoint($bp-xsm) {
+    margin: 0 1.5rem 0 0;
   }
 }

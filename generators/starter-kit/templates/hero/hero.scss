@@ -6,7 +6,6 @@
 }
 
 .hero__content {
-  @include center-align(absolute);
   background: $color-gray-lt;
   margin-right: -50%;
   max-width: 95%;
@@ -20,7 +19,6 @@
 }
 
 .hero__heading {
-  @include wire-large-heading;
   margin-bottom: 0.5rem;
 
   @include breakpoint($bp-xsm) {
@@ -29,7 +27,7 @@
 }
 
 .hero__eyebrow {
-  color: $color-tundora;
+  color: $color-black;
   display: block;
   font-size: 0.75rem;
   font-weight: normal;
