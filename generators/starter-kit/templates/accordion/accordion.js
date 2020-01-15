@@ -12,23 +12,22 @@
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.accordion = {
-    attach: function(context) {
-
+    attach: function (context) {
       const self = this;
       const $accordions = $('.accordion', context);
 
-      $accordions.each(function() {
+      $accordions.each(function () {
         const $accordion = $(this);
 
         // Attach click handler for accordion.
-        const $toggle = $accordion.find('.accordion__toggle', context);
-        $toggle.on('click', function() {
+        const $toggle = $accordion.find('.accordion__toggle');
+        $toggle.on('click', function () {
           self.toggleClickEvent($accordion, $(this));
         });
       });
     },
-    toggleClickEvent: function($accordion, $toggle) {
 
+    toggleClickEvent: function ($accordion, $toggle) {
       // Identify the matching element.
       const $content = $accordion.find('#' + $toggle.attr('aria-controls'));
 
@@ -46,6 +45,6 @@
         $toggle.attr('aria-expanded', 'false');
         $content.attr('aria-hidden', 'true');
       }
-    },
+    }
   };
 })(Drupal, jQuery);
