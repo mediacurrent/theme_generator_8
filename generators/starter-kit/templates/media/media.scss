@@ -1,35 +1,33 @@
 @import '../../global/utils/init';
 
+.media-item__image {
+
+  img {
+    display: block;
+  }
+}
+
 .media-item__caption {
-  font-size: 0.9rem;
-  margin-top: 0.32rem;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
   max-width: 100%;
   word-wrap: break-word;
-
-  @include breakpoint($bp-xsm) {
-    font-size: 1rem;
-    margin-top: 0.8rem;
-  }
 }
 
 // Responsive styles for YouTube video embed.
 .media-item__responsive-video {
-  margin: 0 0 1rem;
+  height: 0;
+  margin-bottom: 1rem;
   overflow: hidden;
   padding-bottom: 56.25%;
   position: relative;
-  height: 0;
-
-  @include breakpoint($bp-xsm) {
-    margin-bottom: 0.8rem;
-  }
 
   iframe {
-    left: 0;
-    top: 0;
     height: 100%;
-    width: 100%;
+    left: 0;
     position: absolute;
+    top: 0;
+    width: 100%;
   }
 
   video {

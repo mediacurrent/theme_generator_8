@@ -6,7 +6,9 @@
       {{ video }}
     </div>
   {% else %}
-    {{ image }}
+    <div class="media-item__image">
+      {{ image }}
+    </div>
   {% endif %}
   {% if caption %}
     <div class="media-item__caption">

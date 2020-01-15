@@ -1,11 +1,6 @@
 // Import site utilities.
 @import '../../global/utils/init';
 
-.carousel__wrapper {
-  margin: 0 auto;
-  max-width: 1024px;
-}
-
 .carousel-item {
   position: relative;
 }
@@ -14,10 +9,10 @@
   background: $color-gray-dk;
   color: $color-white;
   min-width: 300px;
-  padding: 16px 8px;
+  padding: 1rem 0.5rem;
   text-align: center;
 
   @include breakpoint($bp-xsm) {
-    padding: 16px 18px;
+    padding: 1rem;
   }
 }
