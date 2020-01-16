@@ -6,14 +6,17 @@
   ]
 %}
 
+{# Preserve the Drupal attributes if available; else, print the class attribute. #}
 {%
   set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
 %}
 
 <section{{ attributes|raw }}>
+  {# Pass in Drupal specific functionality. #}
   {{ title_prefix }}
   {{ title_suffix }}
 
+  {# Media could be an image or video. #}
   {% if hero.media %}
     <div class="hero__media">
       {%

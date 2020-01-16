@@ -6,11 +6,13 @@
   ]
 %}
 
+{# Preserve the Drupal attributes if available; else, print the class attribute. #}
 {%
   set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
 %}
 
 <div{{ attributes|raw }}>
+  {# Pass in Drupal specific functionality. #}
   {{ title_prefix }}
   {{ title_suffix }}
 

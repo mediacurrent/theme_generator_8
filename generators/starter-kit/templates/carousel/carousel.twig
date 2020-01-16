@@ -6,15 +6,13 @@
   ]
 %}
 
+{# Preserve the Drupal attributes if available; else, print the class attribute. #}
 {%
-  set class_attr = ' class="' ~ classes|join(' ') ~ '"'
-%}
-
-{%
-  set attributes = attributes ? attributes.addClass(classes) : class_attr
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
 %}
 
 <section{{ attributes|raw }}>
+  {# Pass in Drupal specific functionality. #}
   {{ title_prefix }}
   {{ title_suffix }}
 

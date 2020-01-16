@@ -6,6 +6,7 @@
     button.modifier,
   ]
 %}
+{# Presence of a url in the passed button object determines type of button. #}
 {% if button.url %}
   <a href="{{ button.url }}" class="{{ classes|join(' ') }}">
     {{ button.text }}

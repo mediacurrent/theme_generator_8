@@ -6,11 +6,13 @@
   ]
 %}
 
+{# Preserve the Drupal attributes if available; else, print the class attribute. #}
 {%
   set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
 %}
 
 <div{{ attributes|raw }}>
+  {# Pass in Drupal specific functionality. #}
   {{ title_prefix }}
   {{ title_suffix }}
 
@@ -23,6 +25,7 @@
       {{ media.image }}
     </div>
   {% endif %}
+  {# Captions are optional. #}
   {% if media.caption %}
     <div class="media-item__caption">
       {{ media.caption }}
