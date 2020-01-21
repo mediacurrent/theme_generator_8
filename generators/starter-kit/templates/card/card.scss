@@ -1,23 +1,18 @@
 // Import site utilities.
 @import '../../global/utils/init';
 
-.card {
-  background-color: $color-white;
-
-  .card__content {
-    margin: 2rem 0 0;
-  }
+.card__media-caption {
+  display: block;
 }
 
-.card__eyebrow {
-  display: block;
-  font-size: 0.75rem;
+.card__content {
+  margin-top: 2rem;
 }
 
 .card__title {
   font-size: 1.5rem;
   font-weight: normal;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 
   @include breakpoint($bp-sm) {
     font-size: 2rem;
@@ -34,6 +29,7 @@
 }
 
 .card__link {
+  color: inherit;
   display: inline-block;
   margin-top: 1.5rem;
 }
@@ -64,12 +60,9 @@
   }
 }
 
-@include breakpoint($bp-xsm) {
-  .card--media-right {
-    flex-direction: row-reverse;
+.card--media-right {
 
-    .card__content {
-      margin: 0 1.5rem 0 0;
-    }
+  @include breakpoint($bp-xsm) {
+    flex-direction: row-reverse;
   }
 }

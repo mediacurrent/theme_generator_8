@@ -1,25 +1,46 @@
 {{ attach_library('<%= themeNameMachine %>/card-list') }}
+{%
+  set classes = [
+    'card-list',
+    card_list.modifier,
+  ]
+%}
 
-{% if section_title %}
+{# Preserve the Drupal attributes if available; else, print the class attribute. #}
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<section{{ attributes|raw }}>
+  {# Pass in Drupal specific functionality. #}
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {% if card_list.section_title %}
     {%
       include '@<%= themeNameMachine %>/heading/heading.twig' with {
-        "title": section_title,
-        "heading_level": 2,
-        "classes": "card-list__title"
+        "heading": {
+          "title": card_list.section_title,
+          "heading_level": 2,
+          "classes": "card-list__title"
+        }
       } only
     %}
-{% endif %}
+  {% endif %}
 
-<ul class="card-list">
-  {% block card_items %}
-      {% for item in items %}
-        <li class="card-list__item">
-          {%
-            include '@<%= themeNameMachine %>/card/card.twig' with {
-              "card": item.card
-            } only
-          %}
-        </li>
-      {% endfor %}
-  {% endblock %}
-</ul>
+  {% if card_list.items|length %}
+    <ul class="card-list__items">
+      {% block card_items %}
+        {% for item in card_list.items %}
+          <li class="card-list__item">
+            {%
+              include '@<%= themeNameMachine %>/card/_card.twig' with {
+                "card": item.card
+              } only
+            %}
+          </li>
+        {% endfor %}
+      {% endblock %}
+    </ul>
+  {% endif %}
+</div>

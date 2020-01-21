@@ -1,7 +1,7 @@
 {
   "hero": {
     "media": {
-      "image": "<img src='https://source.unsplash.com/FIKD9t5_5zQ/1400x787' alt='test image' />"
+      "video": "<iframe width='560' height='315' src='https://www.youtube.com/embed/i4jiTZ76XPk?controls=0' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>",
     },
     "eyebrow": {
       "text": "Subhead Could Be Here",

@@ -1,5 +1,7 @@
 {
-  "text": "Primary Button",
-  "modifier_class": "button--primary",
-  "url": "#"
+  "button": {
+    "text": "Primary Button",
+    "modifier": "button--primary",
+    "url": "#"
+  }
 }

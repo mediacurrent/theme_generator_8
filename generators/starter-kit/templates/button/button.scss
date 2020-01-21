@@ -6,42 +6,40 @@
 @import '../../global/utils/init';
 
 .button {
-  display: inline-block;
-  text-align: center;
-  line-height: 1;
-  cursor: pointer;
   background-color: $color-tradewind;
-  font-weight: bold;
-  transition: background-color 0.25s ease-out, color 0.25s ease-out;
-  vertical-align: middle;
   border: 1px solid transparent;
   border-radius: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
   padding: 10px 20px;
+  text-align: center;
+  transition: background-color $transition, color $transition;
 
   &:hover,
   &:active {
-    color: $color-white;
     background-color: darken($color-tradewind, 15);
+    color: $color-white;
   }
 
   &:disabled {
-    opacity: 0.5;
     cursor: not-allowed;
+    opacity: 0.5;
   }
 }
 
 .button--primary {
-  padding: 10px 20px;
-  color: $color-danube;
   background-color: $color-white;
-  border: 3px solid $color-white;
+  border: 3px solid $color-tradewind;
   border-radius: 3px;
+  color: $color-tradewind;
+  text-decoration: none;
 
   &:hover,
   &:active {
-    color: $color-danube;
-    text-decoration: none;
-    border: 3px solid darken($color-danube, 15);
     background-color: rgba($color-white, 0.85);
+    border: 3px solid darken($color-tradewind, 15);
+    color: darken($color-tradewind, 15);
+    text-decoration: none;
   }
 }

@@ -1,13 +1,27 @@
 {{ attach_library('<%= themeNameMachine %>/carousel') }}
+{%
+  set classes = [
+    'carousel',
+    carousel.modifier,
+  ]
+%}
 
-<section class="carousel__wrapper{{ attributes ? ' ' ~ attributes.class}}"
-  {{- attributes ? attributes|without(class) -}}>
+{# Preserve the Drupal attributes if available; else, print the class attribute. #}
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<section{{ attributes|raw }}>
+  {# Pass in Drupal specific functionality. #}
+  {{ title_prefix }}
+  {{ title_suffix }}
+
   <ul class="carousel__list carousel__slick">
     {% block carousel_items %}
-      {% for item in list %}
+      {% for carousel_item in carousel.list %}
         {%
           include '@<%= themeNameMachine %>/carousel/_carousel-item.twig' with {
-            "item": item
+            "carousel_item": carousel_item
           } only
         %}
       {% endfor %}

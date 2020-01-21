@@ -1,8 +1,20 @@
 {{ attach_library('<%= themeNameMachine %>/card') }}
+{%
+  set classes = [
+    'card',
+    card.modifier,
+  ]
+%}
 
-<article class="card{{ card.modifier ? ' ' ~ card.modifier }}
-  {{- attributes ? ' ' ~ attributes.class -}}"
-  {{- attributes ? attributes|without(class) -}}>
+{# Preserve the Drupal attributes if available; else, print the class attribute. #}
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<section{{ attributes|raw }}>
+  {# Pass in Drupal specific functionality. #}
+  {{ title_prefix }}
+  {{ title_suffix }}
 
   <div class="card__media">
     {% if card.media.image %}
@@ -10,7 +22,9 @@
     {% elseif card.media.video %}
       {{ card.media.video }}
     {% endif %}
-    {{ card.media.caption }}
+    <span class="card__media-caption">
+      {{ card.media.caption }}
+    </span>
   </div>
 
   <div class="card__content">
@@ -22,13 +36,15 @@
       %}
     {% endif %}
 
-    {%
-      include '@<%= themeNameMachine %>/heading/heading.twig' with {
-        "heading": card.heading
-      } only
-    %}
+    {% if card.heading.title %}
+      {%
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
+          "heading": card.heading
+        } only
+      %}
+    {% endif %}
 
-    {% if card.subhead %}
+    {% if card.subhead.title %}
       {%
         include '@<%= themeNameMachine %>/heading/heading.twig' with {
           "heading": card.subhead
@@ -37,7 +53,9 @@
     {% endif %}
 
     {% if card.summary_text %}
-      {{ card.summary_text }}
+      <div class="card__summary">
+        {{ card.summary_text }}
+      </div>
     {% endif %}
 
     {% if card.link %}

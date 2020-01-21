@@ -1,10 +1,30 @@
-<article class="accordion">
-  <button type="button" class="accordion__toggle" aria-controls="accordion__content-{{ item.accordion_instance }}" aria-expanded="false" id="accordion__toggle-{{ item.accordion_instance }}" aria-selected="false">
-    <span class="accordion__heading">{{ item.heading }}</span>
+{%
+  set classes = [
+    'accordion',
+    accordion_item.modifier,
+  ]
+%}
+
+{# Preserve the Drupal attributes if available; else, print the class attribute. #}
+{%
+  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
+%}
+
+<article{{ attributes|raw }}>
+  {# Pass in Drupal specific functionality. #}
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {# The button element is the entire clickable area for the accordion, and includes the icon within a pseudo element. #}
+  <button type="button" class="accordion__toggle" aria-controls="accordion__content-{{ accordion_item.accordion_instance }}" aria-expanded="false" id="accordion__toggle-{{ accordion_item.accordion_instance }}" aria-selected="false">
+    <span class="accordion__heading">{{ accordion_item.heading }}</span>
   </button>
-  <div class="accordion__content" id="accordion__content-{{ item.accordion_instance }}" aria-hidden="true" aria-labelledby="accordion__content-{{ item.accordion_instance }}">
-    {% block accordion_content %}
-      {{ item.content }}
-    {% endblock %}
+  {# Double wrappers used to control theme and inner padding of content container. #}
+  <div class="accordion__content-wrapper" id="accordion__content-{{ accordion_item.accordion_instance }}" aria-hidden="true" aria-labelledby="accordion__content-{{ accordion_item.accordion_instance }}">
+    <div class="accordion__content">
+      {% block accordion_content %}
+        {{ accordion_item.content }}
+      {% endblock %}
+    </div>
   </div>
 </article>

@@ -13,8 +13,9 @@
 .tabs.primary {
   padding: 0;
 
-  @include breakpoint($bp-sm) {
-    &::after {
+  &::after {
+
+    @include breakpoint($bp-sm) {
       background-color: $color-gray-mid;
       bottom: 0;
       content: '';
