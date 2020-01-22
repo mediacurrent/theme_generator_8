@@ -1,8 +1,6 @@
 {
-  "heading": {
-    "heading_level": "1",
-    "modifier": "",
-    "url": "",
-    "title": "This is a regular heading!"
-  }
+  "heading_level": "1",
+  "modifier": "",
+  "url": "",
+  "title": "This is a regular heading!"
 }

@@ -18,7 +18,7 @@
   border: 0;
   cursor: pointer;
   outline: inherit;
-  padding: 1rem 3rem 1rem 1.5rem;
+  padding: 16px 48px 16px 24px;
   position: relative;
   text-align: left;
   width: 100%;
@@ -29,13 +29,13 @@
     background-repeat: no-repeat;
     background-size: contain;
     content: '';
-    height: 1.5rem;
+    height: 24px;
     position: absolute;
-    right: 1.5rem;
+    right: 24px;
     top: 50%;
     transform: translateY(-50%);
     transition: transform $transition;
-    width: 1.5rem;
+    width: 24px;
     will-change: transform;
 
     .open & {
@@ -63,5 +63,5 @@
 }
 
 .accordion__content {
-  padding: 1rem 1.5rem;
+  padding: 16px 24px;
 }

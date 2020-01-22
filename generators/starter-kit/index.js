@@ -73,7 +73,7 @@ module.exports = class extends Generator {
             name: 'Hero (Depends on Heading, Media and Button components.)'
           },
           {
-            value: 'media',
+            value: 'media-item',
             name: 'Media'
           },
           {
@@ -120,6 +120,10 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
     }
 
     return this.prompt(prompts).then(function (props) {
+      // Try to use the name passed in via option else use
+      // the user provided theme machine name.
+      this.themeNameMachine = this.themeNameMachine || props.themeNameMachine;
+
       // Check to see if any of the components that need dependencies
       // are selected.
       // card requires eyebrow, heading
@@ -142,9 +146,28 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
       // Remove any duplicate components using uniq().
       this.exampleComponents = _.uniq(props.howMuchTheme);
 
-      // Try to use the name passed in via option else use
-      // the user provided theme machine name.
-      this.themeNameMachine = this.themeNameMachine || props.themeNameMachine;
+      // Filter out any components that already exist within
+      // an existing theme.
+      try {
+        // Read the theme libraries.yml file to see which components
+        // already exist.
+        const librariesFile = jsYaml.safeLoad(
+          fs.readFileSync(
+            this.destinationPath(`${this.themeNameMachine}.libraries.yml`),
+            'utf8'
+          )
+        );
+        const existingLibraries = Object.keys(librariesFile);
+        // Exclude any components that already exist in the libraries file.
+        this.exampleComponents = _.difference(
+          this.exampleComponents,
+          existingLibraries
+        );
+      }
+      catch (e) {
+        // No libraries file found but that's ok. It won't be found unless
+        // this is run from an existing theme.
+      }
 
       // To access props later use this.props.someAnswer;
       this.props = props;

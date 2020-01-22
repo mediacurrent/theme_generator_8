@@ -1,27 +1,25 @@
 {{ attach_library('<%= themeNameMachine %>/carousel') }}
-{%
-  set classes = [
-    'carousel',
-    carousel.modifier,
-  ]
-%}
 
-{# Preserve the Drupal attributes if available; else, print the class attribute. #}
-{%
-  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
-%}
-
-<section{{ attributes|raw }}>
-  {# Pass in Drupal specific functionality. #}
-  {{ title_prefix }}
-  {{ title_suffix }}
+<section class="carousel {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is only needed with nodes and blocks.
+    This isn't needed for Drupal Paragraphs.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
 
   <ul class="carousel__list carousel__slick">
     {% block carousel_items %}
-      {% for carousel_item in carousel.list %}
+      {% for carousel_item in list %}
         {%
           include '@<%= themeNameMachine %>/carousel/_carousel-item.twig' with {
-            "carousel_item": carousel_item
+            "image": carousel_item.image,
+            "title": carousel_item.title,
+            "button_text": carousel_item.button_text,
+            "url": carousel_item.url
           } only
         %}
       {% endfor %}

@@ -1,53 +1,51 @@
 {{ attach_library('<%= themeNameMachine %>/hero') }}
-{%
-  set classes = [
-    'hero',
-    hero.modifier,
-  ]
-%}
 
-{# Preserve the Drupal attributes if available; else, print the class attribute. #}
-{%
-  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
-%}
-
-<section{{ attributes|raw }}>
-  {# Pass in Drupal specific functionality. #}
-  {{ title_prefix }}
-  {{ title_suffix }}
+<div class="hero {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is only needed with nodes and blocks.
+    This isn't needed for Drupal Paragraphs.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
 
   {# Media could be an image or video. #}
-  {% if hero.media %}
+  {% if image %}
     <div class="hero__media">
       {%
-        include '@<%= themeNameMachine %>/media/media.twig' with {
-          "media": hero.media
+        include '@<%= themeNameMachine %>/media-item/media-item.twig' with {
+          "image": image
         } only
       %}
     </div>
   {% endif %}
 
   <div class="hero__content">
-    {% if hero.heading %}
+    {% if title %}
       <div class="hero__heading">
         {%
           include '@<%= themeNameMachine %>/heading/heading.twig' with {
-            "heading": hero.heading
+            "title": title,
+            "heading_level": heading_level,
+            "modifier": "hero__heading"
           } only
         %}
       </div>
     {% endif %}
 
-    {% if hero.body %}
+    {% if body %}
       <div class="hero__body">
-        {{ hero.body }}
+        {{ body }}
       </div>
     {% endif %}
 
-    {% if hero.button %}
+    {% if button_text %}
       {%
         include '@<%= themeNameMachine %>/button/button.twig' with {
-          "button": hero.button
+          "text": button_text,
+          "url": url
         } only
       %}
     {% endif %}

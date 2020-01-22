@@ -1,7 +1,5 @@
 {
-  "button": {
-    "text": "Primary Button",
-    "modifier": "button--primary",
-    "url": "#"
-  }
+  "text": "Primary Button",
+  "modifier": "button--primary",
+  "url": "#"
 }

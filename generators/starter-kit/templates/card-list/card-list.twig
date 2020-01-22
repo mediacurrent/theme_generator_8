@@ -1,41 +1,43 @@
 {{ attach_library('<%= themeNameMachine %>/card-list') }}
-{%
-  set classes = [
-    'card-list',
-    card_list.modifier,
-  ]
-%}
 
-{# Preserve the Drupal attributes if available; else, print the class attribute. #}
-{%
-  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
-%}
+<div class="card-list {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is only needed with nodes and blocks.
+    This isn't needed for Drupal Paragraphs.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
 
-<section{{ attributes|raw }}>
-  {# Pass in Drupal specific functionality. #}
-  {{ title_prefix }}
-  {{ title_suffix }}
-
-  {% if card_list.section_title %}
+  {% if section_title %}
     {%
       include '@<%= themeNameMachine %>/heading/heading.twig' with {
-        "heading": {
-          "title": card_list.section_title,
-          "heading_level": 2,
-          "classes": "card-list__title"
-        }
+        "title": section_title,
+        "heading_level": 2,
+        "modifier": "card-list__title"
       } only
     %}
   {% endif %}
 
-  {% if card_list.items|length %}
+  {% if items|length %}
     <ul class="card-list__items">
       {% block card_items %}
-        {% for item in card_list.items %}
+        {% for item in items %}
           <li class="card-list__item">
             {%
-              include '@<%= themeNameMachine %>/card/_card.twig' with {
-                "card": item.card
+              include '@<%= themeNameMachine %>/card/card.twig' with {
+                "image": item.image,
+                "caption": item.caption,
+                "eyebrow": item.eyebrow,
+                "title": item.title,
+                "heading_level": item.heading_level,
+                "subhead": item.subhead,
+                "subhead_level": item.subhead_level,
+                "text": item.text,
+                "url": item.url,
+                "link_text": item.link_text
               } only
             %}
           </li>

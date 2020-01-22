@@ -1,18 +1,24 @@
 // Import site utilities.
 @import '../../global/utils/init';
 
+.card {
+  // Add a max-width so this doesn't look super wierd in
+  // in the style guide.
+  max-width: 350px;
+}
+
 .card__media-caption {
   display: block;
 }
 
 .card__content {
-  margin-top: 2rem;
+  margin-top: 32px;
 }
 
 .card__title {
   font-size: 1.5rem;
   font-weight: normal;
-  margin-top: 1rem;
+  margin-top: 16px;
 
   @include breakpoint($bp-sm) {
     font-size: 2rem;
@@ -31,7 +37,7 @@
 .card__link {
   color: inherit;
   display: inline-block;
-  margin-top: 1.5rem;
+  margin-top: 24px;
 }
 
 // Styles for Wide variation of Card
@@ -51,7 +57,7 @@
     flex: 1;
 
     @include breakpoint($bp-xsm) {
-      margin: 0 0 0 1.5rem;
+      margin: 0 0 0 24px;
     }
   }
 

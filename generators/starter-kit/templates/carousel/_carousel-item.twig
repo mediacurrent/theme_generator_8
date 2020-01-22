@@ -1,47 +1,38 @@
-{%
-  set classes = [
-    'carousel-item',
-    carousel_item.modifier,
-  ]
-%}
+<li class="carousel-item {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is only needed with nodes and blocks.
+    This isn't needed for Drupal Paragraphs.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
 
-{# Preserve the Drupal attributes if available; else, print the class attribute. #}
-{%
-  set attributes = attributes ? attributes.addClass(classes) : ' class="' ~ classes|join(' ') ~ '"'
-%}
-
-<li{{ attributes|raw }}>
-  {# Pass in Drupal specific functionality. #}
-  {{ title_prefix }}
-  {{ title_suffix }}
-
-  {% if carousel_item.image %}
+  {% if image %}
     <div class="carousel-item__media">
       {%
-        include '@<%= themeNameMachine %>/media/media.twig' with {
-          "media": {
-            "image": carousel_item.image,
-          },
+        include '@<%= themeNameMachine %>/media-item/media-item.twig' with {
+          "image": image,
         } only
       %}
     </div>
   {% endif %}
 
-  {% if carousel_item.title %}
+  {% if title %}
     <div class="carousel-item__content">
       {%
         include '@<%= themeNameMachine %>/heading/heading.twig' with {
-          "heading": {
-            "title": carousel_item.title,
-            "heading_level": 3,
-            "modifier": "carousel-item__title",
-          }
+          "title": title,
+          "heading_level": 3,
+          "modifier": "carousel-item__title",
         } only
       %}
-      {% if carousel_item.button.text %}
+      {% if button_text %}
         {%
           include '@<%= themeNameMachine %>/button/button.twig' with {
-            "button": carousel_item.button
+            "text": button_text,
+            "url": url
           } only
         %}
       {% endif %}

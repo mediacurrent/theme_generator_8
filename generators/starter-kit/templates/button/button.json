@@ -1,6 +1,4 @@
 {
-  "button": {
-    "text": "Button",
-    "modifier": ""
-  }
+  "text": "Button",
+  "modifier": ""
 }

@@ -9,10 +9,10 @@
   background: $color-gray-dk;
   color: $color-white;
   min-width: 300px;
-  padding: 1rem 0.5rem;
+  padding: 16px 8px;
   text-align: center;
 
   @include breakpoint($bp-xsm) {
-    padding: 1rem;
+    padding: 16px;
   }
 }

@@ -1,21 +1,8 @@
 {
-  "hero": {
-    "media": {
-      "image": "<img src='https://source.unsplash.com/FIKD9t5_5zQ/1400x787' alt='test image' />"
-    },
-    "eyebrow": {
-      "text": "Subhead Could Be Here",
-      "classes": " hero__eyebrow"
-    },
-    "heading": {
-      "title": "Title Lorem Ipsum Dolor",
-      "level": "2",
-      "classes": "hero__heading"
-    },
+    "image": "<img src='https://source.unsplash.com/FIKD9t5_5zQ/1400x787' alt='test image' />",
+    "title": "Title Lorem Ipsum Dolor",
+    "heading_level": "2",
     "body": "Some sites need a tagline mauris ac dui sit amet sem facilisis finibus vitae et mi.",
-    "button": {
-      "text": "Learn more",
-      "url": "#"
-    }
-  }
+    "button_text": "Learn more",
+    "url": "#"
 }

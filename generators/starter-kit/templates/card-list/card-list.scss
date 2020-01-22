@@ -2,7 +2,7 @@
 @import '../../global/utils/init';
 
 .card-list__title {
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 }
 
 .card-list__items {
@@ -10,20 +10,20 @@
 
   @include breakpoint($bp-sm) {
     display: flex;
-    margin-left: -1rem;
-    margin-right: -1rem;
+    margin-left: -16px;
+    margin-right: -16px;
   }
 }
 
 .card-list__item {
 
   @include breakpoint($bp-sm) {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   &:not(:first-child) {
-    margin-top: 3rem;
+    margin-top: 48px;
 
     @include breakpoint($bp-sm) {
       margin-top: 0;

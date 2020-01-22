@@ -1,0 +1,67 @@
+{{ attach_library('<%= themeNameMachine %>/card') }}
+
+<article class="card {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is only needed with nodes and blocks.
+    This isn't needed for Drupal Paragraphs.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
+
+  <div class="card__media">
+    {% if image %}
+      {{ image }}
+    {% elseif video %}
+      {{ video }}
+    {% endif %}
+    <span class="card__media-caption">
+      {{ caption }}
+    </span>
+  </div>
+
+  <div class="card__content">
+    {% if eyebrow %}
+      {%
+        include '@<%= themeNameMachine %>/eyebrow/eyebrow.twig' with {
+          "text": eyebrow,
+          "modifier": "card__eyebrow"
+        } only
+      %}
+    {% endif %}
+
+    {% if title %}
+      {%
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
+          "title": title,
+          "heading_level": heading_level,
+          "modifier": "card__title",
+          "url": url
+        } only
+      %}
+    {% endif %}
+
+    {% if subhead %}
+      {%
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
+          "title": subhead,
+          "heading_level": subhead_level,
+          "modifier": "card__subhead"
+        } only
+      %}
+    {% endif %}
+
+    {% if text %}
+      <div class="card__summary">
+        {{ text }}
+      </div>
+    {% endif %}
+
+    {% if link %}
+      <a href="{{ url }}" class="card__link">{{ link_text }}</a>
+    {% endif %}
+  </div>
+
+</article>
