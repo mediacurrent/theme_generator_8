@@ -8,6 +8,8 @@
   - [Creating a new Theme](#creating-a-new-theme)
 - [The New Theme](#the-new-theme)
   - [Support](#support)
+  - [Starter Kit](#starter-kit)
+  - [Component Generator](#component-generator)
   - [A Word About Commiting ./dist Files](#a-word-about-commiting-dist-files)
   - [Stuff You Might Want To Change](#stuff-you-might-want-to-change)
   - [Go Team](#go-team)
@@ -66,13 +68,38 @@ The following is supported by your new theme.
 * Live reloading
 * Sass and JavaScript linting
 
-The theme generator allows you to optionally add several example components.
+### Starter Kit
 
-* Button (with variations)
+The theme generator allows you to (optionally) add example components.
+
+* Accordion
+* Button
+* Card
+* Card List
+* Carousel
+* Eyebrow
+* Heading
+* Hero
+* Media
 * Drupal Messages (Based off of the Classy base theme)
 * Drupal Tabs
 
 These can include both component and Drupal templates that are added to the appropriate place during theme generation. Your theme.libraries.yml is also updated to include the relevant libraries.
+
+This can also be run within a pre-existing theme using:
+```
+npx yo mc-d8-theme:starter-kit
+```
+
+### Component Generator
+
+You can also generate a empty component with the right files in place using:
+
+```
+npm run generate
+```
+
+This is helpful if you are building out a new theme and would like to quickly create lots of new components with the libraries already wired up.
 
 ### A Word About Commiting ./dist Files
 
@@ -137,7 +164,7 @@ Provided by default are seven npm scripts that point to Gulp tasks. We run gulp 
   ```
 
 ## Links
-* [`.sass-lint.yml`](generators/app/templates/sass-lint.yml)
+* [`.stylelintrc.yml`](generators/app/templates/stylelintrc.yml)
 * [`.eslintrc.json`](generators/app/templates/eslintrc.json)
 
 ## Contributing

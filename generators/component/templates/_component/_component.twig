@@ -1,10 +1,5 @@
-{{ attach_library('theme_name/<%= dashed %>') }}
-<section class="<%= dashed %>">
+{{ attach_library('<%= themeNameMachine %>/<%= dashed %>') }}
+<div class="<%= dashed %>">
   <h2 class="<%= dashed %>__heading">{{ heading }}</h2>
-  {% for item in items %}
-  <article class="<%= dashed %>__item">
-    <h3>{{ item.title }}</h3>
-    <p>{{ item.desc }}</p>
-  </article>
-  {% endfor %}
-</section>
+  <p class="<%= dashed %>__body">{{ body }}</p>
+</div>

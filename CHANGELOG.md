@@ -1,5 +1,20 @@
 # Changelog
 
+## ☕️ 2.2.0 (2020-01-22)
+
+### Bug Fix
+* Fixed a bug with ESlint not being able to tell the difference between node (gulp) and Drupal JS files. This would throw the wrong 'use strict' error.
+
+### New Feature
+* Moved from Sass Lint to StyleLint. **Thanks for all your hard work on this Tim!**
+* Added a new component subgenerator that can be run as a normal build script `npm run generate`.
+* Added more start-kit components and modified them so they can be easily added to an existing Drupal theme. **Thanks for your help with this too Tim!**
+* Added a default `field.html.twig` template that's got less markup in it so that we start new themes in a cleaner state.
+* Added Prettier support for theme JS files.
+
+### Documentation
+* Updated the `README.md` with examples of how to use the new component generator and starter-kit.
+
 ## ⚔️ 2.1.0 (2019-11-04)
 
 ### Bug Fix

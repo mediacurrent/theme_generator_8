@@ -5,10 +5,8 @@ const _ = require('lodash');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const path = require('path');
-const jsYaml = require('js-yaml');
 
 // Custom helper modules.
-const buildComponents = require('./build-components');
 const mcLogo = require('./mc-logo');
 
 module.exports = class extends Generator {
@@ -16,7 +14,7 @@ module.exports = class extends Generator {
     // Have Yeoman greet the user.
     this.log(mcLogo);
 
-    // Proved the user with prompts.
+    // Provide the user with prompts.
     var prompts = [
       {
         name: 'themeName',
@@ -62,35 +60,10 @@ module.exports = class extends Generator {
         // eslint-disable-next-line max-len
         message: 'Should we update the .gitignore to ignore compiled files? (i.e. /dist)',
         default: true
-      },
-      {
-        type: 'checkbox',
-        name: 'howMuchTheme',
-        message: 'Would you like any starter components with your theme?',
-        // Be nice for these to be populated from an external repo
-        // and use a package.json to build this list.
-        choices: [
-          {
-            value: 'button',
-            name: 'Button'
-          },
-          {
-            value: 'tabs',
-            name: 'Drupal Tabs'
-          },
-          {
-            value: 'message',
-            name: 'Drupal Messages'
-          }
-        ]
       }
     ];
 
     return this.prompt(prompts).then(function (props) {
-      // props.howMuchTheme is an array of all selected options.
-      // i.e. [ 'hero', 'tabs', 'messages' ]
-      this.exampleComponents = props.howMuchTheme;
-
       // Should we ignore ./dist files or not?
       this.ignoreDist = props.ignoreDist;
 
@@ -119,38 +92,22 @@ module.exports = class extends Generator {
   }
 
   configuring() {
-    // If any example components were selected...
-    if (this.exampleComponents.length > 0) {
-      // ...copy over the example components.
-      buildComponents(this.exampleComponents, this)
-        .then(buildComponentsConfig => {
-          // And add the needed lines to the Drupal library file.
-          this.fs.copyTpl(
-            this.templatePath('_theme_name.libraries.yml'),
-            this.destinationPath(this.themeNameMachine + '.libraries.yml'),
-            {
-              themeNameMachine: this.themeNameMachine,
-              exampleComponents: jsYaml.safeDump(buildComponentsConfig)
-            }
-          );
-        })
-        .catch(error => {
-          // eslint-disable-next-line no-console
-          console.error(error);
-        });
-    }
-    else {
-      // No example componets were selected, go ahead and copy over the default
-      // Drupal libraries file without any additional libraries.
-      this.fs.copyTpl(
-        this.templatePath('_theme_name.libraries.yml'),
-        this.destinationPath(this.themeNameMachine + '.libraries.yml'),
-        {
-          themeNameMachine: this.themeNameMachine,
-          exampleComponents: ''
-        }
-      );
-    }
+    // Add the Drupal libraries file so we can append additional
+    // libraries to it if selected by the user.
+    this.fs.copyTpl(
+      this.templatePath('_theme_name.libraries.yml'),
+      this.destinationPath(this.themeNameMachine + '.libraries.yml'),
+      {
+        themeNameMachine: this.themeNameMachine
+      }
+    );
+
+    // Prompt the user for start kit components. If any are selected
+    // they will be copied over to the patterns folder and the libraries.yml
+    // file will be appended with the component library.
+    this.composeWith('mc-d8-theme:starter-kit', {
+      themeName: this.themeNameMachine
+    });
   }
 
   writing() {
@@ -189,8 +146,8 @@ module.exports = class extends Generator {
       this.destinationPath('.eslintrc.json')
     );
     this.fs.copy(
-      this.templatePath('sass-lint.yml'),
-      this.destinationPath('.sass-lint.yml')
+      this.templatePath('stylelintrc.yml'),
+      this.destinationPath('.stylelintrc.yml')
     );
     // We need the theme machine name so we can set
     // correct namespaces.
@@ -247,8 +204,8 @@ module.exports = class extends Generator {
       this.destinationPath('src/styleguide')
     );
     this.fs.copy(
-      this.templatePath('_src/templates/.gitkeep'),
-      this.destinationPath('src/templates/.gitkeep')
+      this.templatePath('_src/templates'),
+      this.destinationPath('src/templates')
     );
     this.fs.copy(
       this.templatePath('_src/favicon.ico'),
@@ -323,14 +280,6 @@ module.exports = class extends Generator {
       }
     );
 
-    // TODO: this needs to be updated for creating a new component.
-    // May be able to repurpose to add example components. Would require
-    // Abstracting out pieces of 'build-components'.
-    //
-    //   this.composeWith('mc-d8-theme:component', {
-    //     arguments: ['Sample List']
-    //   });
-
     this.fs.copy(
       this.templatePath('_screenshot.png'),
       this.destinationPath('screenshot.png')
@@ -341,11 +290,16 @@ module.exports = class extends Generator {
     // Need to see if we still need this.
     this.npmInstall();
 
-    // Install the following node modules specifically for Pattern Lab.
-    var npmArray = [
+    // Install the following node modules specifically for Pattern Lab
+    // and theme generator.
+    // Adding the `yo generator-mc-d8-theme` so users can quickly
+    // run the component sub-generator locally.
+    const npmArray = [
       '@pattern-lab/core',
       '@pattern-lab/engine-twig-php',
-      '@pattern-lab/uikit-workshop'
+      '@pattern-lab/uikit-workshop',
+      'yo',
+      'generator-mc-d8-theme'
     ];
 
     // This runs `npm install ... --save-dev` on the command line.

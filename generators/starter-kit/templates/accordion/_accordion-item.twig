@@ -1,0 +1,23 @@
+<article class="accordion {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is mostly relevant to nodes and blocks.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
+
+  {# The button element is the entire clickable area for the accordion, and includes the icon within a pseudo element. #}
+  <button type="button" class="accordion__toggle" aria-controls="accordion__content-{{ instance }}" aria-expanded="false" id="accordion__toggle-{{ instance }}" aria-selected="false">
+    <span class="accordion__heading">{{ heading }}</span>
+  </button>
+  {# Double wrappers used to control theme and inner padding of content container. #}
+  <div class="accordion__content-wrapper" id="accordion__content-{{ instance }}" aria-hidden="true" aria-labelledby="accordion__content-{{ instance }}">
+    <div class="accordion__content">
+      {% block accordion_content %}
+        {{ content }}
+      {% endblock %}
+    </div>
+  </div>
+</article>

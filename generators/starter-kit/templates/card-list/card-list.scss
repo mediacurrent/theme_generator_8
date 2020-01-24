@@ -1,0 +1,32 @@
+// Import site utilities.
+@import '../../global/utils/init';
+
+.card-list__title {
+  margin-bottom: 32px;
+}
+
+.card-list__items {
+  list-style-type: none;
+
+  @include breakpoint($bp-sm) {
+    display: flex;
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+
+.card-list__item {
+
+  @include breakpoint($bp-sm) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  &:not(:first-child) {
+    margin-top: 48px;
+
+    @include breakpoint($bp-sm) {
+      margin-top: 0;
+    }
+  }
+}

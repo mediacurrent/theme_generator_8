@@ -1,0 +1,52 @@
+{{ attach_library('<%= themeNameMachine %>/hero') }}
+
+<div class="hero {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is mostly relevant to nodes and blocks.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
+
+  {# Media could be an image or video. #}
+  {% if image %}
+    <div class="hero__media">
+      {%
+        include '@<%= themeNameMachine %>/media-item/media-item.twig' with {
+          "image": image
+        } only
+      %}
+    </div>
+  {% endif %}
+
+  <div class="hero__content">
+    {% if title %}
+      <div class="hero__heading">
+        {%
+          include '@<%= themeNameMachine %>/heading/heading.twig' with {
+            "title": title,
+            "heading_level": heading_level,
+            "modifier": "hero__heading"
+          } only
+        %}
+      </div>
+    {% endif %}
+
+    {% if body %}
+      <div class="hero__body">
+        {{ body }}
+      </div>
+    {% endif %}
+
+    {% if button_text %}
+      {%
+        include '@<%= themeNameMachine %>/button/button.twig' with {
+          "text": button_text,
+          "url": url
+        } only
+      %}
+    {% endif %}
+  </div>
+</section>

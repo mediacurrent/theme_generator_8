@@ -1,0 +1,74 @@
+// Import site utilities.
+@import '../../global/utils/init';
+
+.card {
+  // Add a max-width so this doesn't look super wierd in
+  // in the style guide.
+  max-width: 350px;
+}
+
+.card__media-caption {
+  display: block;
+}
+
+.card__content {
+  margin-top: 32px;
+}
+
+.card__title {
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin-top: 16px;
+
+  @include breakpoint($bp-sm) {
+    font-size: 2rem;
+  }
+}
+
+.card__subhead {
+  font-size: 1.25rem;
+  font-weight: normal;
+
+  @include breakpoint($bp-sm) {
+    font-size: 1.5rem;
+  }
+}
+
+.card__link {
+  color: inherit;
+  display: inline-block;
+  margin-top: 24px;
+}
+
+// Styles for Wide variation of Card
+.card--wide {
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint($bp-xsm) {
+    flex-direction: row;
+  }
+
+  .card__media {
+    flex: 1;
+  }
+
+  .card__content {
+    flex: 1;
+
+    @include breakpoint($bp-xsm) {
+      margin: 0 0 0 24px;
+    }
+  }
+
+  .card__eyebrow {
+    margin-top: 0;
+  }
+}
+
+.card--media-right {
+
+  @include breakpoint($bp-xsm) {
+    flex-direction: row-reverse;
+  }
+}
