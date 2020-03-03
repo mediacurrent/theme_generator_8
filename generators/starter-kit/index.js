@@ -139,7 +139,7 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
         props.howMuchTheme.includes('carousel') ||
         props.howMuchTheme.includes('hero')
       ) {
-        props.howMuchTheme.push('heading', 'media', 'button');
+        props.howMuchTheme.push('heading', 'media-item', 'button');
       }
       // props.howMuchTheme is an array of all selected options.
       // i.e. [ 'hero', 'tabs', 'messages' ]
@@ -272,23 +272,36 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
         });
       // eslint-disable-next-line max-len
       // https://lightning.acquia.com/blog/round-your-front-end-javascript-libraries-composer
-      this.log('------------------------------------------------------------');
       // eslint-disable-next-line max-len
       this.log('⏳ Attempting to install the slick-carousel dependency using composer.');
-      this.log('This is needed by the carousel component.');
-      // eslint-disable-next-line max-len
-      this.log(`If this fails you'll have to manually add Slick to your project and update the carousel library in the ${this.themeNameMachine}.libraries.yml file.`);
-      this.log('https://github.com/kenwheeler/slick/');
-      this.log('------------------------------------------------------------');
       // When running composer install, assume that we'll be using the
       // composer.json file found at the root of the project. As long as
       // that file is above the docroot and the theme is in a
       // theme/custom directory, this should work.
-      this.spawnCommand('composer', [
-        'require',
-        'npm-asset/slick-carousel',
-        '--working-dir=../../../../'
-      ]);
+      try {
+        // See if composer.json exists.
+        fs.accessSync(
+          this.destinationPath('../../../../composer.json'),
+          fs.constants.R_OK
+        );
+        // If it does, try to install slick carousel dependency.
+        this.spawnCommand('composer', [
+          'require',
+          'npm-asset/slick-carousel',
+          '--working-dir=../../../../'
+        ]);
+      }
+      catch (err) {
+        // eslint-disable-next-line max-len
+        this.log('------------------------------------------------------------');
+        this.log('🚨 Failed to install Slick Carousel.');
+        this.log('This is needed by the carousel component.');
+        // eslint-disable-next-line max-len
+        this.log(`Manually add Slick to your project and update the carousel library in the ${this.themeNameMachine}.libraries.yml file.`);
+        this.log('https://github.com/kenwheeler/slick/');
+        // eslint-disable-next-line max-len
+        this.log('------------------------------------------------------------');
+      }
     }
   }
 };

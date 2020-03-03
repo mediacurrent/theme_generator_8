@@ -1,5 +1,12 @@
 # Changelog
 
+## ☕️ 2.2.1 (2020-03-03)
+
+### Bug Fix
+* Fixed StyleLint errors. Thanks Tim!
+* Fixed an issue where a starter kit component was misnamed.
+* Starter Kit components fail more gracefully for projects that don't use composer.
+
 ## ☕️ 2.2.0 (2020-01-22)
 
 ### Bug Fix
