@@ -116,6 +116,17 @@ function watchFiles() {
     )
   );
 
+  // Watch all my images and SVG files and compile if a file changes.
+  watch(
+    './src/patterns/**/**/*{.png,.jpg,.svg}',
+    series(
+      parallel(compressAssets), (done) => {
+        server.reload('*{.png,.jpg,.svg,.html}');
+        done();
+      }
+    )
+  );
+
   // Reload the browser after patternlab updates.
   patternlab.events.on('patternlab-build-end', () => {
     server.reload('*.html');
