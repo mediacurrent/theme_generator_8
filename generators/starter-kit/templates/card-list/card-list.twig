@@ -14,34 +14,38 @@
     {%
       include '@<%= themeNameMachine %>/heading/heading.twig' with {
         "title": section_title,
-        "heading_level": 2,
+        "heading_level": heading_level,
         "modifier": "card-list__title"
       } only
     %}
   {% endif %}
 
-  {% if items|length %}
-    <ul class="card-list__items">
-      {% block card_items %}
-        {% for item in items %}
-          <li class="card-list__item">
-            {%
-              include '@<%= themeNameMachine %>/card/card.twig' with {
-                "image": item.image,
-                "caption": item.caption,
-                "eyebrow": item.eyebrow,
-                "title": item.title,
-                "heading_level": item.heading_level,
-                "subhead": item.subhead,
-                "subhead_level": item.subhead_level,
-                "text": item.text,
-                "url": item.url,
-                "link_text": item.link_text
-              } only
-            %}
-          </li>
-        {% endfor %}
-      {% endblock %}
-    </ul>
-  {% endif %}
+  <ul class="card-list__items">
+    {% block card_items %}
+      {#
+        This for loop is only used to display the card list
+        in Pattern Lab. Drupal will override this twig block.
+        See paragraph--card-list.html.twig for more info.
+      #}
+      {% for item in items %}
+        <li class="card-list__item">
+          {%
+            include '@<%= themeNameMachine %>/card/card.twig' with {
+              "image": item.image,
+              "caption": item.caption,
+              "eyebrow": item.eyebrow,
+              "title": item.title,
+              "heading_level": item.heading_level,
+              "subhead": item.subhead,
+              "subhead_level": item.subhead_level,
+              "text": item.text,
+              "url": item.url,
+              "link_text": item.link_text,
+              "modifier": "card-list__item"
+            } only
+          %}
+        </li>
+      {% endfor %}
+    {% endblock %}
+  </ul>
 </div>

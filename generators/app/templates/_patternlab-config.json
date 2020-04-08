@@ -136,7 +136,7 @@
         {
           "file": "./src/styleguide/drupal-twig/alter-twig.php",
           "functions": [
-            "twigExtensions"
+            "twig_extensions"
           ]
         }
       ]
