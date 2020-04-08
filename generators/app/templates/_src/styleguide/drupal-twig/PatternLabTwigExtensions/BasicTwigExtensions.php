@@ -1,5 +1,12 @@
 <?php
 
+namespace PatternLabTwigExtensions;
+
+use Twig_Extension;
+use Twig_ExtensionInterface;
+use Twig_SimpleFilter;
+use Twig_SimpleFunction;
+
 /**
  * These filters come from drupal-twig-extensions.
  *
@@ -58,7 +65,7 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
    *
    * @link Drupal Twig Filters - https://www.drupal.org/docs/8/theming/twig/filters-modifying-variables-in-twig-templates
    *
-   * @return Twig_SimpleFilter[]
+   * @return \Twig_SimpleFilter[]
    *   Returns a list of filters.
    */
   public function getFilters() {
@@ -77,7 +84,7 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
    *
    * @link Drupal Twig Functions - https://www.drupal.org/node/2486991
    *
-   * @return Twig_SimpleFunction[]
+   * @return \Twig_SimpleFunction[]
    *   Returns list of functions.
    */
   public function getFunctions() {
@@ -95,30 +102,6 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
       new Twig_SimpleFunction('file_url', [$this, 'returnParam']),
       new Twig_SimpleFunction('attach_library', [$this, 'returnNothing']),
     ];
-  }
-
-  /**
-   * Returns a list of global variables to add to the existing list.
-   *
-   * @return array
-   *   An array of global variables
-   *
-   * @deprecated since 1.23 (to be removed in 2.0), implement Twig_Extension_GlobalsInterface instead
-   */
-  public function getGlobals() {
-    return [];
-  }
-
-  /**
-   * Returns the name of the extension.
-   *
-   * @return string
-   *   The extension name.
-   *
-   * @deprecated since 1.26 (to be removed in 2.0), not used anymore internally
-   */
-  public function getName() {
-    return 'BasicTwigExtensions';
   }
 
 }

@@ -49,7 +49,13 @@
     "no-undef": "error",
 
     // Enforce line length to 80 characters
-    "max-len": ["error", 80, 2],
+    "max-len": ["error", {
+      "code": 80,
+      "ignoreUrls": true,
+      "ignoreStrings": true,
+      "ignoreRegExpLiterals": true,
+      "ignoreTemplateLiterals": true
+    }],
 
     // Require capitalized names for constructor functions.
     "new-cap": "error",

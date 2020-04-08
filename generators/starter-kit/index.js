@@ -227,7 +227,6 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
                   if (err) {
                     this.log(
                       chalk.red(
-                        // eslint-disable-next-line max-len
                         `Failed to update ${this.themeNameMachine}.libraries.yml`
                       )
                     );
@@ -245,63 +244,43 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
   }
 
   install() {
-    // If `carousel` is selected, attempt to install the slick
-    // carousel dependency.
+    // If `carousel` is selected, attempt to link up the slick
+    // carousel dependency. It'll still be up to the user to add SlickJS
+    // as a project dependency.
     if (this.exampleComponents.indexOf('carousel') !== -1) {
       // If a carousel third party library is required, add it to Pattern Lab
       // so it works there.
       replace({
         files: this.destinationPath('src/styleguide/meta/_00-head.twig'),
         from: /<!-- Vendor CSS placeholder -->/g,
-        // eslint-disable-next-line max-len
         to: '<link rel="stylesheet" href="/libraries/slick-carousel/slick/slick.css" media="all" />'
       })
         .catch(() => {
-          // eslint-disable-next-line max-len
           this.log('Failed to append slick css to Pattern Lab file styleguide/meta/_00-head.twig');
         });
       replace({
         files: this.destinationPath('src/styleguide/meta/_01-foot.twig'),
         from: /<!-- Vendor JS placeholder -->/g,
-        // eslint-disable-next-line max-len
         to: '<script src="/libraries/slick-carousel/slick/slick.min.js"></script>'
       })
         .catch(() => {
-          // eslint-disable-next-line max-len
           this.log('Failed to append slick js to Pattern Lab file styleguide/meta/_01-foot.twig');
         });
-      // eslint-disable-next-line max-len
-      // https://lightning.acquia.com/blog/round-your-front-end-javascript-libraries-composer
-      // eslint-disable-next-line max-len
-      this.log('⏳ Attempting to install the slick-carousel dependency using composer.');
-      // When running composer install, assume that we'll be using the
-      // composer.json file found at the root of the project. As long as
-      // that file is above the docroot and the theme is in a
-      // theme/custom directory, this should work.
-      try {
-        // See if composer.json exists.
-        fs.accessSync(
-          this.destinationPath('../../../../composer.json'),
-          fs.constants.R_OK
-        );
-        // If it does, try to install slick carousel dependency.
-        this.spawnCommand('composer', [
-          'require',
-          'npm-asset/slick-carousel',
-          '--working-dir=../../../../'
-        ]);
-      }
-      catch (err) {
-        // eslint-disable-next-line max-len
-        this.log('------------------------------------------------------------');
-        this.log('🚨 Failed to install Slick Carousel.');
-        this.log('This is needed by the carousel component.');
-        // eslint-disable-next-line max-len
-        this.log(`Manually add Slick to your project and update the carousel library in the ${this.themeNameMachine}.libraries.yml file.`);
-        this.log('https://github.com/kenwheeler/slick/');
-        // eslint-disable-next-line max-len
-        this.log('------------------------------------------------------------');
-      }
+    }
+  }
+
+  end() {
+    // If `carousel` is selected, inform the user that they need to install
+    // the SlickJS carousel dependency.
+    if (this.exampleComponents.indexOf('carousel') !== -1) {
+      this.log('------------------------------------------------------------');
+      this.log('👋 You installed the Carousel component which requires SlickJS.');
+      this.log('Install SlickJS using composer with:');
+      this.log('composer require npm-asset/slick-carousel --working-dir=../../../../');
+      this.log('OR');
+      this.log(`Manually add Slick to the /libraries folder and update the carousel library in the ${this.themeNameMachine}.libraries.yml file.`);
+      this.log('https://github.com/kenwheeler/slick/');
+      this.log('------------------------------------------------------------');
     }
   }
 };
