@@ -74,15 +74,17 @@ The theme generator allows you to (optionally) add example components.
 
 * Accordion
 * Button
-* Card
-* Card List
+* Card 🌧
+* Card List 🌧
 * Carousel
 * Eyebrow
 * Heading
 * Hero
 * Media
-* Drupal Messages (Based off of the Classy base theme)
-* Drupal Tabs
+* Drupal Messages (Based off of the Classy base theme) 🌧
+* Drupal Tabs 🌧
+
+🌧 = Preconfigured for the [Rain Install Profile](https://www.drupal.org/project/rain/).
 
 These can include both component and Drupal templates that are added to the appropriate place during theme generation. Your theme.libraries.yml is also updated to include the relevant libraries.
 

@@ -1,5 +1,21 @@
 # Changelog
 
+## 😷 2.3.0 (2020-04-08)
+
+### Bug Fix
+* Bumps project dependencies.
+* Fixes PHP Codesniffer violations for PHP files used by Pattern Lab Node.
+
+### New Feature
+* Now watch command triggers on changes to SVGs. Thanks Tim for the [issue](https://github.com/mediacurrent/theme_generator_8/issues/53).
+* Backed out the automated composer install for SlickJS if someone selected the carousel as a starter component. This caused more problems than it was worth. We now tell folks how to install it vs trying to do it for them.
+* Updated ESlint config so max-len doesn't flag urls, strings, regex and template literals. Woooooo.
+* Added additional flexibility to the start kit "heading" component so it can accept any element not just headings. Sometimes you don't need a `<h2>` and you really need a `<p>`.
+* Added Drupal templates and integration for the Card and Card-List components.
+
+### Documentation
+* Updated the `README.md` to note which Starter Kit components are preconfigured to work with the Drupal [Rain Install Profile](https://www.drupal.org/project/rain/).
+
 ## ☕️ 2.2.1 (2020-03-03)
 
 ### Bug Fix
