@@ -7,6 +7,7 @@
   - [Node Version Manager](#first-a-note-about-using-nodejs-via-nvm)
   - [Creating a new Theme](#creating-a-new-theme)
 - [The New Theme](#the-new-theme)
+  - [Drupal Module Dependencies](#drupal-module-dependencies)
   - [Support](#support)
   - [Starter Kit](#starter-kit)
   - [Component Generator](#component-generator)
@@ -55,6 +56,10 @@ You should be taken through a series of questions that allow you to pick the bes
 `npm create` is an alias of `npm init` and uses [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) under the hood. Find out more about [npm init](https://docs.npmjs.com/cli/init.html).
 
 ## The New Theme
+
+### Drupal Module Dependencies
+
+This theme uses [Twig namespaces](https://symfony.com/doc/current/templates.html#templates-namespaces). In order for these to work in Drupal you must install the [components module](https://www.drupal.org/project/components).
 
 ### Support
 

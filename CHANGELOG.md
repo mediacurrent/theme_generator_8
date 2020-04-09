@@ -15,6 +15,7 @@
 
 ### Documentation
 * Updated the `README.md` to note which Starter Kit components are preconfigured to work with the Drupal [Rain Install Profile](https://www.drupal.org/project/rain/).
+* Added information about theme module dependencies.
 
 ## ☕️ 2.2.1 (2020-03-03)
 
