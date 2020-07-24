@@ -22,34 +22,34 @@
 **[Read the ⚡️ Changelog!](CHANGELOG.md)**
 
 ## Using the Theme Generator
+### First a note about using Node.js via NVM
+While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project.
 
 While the theme generator can be run anywhere, it's happiest when it's run from an empty directory you'd like to become your theme.
 
-* Create a new directory.  Example:
+## Create a new Drupal theme
+1. Create a new directory.  Example:
 ```
 themes/custom/my_awesome_theme
 ```
 
-### First a note about using Node.js via NVM
-
-While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project. Here's a quick one liner that will install the latest stable version of Node using NVM and create a `.nvmrc` file.
-
-* Move into the new directory you created above, then run the following command:
+2. Move into the new directory you created above, and install Node:
 
 ```bash
 nvm install node && node -v > .nvmrc
 ```
+This command will look at `.nvmrc` file and install the version of node specified in it.
 
 From now on, when working on this theme change into its directory and run `nvm use` and NVM will switch to the specified version for you.
 
-### Creating a new Theme
 
-To run the theme generator type the command:
-```
+3. Create a new theme by running this command:
+```bash
 npm create yo mc-d8-theme
 ```
-
 You should be taken through a series of questions that allow you to pick the best options for your theme.
+
+**IMPORTANT**: Your theme's machine name should always match the directory name you created in step 1 above.
 
 **More info if you're interested in how this stuff works:**
 
@@ -98,11 +98,11 @@ This can also be run within a pre-existing theme using:
 npx yo mc-d8-theme:starter-kit
 ```
 
-### Component Generator
+## Crate new Components
 
 You can also generate a empty component with the right files in place using:
 
-```
+```bash
 npm run generate
 ```
 
@@ -124,7 +124,7 @@ Change what browsers your theme supports by updating *browserslist* within `pack
 
 This impacts CSS browser prefixes and JavaScript compiled files.
 
-#### Dummy Files
+#### Demo Files
 
 * Swap out `screenshot.png` with your own theme image.
 * Remove or replace the font files in `./src/patterns/global/fonts/`.
