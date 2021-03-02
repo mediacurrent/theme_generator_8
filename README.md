@@ -40,6 +40,12 @@ nvm install node && node -v > .nvmrc
 ```
 This command will look at `.nvmrc` file and install the version of node specified in it.
 
+Next we want to make sure our package manager is up to date:
+
+```bash
+nvm install-latest-npm
+```
+
 From now on, when working on this theme change into its directory and run `nvm use` and NVM will switch to the specified version for you.
 
 
