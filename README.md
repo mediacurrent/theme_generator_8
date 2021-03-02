@@ -36,9 +36,9 @@ themes/custom/my_awesome_theme
 2. Move into the new directory you created above, and install Node:
 
 ```bash
-nvm install node && node -v > .nvmrc
+nvm install 14.16.0 && node -v > .nvmrc
 ```
-This command will look at `.nvmrc` file and install the version of node specified in it.
+This will install the current LTS version of node as of the date of this update, and will create `.nvmrc` in the root of your project.
 
 Next we want to make sure our package manager is up to date:
 
@@ -49,10 +49,11 @@ nvm install-latest-npm
 From now on, when working on this theme change into its directory and run `nvm use` and NVM will switch to the specified version for you.
 
 
-3. Create a new theme by running this command:
+3. Create a new theme (Do not change this command):
 ```bash
 npm create yo mc-d8-theme
 ```
+
 You should be taken through a series of questions that allow you to pick the best options for your theme.
 
 **IMPORTANT**: Your theme's machine name should always match the directory name you created in step 1 above.
@@ -183,25 +184,48 @@ Provided by default are seven npm scripts that point to Gulp tasks. We run gulp 
 ## Contributing
 Would you like to contribute? Want to make a few changes or fix a bug? COME ON OVER!
 
-Clone down this repo:
-```
+### Clone down this repo
+
+```bash
 git clone git@github.com:mediacurrent/theme_generator_8.git
+```
+
+```bash
+cd theme_generator_8
 ```
 
 Remove `generator-mc-d8-theme` if you have previously installed it:
 
 _Tip: use `npm ls -g -depth=0` to see what global node modules are installed._
 
-```
+```bash
 npm uninstall generator-mc-d8-theme -g
 ```
 
-From the generator root directory [link](https://docs.npmjs.com/cli/link) your local generator files to npm:
+_Use the node version of the generator_
 
+```bash
+nvm install
+
+nvm use
 ```
+
+_Install the generator's dependencies_
+
+```bash
+npm install
+```
+
+[Link](https://docs.npmjs.com/cli/link) your local generator files to npm:
+
+```bash
 npm link
 ```
 
 Now whenever you run `yo mc-d8-theme` it'll use your locally cloned mc-d8-theme generator. Any updates done to the generator can be tested in real time.
 
 Break off a feature branch dive right in. After you've got something you'd like to add, push back to the repo and pull request against develop.
+
+### IMPORTANT
+
+To test the changes you've made locally, ensure your theme uses the same version of node as the generator.
