@@ -1,5 +1,7 @@
 # Mediacurrent Theme Generator
 
+A scafolding tool built by your friends at [Mediacurrent](https://mediacurrent.com/), to quickly build a modern, component-driven, Drupal 8 or 9 theme.
+
 > [Yeoman generator](http://yeoman.io/) for Drupal Themes - lets you quickly set up a Drupal 8 theme with sensible defaults and best practices.
 
 - [What's New](#whats-new)
@@ -22,43 +24,50 @@
 **[Read the ⚡️ Changelog!](CHANGELOG.md)**
 
 ## Using the Theme Generator
+
 ### First a note about using Node.js via NVM
+
 While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project.
 
 While the theme generator can be run anywhere, it's happiest when it's run from an empty directory you'd like to become your theme.
 
 ## Create a new Drupal theme
+
 1. Create a new directory.  Example:
-```
-themes/custom/my_awesome_theme
-```
 
-2. Move into the new directory you created above, and install Node:
+    ```bash
+    themes/custom/my_awesome_theme
+    ```
 
-```bash
-nvm install 14.16.0 && node -v > .nvmrc
-```
-This will install the current LTS version of node as of the date of this update, and will create `.nvmrc` in the root of your project.
+1. Move into the new directory you created above, and install Node:
 
-Next we want to make sure our package manager is up to date:
+    ```bash
+    nvm install 12.10.0 && node -v > .nvmrc
+    ```
 
-```bash
-nvm install-latest-npm
-```
+    - This will install version `v12.10.0` of NodeJS (Preliminary tests have shown issues with newer versions of node at this time).
 
-From now on, when working on this theme change into its directory and run `nvm use` and NVM will switch to the specified version for you.
+    - It will create `.nvmrc` in the root of your project.
 
+1. Next we want to make sure our package manager is up to date:
 
-3. Create a new theme (Do not change this command):
-```bash
-npm create yo mc-d8-theme
-```
+    ```bash
+    nvm install-latest-npm
+    ```
+
+    From now on, when working on this theme change into its directory and run `nvm use` and NVM will switch to the specified version for you.
+
+1. Create a new theme (**Do not change this command**):
+
+    ```bash
+    npm create yo mc-d8-theme
+    ```
 
 You should be taken through a series of questions that allow you to pick the best options for your theme.
 
 **IMPORTANT**: Your theme's machine name should always match the directory name you created in step 1 above.
 
-**More info if you're interested in how this stuff works:**
+More info if you're interested in how this stuff works:
 
 `npm create` is an alias of `npm init` and uses [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) under the hood. Find out more about [npm init](https://docs.npmjs.com/cli/init.html).
 
@@ -66,48 +75,49 @@ You should be taken through a series of questions that allow you to pick the bes
 
 ### Drupal Module Dependencies
 
-This theme uses [Twig namespaces](https://symfony.com/doc/current/templates.html#templates-namespaces). In order for these to work in Drupal you must install the [components module](https://www.drupal.org/project/components).
+This theme uses [Twig namespaces](https://symfony.com/doc/current/templates.html#templates-namespaces). In order for these to work in Drupal you must install the [Components Library](https://www.drupal.org/project/components) module.
 
 ### Support
 
 The following is supported by your new theme.
 
-* [Pattern Lab (Node)](https://github.com/pattern-lab/patternlab-node/)
-* Component-Based Workflow
-* ES6+ (With Source Maps)
-* Sass
-* Image Compression
-* Live reloading
-* Sass and JavaScript linting
+- [Pattern Lab (Node)](https://github.com/pattern-lab/patternlab-node/)
+- Component-Based Workflow
+- ES6+ (With Source Maps)
+- Sass
+- Image Compression
+- Live reloading
+- Sass and JavaScript linting
 
 ### Starter Kit
 
 The theme generator allows you to (optionally) add example components.
 
-* Accordion
-* Button
-* Card 🌧
-* Card List 🌧
-* Carousel
-* Eyebrow
-* Heading
-* Hero
-* Media
-* Drupal Messages (Based off of the Classy base theme) 🌧
-* Drupal Tabs 🌧
+- Accordion
+- Button
+- Card 🌧
+- Card List 🌧
+- Carousel
+- Eyebrow
+- Heading
+- Hero
+- Media
+- Drupal Messages (Based off of the Classy base theme) 🌧
+- Drupal Tabs 🌧
 
 🌧 = Preconfigured for the [Rain Install Profile](https://www.drupal.org/project/rain/).
 
 These can include both component and Drupal templates that are added to the appropriate place during theme generation. Your theme.libraries.yml is also updated to include the relevant libraries.
 
 This can also be run within a pre-existing theme using:
-```
+
+```bash
 npx yo mc-d8-theme:starter-kit
 ```
 
 ## Crate new Components
 
-You can also generate a empty component with the right files in place using:
+You can also generate base components with the right files in place using:
 
 ```bash
 npm run generate
@@ -133,55 +143,64 @@ This impacts CSS browser prefixes and JavaScript compiled files.
 
 #### Demo Files
 
-* Swap out `screenshot.png` with your own theme image.
-* Remove or replace the font files in `./src/patterns/global/fonts/`.
-* Change the colors in `./src/patterns/global/colors/`.
+- Swap out `screenshot.png` with your own theme image.
+- Remove or replace the font files in `./src/patterns/global/fonts/`.
+- Change the colors in `./src/patterns/global/colors/`.
 
 ### Go Team
 
-Provided by default are seven npm scripts that point to Gulp tasks. We run gulp through npm scripts so the build tools can change without the user ever knowing.
+Provided by default are seven npm scripts that point to Gulp tasks. We run gulp through npm scripts.
 
 1. Run the default build task (gulp in this instance) and everything in it.
   This is the equivalent to running `gulp` on the command line with Gulp installed globally.
-  ```
-  npm run build
-  ```
 
-2. Compile Sass and JS.
-  ```
-  npm run compile
-  ```
+    ```bash
+    npm run build
+    ```
 
-3. Watch files and run tasks when they change.
-  ```
-  npm run watch
-  ```
+1. Compile Sass and JS.
 
-4. Compress png and svg assets.
-  ```
-  npm run compress
-  ```
+    ```bash
+    npm run compile
+    ```
 
-5. Build Pattern Lab.
-  ```
-  npm run styleguide
-  ```
+1. Watch files and run tasks when they change.
 
-6. Lint Sass and JS files.
-  ```
-  npm run lint
-  ```
+    ```bash
+    npm run watch
+    ```
 
-7. Delete compiled Sass, JS and style guide files from the /dist directory.
-  ```
-  npm run clean
-  ```
+1. Compress png and svg assets.
+
+    ```bash
+    npm run compress
+    ```
+
+1. Build Pattern Lab.
+
+    ```bash
+    npm run styleguide
+    ```
+
+1. Lint Sass and JS files.
+
+    ```bash
+    npm run lint
+    ```
+
+1. Delete compiled Sass, JS and style guide files from the /dist directory.
+
+    ```bash
+    npm run clean
+    ```
 
 ## Links
-* [`.stylelintrc.yml`](generators/app/templates/stylelintrc.yml)
-* [`.eslintrc.json`](generators/app/templates/eslintrc.json)
+
+- [`.stylelintrc.yml`](generators/app/templates/stylelintrc.yml)
+- [`.eslintrc.json`](generators/app/templates/eslintrc.json)
 
 ## Contributing
+
 Would you like to contribute? Want to make a few changes or fix a bug? COME ON OVER!
 
 ### Clone down this repo
@@ -202,7 +221,7 @@ _Tip: use `npm ls -g -depth=0` to see what global node modules are installed._
 npm uninstall generator-mc-d8-theme -g
 ```
 
-_Use the node version of the generator_
+Use the node version of the generator
 
 ```bash
 nvm install
@@ -210,7 +229,7 @@ nvm install
 nvm use
 ```
 
-_Install the generator's dependencies_
+Install the generator's dependencies
 
 ```bash
 npm install
@@ -228,4 +247,4 @@ Break off a feature branch dive right in. After you've got something you'd like 
 
 ### IMPORTANT
 
-To test the changes you've made locally, ensure your theme uses the same version of node as the generator.
+To test the changes you've made locally, ensure your new theme uses the same version of node as the generator.
