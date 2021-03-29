@@ -8,6 +8,7 @@
     "styleguide": "gulp styleguide",
     "compress": "gulp compress",
     "lint": "gulp lint",
+    "scss-fix": "npx stylelint './src/**/*.scss' --fix",
     "clean": "gulp clean",
     "gulp": "gulp",
     "generate": "yo mc-d8-theme:component"
