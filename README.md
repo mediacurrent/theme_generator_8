@@ -42,17 +42,17 @@ While the theme generator can be run anywhere, it's happiest when it's run from 
 1. Move into the new directory you created above, and install Node:
 
     ```bash
-    nvm install 12.10.0 && node -v > .nvmrc
+    nvm install 14.16.1 && node -v > .nvmrc
     ```
 
-    - This will install version `v12.10.0` of NodeJS (Preliminary tests have shown issues with newer versions of node at this time).
+    - This will install version `v14.16.1` of NodeJS.
 
     - It will create `.nvmrc` in the root of your project.
 
-1. Next we want to make sure our package manager is up to date:
+1. Theme Generator is compatible with npm v6.
 
     ```bash
-    nvm install-latest-npm
+    npm install -g npm@6.14.12
     ```
 
     From now on, when working on this theme change into its directory and run `nvm use` and NVM will switch to the specified version for you.
