@@ -47,9 +47,9 @@ libraries:
 # to reference .twig files in your sass/ directory by using the Twig namespace:
 # @<%= themeNameMachine %>
 # See https://www.drupal.org/project/components for more information.
-component-libraries:
-  <%= themeNameMachine %>:
-    paths:
+components:
+  namespaces:
+    <%= themeNameMachine %>:
       - src/patterns/global
       - src/patterns/components
       - src/patterns/pages
