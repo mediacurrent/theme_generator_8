@@ -1,0 +1,105 @@
+// Styling for Drupal tabs.
+
+// Import site utilities.
+@import '../../global/utils/init';
+
+.tabs {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  position: relative;
+}
+
+.tabs.primary {
+  padding: 0;
+
+  &::after {
+
+    @include breakpoint($bp-sm) {
+      background-color: $color-gray-mid;
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      z-index: $zi-below-ground;
+    }
+  }
+
+  li {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: $font-weight-bold;
+    margin: 0 0 8px;
+    padding: 0;
+
+    @include breakpoint($bp-sm) {
+      display: inline-block;
+      margin: 0 8px 0 0;
+    }
+  }
+
+  a {
+    background-color: $color-gray-xlt;
+    border: 1px solid $color-gray-mid;
+    color: $color-gray-mid;
+    display: block;
+    padding: 8px 24px;
+    text-decoration: none;
+
+    @include breakpoint($bp-sm) {
+      border-bottom: 0;
+    }
+  }
+
+  a:focus,
+  a:hover {
+    background-color: $color-white;
+    border: 1px solid $color-gray-mid;
+    border-bottom: 0;
+    color: $color-black;
+  }
+
+  .is-active a {
+    background-color: $color-white;
+    border-bottom: 0;
+    color: $color-black;
+  }
+}
+
+.tabs.secondary {
+  margin-top: 10px;
+
+  li {
+    display: inline-block;
+    font-size: 0.875rem;
+    margin: 8px 16px 4px 0;
+  }
+
+  a {
+    background-color: transparent;
+    border-bottom: 2px solid $color-gray-lt;
+    color: $color-gray-mid;
+    display: block;
+    padding: 8px 12px 4px;
+  }
+
+  .is-active a,
+  a:focus,
+  a:hover {
+    background-color: transparent;
+    border-color: $color-black;
+    color: $color-black;
+    text-decoration: none;
+  }
+}
+
+.tabs__local-actions {
+  padding: 16px 0;
+}
+
+.tabs__local-actions-links {
+  margin: 0;
+}

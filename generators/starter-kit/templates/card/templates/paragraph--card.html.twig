@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Theme implementation to display a single Card paragraph.
+ *
+ * @see template_preprocess_paragraph()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+{#
+  The field_raw and field_target_entity filters do not provide any cache information.
+  Without additional measures content printed with these filters will not be update
+  when changed in the backend. You can workaround this by rendering the field in
+  your template but not display the result.
+#}
+{% set catch_cache = content.field_link|render %}
+
+{%
+  include "@<%= themeNameMachine %>/card/card.twig" with {
+    "image": content.field_media,
+    "title": content.field_title,
+    "heading_level": "h2",
+    "subhead": content.field_subhead.0 ? content.field_subhead,
+    "subhead_level": "p",
+    "text": content.field_summary.0 ? content.field_summary,
+    "url": content.field_link|field_raw('uri'),
+    "link_text": content.field_link|field_raw('title'),
+    "modifier": attributes.addClass(classes).class,
+    "extra_attributes": attributes|without(class)
+  } only
+%}

@@ -2,6 +2,8 @@
   "title" : "Pattern Lab",
   "htmlClass": "pl",
   "bodyClass": "body",
+  "modifier": "",
+  "extra_attributes": "",
   "img": {
     "landscape_4x3": {
       "src": "https://via.placeholder.com/800x600?text=4:3",

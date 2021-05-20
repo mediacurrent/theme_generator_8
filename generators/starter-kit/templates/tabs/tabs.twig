@@ -1,0 +1,26 @@
+{{ attach_library('<%= themeNameMachine %>/tabs') }}
+
+{% if primary %}
+  <h2 class="visually-hidden">{{ 'Primary tabs'|t }}</h2>
+  <ul class="tabs primary">
+    {% block primary %}
+      {% for tab in tabs %}
+        <li class="{{ is_active ? 'is-active' }}">
+          <a href="{{ tab.link }}">{{ tab.text }}</a>
+        </li>
+      {% endfor %}
+    {% endblock primary %}
+  </ul>
+{% endif %}
+{% if secondary %}
+  <h2 class="visually-hidden">{{ 'Secondary tabs'|t }}</h2>
+  <ul class="tabs secondary">
+    {% block secondary %}
+      {% for tab in tabs %}
+        <li class="{{is_active ? 'is-active' }}">
+          <a href="{{ tab.link }}">{{ tab.text }}</a>
+        </li>
+      {% endfor %}
+    {% endblock secondary %}
+  </ul>
+{% endif %}

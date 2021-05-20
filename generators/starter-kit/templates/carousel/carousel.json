@@ -1,0 +1,23 @@
+{
+  "modifier": "",
+  "list": [
+    {
+      "image": "<img src='https://source.unsplash.com/G4su92tyImI/1400x787' alt='test image' />",
+      "title": "Title Lorem Ipsum Dolor",
+      "button_text": "Button Text",
+      "url": "#"
+    },
+    {
+      "image": "<img src='https://source.unsplash.com/BjxBmGBq38o/1400x787' alt='test image' />",
+      "title": "Title Lorem Ipsum Dolor",
+      "button_text": "Button Text",
+      "url": "#"
+    },
+    {
+      "image": "<img src='https://source.unsplash.com/unQnklrzl80/1400x787' alt='test image' />",
+      "title": "Title Lorem Ipsum Dolor",
+      "button_text": "Button Text",
+      "url": "#"
+    }
+  ]
+}

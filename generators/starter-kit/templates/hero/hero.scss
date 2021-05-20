@@ -1,0 +1,36 @@
+// Import site utilities.
+@import '../../global/utils/init';
+
+.hero {
+  position: relative;
+}
+
+.hero__content {
+  background-color: $color-gray-lt;
+  padding: 16px;
+  text-align: center;
+
+  @include breakpoint($bp-sm) {
+    padding-bottom: 32px;
+    padding-top: 32px;
+  }
+}
+
+.hero__heading {
+  margin-bottom: 8px;
+
+  @include breakpoint($bp-xsm) {
+    margin-bottom: 16px;
+  }
+}
+
+.hero__body {
+  font-size: 1rem;
+  line-height: 1.625;
+  margin-bottom: 8px;
+
+  @include breakpoint($bp-xsm) {
+    font-size: 1.5rem;
+    margin-bottom: 48px;
+  }
+}

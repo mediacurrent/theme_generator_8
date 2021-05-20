@@ -13,7 +13,7 @@ name: <%= themeName %>
 type: theme
 description: <%= themeDesc %>
 package: Other
-core: 8.x
+core_version_requirement: ^8 || ^9
 # Classy vs. Stable as a base theme: https://www.lullabot.com/articles/a-tale-of-two-base-themes-in-drupal-8-core
 base theme: <%= baseTheme %>
 
@@ -47,9 +47,9 @@ libraries:
 # to reference .twig files in your sass/ directory by using the Twig namespace:
 # @<%= themeNameMachine %>
 # See https://www.drupal.org/project/components for more information.
-component-libraries:
-  <%= themeNameMachine %>:
-    paths:
+components:
+  namespaces:
+    <%= themeNameMachine %>:
       - src/patterns/global
       - src/patterns/components
       - src/patterns/pages

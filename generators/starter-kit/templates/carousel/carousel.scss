@@ -1,0 +1,18 @@
+// Import site utilities.
+@import '../../global/utils/init';
+
+.carousel-item {
+  position: relative;
+}
+
+.carousel-item__content {
+  background: $color-gray-dk;
+  color: $color-white;
+  min-width: 300px;
+  padding: 16px 8px;
+  text-align: center;
+
+  @include breakpoint($bp-xsm) {
+    padding: 16px;
+  }
+}

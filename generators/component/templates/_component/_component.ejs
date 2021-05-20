@@ -1,0 +1,16 @@
+!((document, Drupal, $) => {
+  'use strict';
+
+  /**
+   * Use this to describe what your behavior does.
+   */
+  Drupal.behaviors.<%= camel %> = {
+
+    attach: function(context) {
+      // If you don't need jQuery:
+      // 1. Remove the `jQuery` and `$` refrences from this file.
+      // 2. Remove the `core/jquery` dependency from the <%= camel %> library
+      //    within the <%= themeNameMachine %>.libraries.yml file.
+    }
+  };
+})(document, Drupal, jQuery);
