@@ -16,7 +16,7 @@ module.exports = {
         '!./dist/css/all.css',
         '!./dist/css/pattern-scaffolding.css'
       ])
-      .pipe(sourcemaps.init())
+        .pipe(sourcemaps.init())
         // Reorder the files so global is first.
         // If you need to get fancier with the order here's an example:
         // .pipe(order([
