@@ -4,6 +4,7 @@ const { src, dest } = require('gulp');
 // Include Our Plugins.
 var concat = require('gulp-concat');
 var order = require('gulp-order');
+var sourcemaps = require('gulp-sourcemaps');
 
 // Export our tasks.
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
         '!./dist/css/all.css',
         '!./dist/css/pattern-scaffolding.css'
       ])
+      .pipe(sourcemaps.init())
         // Reorder the files so global is first.
         // If you need to get fancier with the order here's an example:
         // .pipe(order([
@@ -30,6 +32,7 @@ module.exports = {
           'dist/css/*.css'
         ], { base: './' }))
         .pipe(concat('all.css'))
+        .pipe(sourcemaps.write('./'))
         .pipe(dest('./dist/css'))
     );
   },

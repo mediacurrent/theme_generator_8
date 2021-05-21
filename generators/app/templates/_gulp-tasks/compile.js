@@ -10,6 +10,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const rename = require('gulp-rename');
 
+sass.compiler = require('sass');
 /**
  * Error handler function so we can see when errors happen.
  * @param {object} err error that was thrown
@@ -26,7 +27,7 @@ module.exports = {
   // Compile Sass.
   compileSass: function() {
     return src('./src/patterns/**/**/*.scss')
-      .pipe(sass({ outputStyle: 'nested' }).on('error', handleError))
+      .pipe(sass().on('error', handleError))
       .pipe(
         prefix({
           cascade: false
@@ -38,6 +39,7 @@ module.exports = {
           return path;
         })
       )
+      .pipe(sourcemaps.write('./'))
       .pipe(dest('./dist/css'));
   },
 
