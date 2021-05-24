@@ -1,5 +1,18 @@
 # Changelog
 
+## Misc Updates (2021-05-24)
+
+### New features
+- Drupal 8 and 9 compliant.  Defaults to Drupal 9.
+- Node v14.16.1
+- Pattern Lab v5.14.3
+- Scss sourcemas
+- Using `.md` to hide patterns
+
+### Bug fix
+- Updates to Pattern Lab's UIKit
+- More stable due to NodeJS updates
+
 ## 😷 2.3.0 (2020-04-08)
 
 ### Bug Fix

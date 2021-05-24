@@ -185,8 +185,15 @@ module.exports = class extends Generator {
       }
     );
     this.fs.copyTpl(
-      this.templatePath('_helper-components/icons/_icons-macro.twig'),
-      this.destinationPath('src/patterns/components/icons/_icons-macro.twig'),
+      this.templatePath('_helper-components/icons/icons-macro.twig'),
+      this.destinationPath('src/patterns/components/icons/icons-macro.twig'),
+      {
+        themeNameMachine: this.themeNameMachine
+      }
+    );
+    this.fs.copyTpl(
+      this.templatePath('_helper-components/icons/icons-macro.md'),
+      this.destinationPath('src/patterns/components/icons/icons-macro.md'),
       {
         themeNameMachine: this.themeNameMachine
       }
