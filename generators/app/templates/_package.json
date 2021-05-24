@@ -8,6 +8,7 @@
     "styleguide": "gulp styleguide",
     "compress": "gulp compress",
     "lint": "gulp lint",
+    "scss-fix": "npx stylelint './src/**/*.scss' --fix",
     "clean": "gulp clean",
     "gulp": "gulp",
     "generate": "yo mc-d8-theme:component"
@@ -39,10 +40,12 @@
     "gulp-order": "^1.2.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
-    "gulp-sourcemaps": "^2.6.5",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-stylelint": "^11.0.0",
     "prettier-eslint": "^9.0.1",
-    "stylelint": "^12.0.1",
-    "stylelint-scss": "^3.13.0"
+    "sass": "^1.32.8",
+    "stylelint": "^13.12.0",
+    "stylelint-config-standard": "^21.0.0",
+    "stylelint-scss": "^3.19.0"
   }
 }
