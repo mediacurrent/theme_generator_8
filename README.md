@@ -1,6 +1,6 @@
 # Mediacurrent Theme Generator
 
-The Theme Generator is a scafolding tool built by your friends at [Mediacurrent](https://mediacurrent.com/), which lets you quickly set up a Drupal 8 theme with sensible defaults and best practices.
+The Theme Generator is a scafolding tool built by your friends at [Mediacurrent](https://mediacurrent.com/), which lets you quickly set up a Drupal 8 or 9 theme with sensible defaults and best practices.
 
 - [What's New - Read the Changelog](CHANGELOG.md)
 - [Using the Theme Generator](#using-the-theme-generator)
