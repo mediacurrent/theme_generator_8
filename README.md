@@ -5,7 +5,7 @@ The Theme Generator is a scafolding tool built by your friends at [Mediacurrent]
 - [What's New - Read the Changelog](CHANGELOG.md)
 - [Using the Theme Generator](#using-the-theme-generator)
 - [Creating a new Drupal Theme](#creating-a-new-drupal-theme)
-  - [Setup NodeJS & NPM](#setup-nodejs-and-npm)
+  - [Setup NodeJS & NPM](#setup-nodejs--npm)
   - [Create the theme](#create-the-theme)
 - [Note about Drupal 8](#note-about-drupal-8)
 - [About the New Theme](#the-new-theme)
