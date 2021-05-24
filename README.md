@@ -12,7 +12,7 @@ The Theme Generator is a scafolding tool built by your friends at [Mediacurrent]
   - [Drupal Module Dependencies](#drupal-module-dependencies)
   - [Support](#support)
   - [Starter Kit](#starter-kit)
-  - [Component Generator](#create-new-components)
+  - [Create new components](#create-new-components)
   - [A Word About Commiting ./dist Files](#a-word-about-commiting-dist-files)
   - [Stuff You Might Want To Change](#stuff-you-might-want-to-change)
   - [Go Team](#go-team)
@@ -133,7 +133,7 @@ This can also be run within a pre-existing theme using:
 npx yo mc-d8-theme:starter-kit
 ```
 
-## Crate new Components
+## Create new Components
 
 You can also generate base components with the right files in place using:
 
