@@ -1,12 +1,13 @@
 {{ attach_library('<%= themeNameMachine %>/button') }}
 
-{# Presence of a url in the passed button object determines type of  #}
+{# If a url is passed, we print a <a>,
+otherwise we print a <button>. #}
 {% if url %}
-  <a href="{{ url }}" class="button {{ modifier }}">
+  <a href="{{ url }}" class="button{{ modifier ? ' ' ~ modifier }}">
     {{ text }}
   </a>
 {% else %}
-  <button class="button {{ modifier }}" {{ modifier == 'is-disabled' ? ' disabled' }}>
+  <button class="button{{ modifier ? ' ' ~ modifier }}">
     {{ text }}
   </button>
 {% endif %}

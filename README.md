@@ -1,37 +1,31 @@
 # Mediacurrent Theme Generator
 
-A scafolding tool built by your friends at [Mediacurrent](https://mediacurrent.com/), to quickly build a modern, component-driven, Drupal 8 or 9 theme.
+The Theme Generator is a scafolding tool built by your friends at [Mediacurrent](https://mediacurrent.com/), which lets you quickly set up a Drupal 8 or 9 theme with sensible defaults and best practices.
 
-> [Yeoman generator](http://yeoman.io/) for Drupal Themes - lets you quickly set up a Drupal 8 theme with sensible defaults and best practices.
-
-- [What's New](#whats-new)
+- [What's New - Read the Changelog](CHANGELOG.md)
 - [Using the Theme Generator](#using-the-theme-generator)
-  - [Node Version Manager](#first-a-note-about-using-nodejs-via-nvm)
-  - [Creating a new Theme](#creating-a-new-theme)
-- [The New Theme](#the-new-theme)
+- [Creating a new Drupal Theme](#creating-a-new-drupal-theme)
+  - [Setup NodeJS & NPM](#setup-nodejs--npm)
+  - [Create the theme](#create-the-theme)
+- [Note about Drupal 8](#note-about-drupal-8)
+- [About the New Theme](#about-the-new-theme)
   - [Drupal Module Dependencies](#drupal-module-dependencies)
   - [Support](#support)
   - [Starter Kit](#starter-kit)
-  - [Component Generator](#component-generator)
+  - [Create new components](#create-new-components)
   - [A Word About Commiting ./dist Files](#a-word-about-commiting-dist-files)
   - [Stuff You Might Want To Change](#stuff-you-might-want-to-change)
   - [Go Team](#go-team)
 - [Links](#links)
 - [Contributing](#contributing)
 
-## What's New
-
-**[Read the ⚡️ Changelog!](CHANGELOG.md)**
-
 ## Using the Theme Generator
-
-### First a note about using Node.js via NVM
-
-While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project.
 
 While the theme generator can be run anywhere, it's happiest when it's run from an empty directory you'd like to become your theme.
 
-## Create a new Drupal theme
+While not a requirement we like to use [NVM](https://github.com/creationix/nvm) to manage the version of Node per project.
+
+## Creating a new Drupal theme
 
 1. Create a new directory.  Example:
 
@@ -39,13 +33,19 @@ While the theme generator can be run anywhere, it's happiest when it's run from 
     themes/custom/my_awesome_theme
     ```
 
-1. Move into the new directory you created above, and install Node:
+### Setup NodeJS & NPM
+
+1. Move into the new directory and install Node:
+
+    ```bash
+    cd my_awesome_theme
+    ```
 
     ```bash
     nvm install 14.16.1 && node -v > .nvmrc
     ```
 
-    - This will install version `v14.16.1` of NodeJS.
+    - This will install version NodeJS `v14.16.1`.
 
     - It will create `.nvmrc` in the root of your project.
 
@@ -57,21 +57,39 @@ While the theme generator can be run anywhere, it's happiest when it's run from 
 
     From now on, when working on this theme change into its directory and run `nvm use` and NVM will switch to the specified version for you.
 
-1. Create a new theme (**Do not change this command**):
+### Create the theme
+
+1. Run the generator (**Do not change this command**):
 
     ```bash
     npm create yo mc-d8-theme
     ```
 
-You should be taken through a series of questions that allow you to pick the best options for your theme.
+    - You should be taken through a series of questions that allow you to pick the best options for your theme.
 
-**IMPORTANT**: Your theme's machine name should always match the directory name you created in step 1 above.
+**IMPORTANT**: Your theme's machine name should always match the directory name you created above.
 
 More info if you're interested in how this stuff works:
 
 `npm create` is an alias of `npm init` and uses [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) under the hood. Find out more about [npm init](https://docs.npmjs.com/cli/init.html).
 
-## The New Theme
+## Note about Drupal 8
+
+If you are building a Drupal 8 theme, make the following updates after your theme has been created:
+
+- Update Pattern Lab to v5.14.0 by updating `package.json` as follows:
+
+    ```json
+    "@pattern-lab/core": "5.14.0",
+    "@pattern-lab/engine-twig-php": "5.14.0",
+    "@pattern-lab/uikit-workshop": "5.14.0",
+    ```
+
+- Remove `node_modules`
+
+` Run `npm install`
+
+## About the New Theme
 
 ### Drupal Module Dependencies
 
@@ -115,7 +133,7 @@ This can also be run within a pre-existing theme using:
 npx yo mc-d8-theme:starter-kit
 ```
 
-## Crate new Components
+## Create new Components
 
 You can also generate base components with the right files in place using:
 
