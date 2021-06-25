@@ -10,17 +10,21 @@ module.exports = function addThirdParty(libraries) {
   // If slick hasn't been added yet and it's needed, add it.
   if (!containsSlick && containsCarousel) {
     const slick = {
-      ['slick-carousel']: {
+      ['slick']: {
         css: {
-          component: {
-            ['/libraries/slick-carousel/slick/slick.css']: {}
+          theme: {
+            ['/libraries/slick/slick.min.css']: {minified: true},
+            ['/libraries/slick/accessible-slick-theme.min.css']: {minified: true}
           }
         },
         js: {
-          ['/libraries/slick-carousel/slick/slick.min.js']: { minified: true }
+          ['/libraries/slick/slick.min.js']: { minified: true }
         },
         dependencies: [
-          'core/jquery'
+          'core/jquery',
+          'core/drupal',
+          'core/drupalSettings',
+          'core/jquery.once'
         ]
       }
     };

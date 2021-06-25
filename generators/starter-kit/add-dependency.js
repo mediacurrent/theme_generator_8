@@ -18,7 +18,7 @@ module.exports = function addDependency (component, themeNameMachine) {
         dependencies: [
           'core/drupal',
           'core/jquery',
-          `${themeNameMachine}/slick-carousel`
+          `${themeNameMachine}/slick`
         ]
       }
     };

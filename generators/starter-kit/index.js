@@ -253,7 +253,7 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
       replace({
         files: this.destinationPath('src/styleguide/meta/_00-head.twig'),
         from: /<!-- Vendor CSS placeholder -->/g,
-        to: '<link rel="stylesheet" href="/libraries/slick-carousel/slick/slick.css" media="all" />'
+        to: '<link rel="stylesheet" href="/libraries/slick/slick.css" media="all" />'
       })
         .catch(() => {
           this.log('Failed to append slick css to Pattern Lab file styleguide/meta/_00-head.twig');
@@ -261,7 +261,7 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
       replace({
         files: this.destinationPath('src/styleguide/meta/_01-foot.twig'),
         from: /<!-- Vendor JS placeholder -->/g,
-        to: '<script src="/libraries/slick-carousel/slick/slick.min.js"></script>'
+        to: '<script src="/libraries/slick/slick.min.js"></script>'
       })
         .catch(() => {
           this.log('Failed to append slick js to Pattern Lab file styleguide/meta/_01-foot.twig');
@@ -274,12 +274,10 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
     // the SlickJS carousel dependency.
     if (this.exampleComponents.indexOf('carousel') !== -1) {
       this.log('------------------------------------------------------------');
-      this.log('👋 You installed the Carousel component which requires SlickJS.');
-      this.log('Install SlickJS using composer with:');
-      this.log('composer require npm-asset/slick-carousel --working-dir=../../../../');
-      this.log('OR');
-      this.log(`Manually add Slick to the /libraries folder and update the carousel library in the ${this.themeNameMachine}.libraries.yml file.`);
-      this.log('https://github.com/kenwheeler/slick/');
+      this.log('👋 You installed the Carousel component which requires Accessible-Slick, an accessible replacement for SlickJS.');
+      this.log('Install accessible-slick:');
+      this.log('Go to https://github.com/Accessible360/accessible-slick and download the repo.');
+      this.log('Then, copy the "slick" folder into the /libraries folder of your Drupal installation');
       this.log('------------------------------------------------------------');
     }
   }
