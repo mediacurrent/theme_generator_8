@@ -87,7 +87,7 @@ If you are building a Drupal 8 theme, make the following updates after your them
 
 - Remove `node_modules`
 
-` Run `npm install`
+- Run `npm install`
 
 ## About the New Theme
 
