@@ -1,0 +1,87 @@
+// This stylesheet is for styles you want to include only when displaying demo
+// styles for grids, animations, color swatches, etc.
+//
+// By default we want to add padding so the style guide is more
+// readable. This can be overridden in each patterns data file.
+
+// Import site utilities.
+@import '../patterns/global/utils/init';
+
+.pl {
+  padding: 35px;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+#sg-patterns {
+  /* stylelint-disable-next-line declaration-no-important */
+  box-sizing: border-box !important;
+  max-width: 100%;
+  padding: 0 8px;
+}
+
+.pl-swatch {
+  border: 3px solid rgba($color-black, 0.15);
+  border-radius: 3px;
+  display: inline-block;
+  height: 180px;
+  margin-bottom: 5px;
+  position: relative;
+  vertical-align: top;
+  width: 180px;
+}
+
+.pl-swatch__hex {
+  background-color: rgba($color-black, 0.5);
+  bottom: 0;
+  color: $color-white;
+  font-size: small;
+  left: 0;
+  padding: 15px;
+  position: absolute;
+  width: 100%;
+}
+
+// Increases size of pattern category and pattern name.
+.pl-c-category__title a {
+  /* stylelint-disable-next-line declaration-no-important */
+  font-size: 32px !important;
+}
+
+.pl-c-pattern__title a {
+  /* stylelint-disable-next-line declaration-no-important */
+  font-size: 24px !important;
+}
+
+// Patternlab display of icons.
+.pl-icons {
+
+  .icon {
+    fill: $color-gray-dk;
+    height: 50px;
+    margin: 20px auto;
+    max-width: 100%;
+    vertical-align: middle;
+    width: auto;
+  }
+}
+
+.pl-icons__item {
+  border: 3px solid rgba($color-black, 0.15);
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 5px;
+  min-width: 100px;
+  position: relative;
+  text-align: center;
+  vertical-align: top;
+}
+
+.pl-icons__name {
+  background-color: rgba($color-black, 0.25);
+  font-size: small;
+  margin: 0;
+  padding: 15px;
+}
