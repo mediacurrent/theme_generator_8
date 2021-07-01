@@ -27,16 +27,5 @@ module.exports = {
         })
       )
       .pipe(dest('./dist/fonts'));
-  },
-  // Move CSS specific to styling Pattern Lab.
-  movePatternCSS: function() {
-    return src(['./src/styleguide/**/*.css'], { base: './' })
-      .pipe(
-        rename(function(path) {
-          path.dirname = '';
-          return path;
-        })
-      )
-      .pipe(dest('./dist/css'));
   }
 };

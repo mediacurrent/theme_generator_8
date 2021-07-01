@@ -16,12 +16,12 @@ const { lintJS, lintSass } = require('./gulp-tasks/lint');
 const { compressAssets } = require('./gulp-tasks/compress');
 const { cleanCSS, cleanJS } = require('./gulp-tasks/clean');
 const { concatCSS, concatJS } = require('./gulp-tasks/concat');
-const { moveFonts, movePatternCSS } = require('./gulp-tasks/move');
+const { moveFonts } = require('./gulp-tasks/move');
 const { prettier } = require('./gulp-tasks/format');
 const server = require('browser-sync').create();
 
 // Compile Our Sass and JS
-exports.compile = parallel(compileSass, compileJS, moveFonts, movePatternCSS);
+exports.compile = parallel(compileSass, compileJS, moveFonts);
 
 // Lint Sass and JavaScript
 exports.lint = parallel(lintSass, lintJS);
@@ -97,7 +97,10 @@ function buildPatternlab(done) {
 function watchFiles() {
   // Watch all my sass files and compile sass if a file changes.
   watch(
-    './src/patterns/**/**/*.scss',
+    [
+      './src/patterns/**/**/*.scss',
+      './src/styleguide/*.scss'
+    ],
     series(parallel(lintSass, compileSass), concatCSS, (done) => {
       server.reload('*.css');
       done();
@@ -118,10 +121,10 @@ function watchFiles() {
 
   // Watch all my images and SVG files and compile if a file changes.
   watch(
-    './src/patterns/**/**/*{.png,.jpg,.svg}',
+    './src/patterns/**/**/*{.gif,.jpg,.png,.svg}',
     series(
       parallel(compressAssets), (done) => {
-        server.reload('*{.png,.jpg,.svg,.html}');
+        server.reload('*{.gif,.jpg,.png,.svg,.html}');
         done();
       }
     )
@@ -142,8 +145,7 @@ exports.watch = series(
     lintJS,
     compileJS,
     compressAssets,
-    moveFonts,
-    movePatternCSS
+    moveFonts
   ),
   parallel(concatCSS, concatJS),
   series(watchPatternlab, serve, watchFiles)
@@ -161,8 +163,7 @@ exports.default = series(
     lintJS,
     compileJS,
     compressAssets,
-    moveFonts,
-    movePatternCSS
+    moveFonts
   ),
   parallel(concatCSS, concatJS),
   buildPatternlab
