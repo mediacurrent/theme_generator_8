@@ -39,7 +39,7 @@
     "gulp-imagemin": "^6.1.1",
     "gulp-order": "^1.2.0",
     "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^5.0.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-stylelint": "^11.0.0",
     "prettier-eslint": "^9.0.1",
