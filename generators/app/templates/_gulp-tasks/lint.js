@@ -13,6 +13,7 @@ module.exports = {
   lintSass: function () {
     return src([
       './src/patterns/{global,layout,components}/**/*.scss',
+      './src/styleguide/*.scss',
       '!./src/patterns/global/utils/*'
     ])
       .pipe(
