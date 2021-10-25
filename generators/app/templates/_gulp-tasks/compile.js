@@ -27,9 +27,9 @@ module.exports = {
   // Compile Sass.
   compileSass: function() {
     return src([
-        './src/patterns/**/**/*.scss',
-        './src/styleguide/*.scss'
-      ])
+      './src/patterns/**/**/*.scss',
+      './src/styleguide/*.scss'
+    ])
       .pipe(sass().on('error', handleError))
       .pipe(
         prefix({
