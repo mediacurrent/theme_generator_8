@@ -42,10 +42,10 @@ While not a requirement we like to use [NVM](https://github.com/creationix/nvm) 
     ```
 
     ```bash
-    nvm install 14.16.1 && node -v > .nvmrc
+    nvm install 14 && node -v > .nvmrc
     ```
 
-    - This will install version NodeJS `v14.16.1`.
+    - This will install the latest release of NodeJS `v14`.
 
     - It will create `.nvmrc` in the root of your project.
 
