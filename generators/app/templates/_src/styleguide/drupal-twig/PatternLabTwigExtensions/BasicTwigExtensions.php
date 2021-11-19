@@ -2,17 +2,17 @@
 
 namespace PatternLabTwigExtensions;
 
-use Twig_Extension;
-use Twig_ExtensionInterface;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\Extension\ExtensionInterface;
+use Twig\Twig_Extension;
+use Twig\Twig_SimpleFilter;
+use Twig\Twig_SimpleFunction;
 
 /**
  * These filters come from drupal-twig-extensions.
  *
  * See more: https://github.com/pattern-lab/drupal-twig-extensions.
  */
-class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterface {
+class BasicTwigExtensions extends Twig_Extension implements ExtensionInterface {
 
   /**
    * Dummy function that passes a param straight through.
