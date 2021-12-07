@@ -2,17 +2,14 @@
 
 namespace PatternLabTwigExtensions;
 
-use Twig_Extension;
-use Twig_ExtensionInterface;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\Extension\ExtensionInterface;
 
 /**
  * These filters come from drupal-twig-extensions.
  *
  * See more: https://github.com/pattern-lab/drupal-twig-extensions.
  */
-class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterface {
+class BasicTwigExtensions extends \Twig_Extension implements ExtensionInterface {
 
   /**
    * Dummy function that passes a param straight through.
@@ -70,12 +67,12 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
    */
   public function getFilters() {
     return [
-      new Twig_SimpleFilter('t', [$this, 'returnParam']),
-      new Twig_SimpleFilter('render', [$this, 'returnParam']),
-      new Twig_SimpleFilter('placeholder', [$this, 'returnParam']),
-      new Twig_SimpleFilter('without', [$this, 'returnParam']),
-      new Twig_SimpleFilter('clean_class', [$this, 'returnParam']),
-      new Twig_SimpleFilter('clean_id', [$this, 'getId']),
+      new \Twig_SimpleFilter('t', [$this, 'returnParam']),
+      new \Twig_SimpleFilter('render', [$this, 'returnParam']),
+      new \Twig_SimpleFilter('placeholder', [$this, 'returnParam']),
+      new \Twig_SimpleFilter('without', [$this, 'returnParam']),
+      new \Twig_SimpleFilter('clean_class', [$this, 'returnParam']),
+      new \Twig_SimpleFilter('clean_id', [$this, 'getId']),
     ];
   }
 
@@ -89,8 +86,8 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
    */
   public function getFunctions() {
     return [
-      new Twig_SimpleFunction('url', [$this, 'inertHref']),
-      new Twig_SimpleFunction('path', function ($string) {
+      new \Twig_SimpleFunction('url', [$this, 'inertHref']),
+      new \Twig_SimpleFunction('path', function ($string) {
         if ($string === '<front>') {
           return '/';
         }
@@ -98,9 +95,9 @@ class BasicTwigExtensions extends Twig_Extension implements Twig_ExtensionInterf
           return $string;
         }
       }),
-      new Twig_SimpleFunction('link', [$this, 'inertHref']),
-      new Twig_SimpleFunction('file_url', [$this, 'returnParam']),
-      new Twig_SimpleFunction('attach_library', [$this, 'returnNothing']),
+      new \Twig_SimpleFunction('link', [$this, 'inertHref']),
+      new \Twig_SimpleFunction('file_url', [$this, 'returnParam']),
+      new \Twig_SimpleFunction('attach_library', [$this, 'returnNothing']),
     ];
   }
 
