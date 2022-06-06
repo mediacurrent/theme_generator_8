@@ -1,7 +1,10 @@
 @import '../../global/utils/init';
 
-.heading__link {
-  color: inherit;
+.heading {
+  margin-bottom: 20px;
+}
+
+.heading--link {
   text-decoration: none;
 
   &:hover {

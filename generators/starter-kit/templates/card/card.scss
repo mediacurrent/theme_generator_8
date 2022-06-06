@@ -2,23 +2,33 @@
 @import '../../global/utils/init';
 
 .card {
-  // Add a max-width so this doesn't look super wierd in
-  // in the style guide.
-  max-width: 350px;
+  background-color: $color-white;
+
+  @include breakpoint($bp-sm) {
+    &.horizontal {
+      display: flex;
+
+      .card__media,
+      .card__content {
+        flex: 50%;
+      }
+    }
+  }
+
+  .card__media {
+    margin-bottom: 2rem;
+  }
 }
 
-.card__media-caption {
+.card__eyebrow {
   display: block;
-}
-
-.card__content {
-  margin-top: 32px;
+  font-size: 0.75rem;
 }
 
 .card__title {
   font-size: 1.5rem;
   font-weight: normal;
-  margin-top: 16px;
+  margin-top: 1.5rem;
 
   @include breakpoint($bp-sm) {
     font-size: 2rem;
@@ -35,9 +45,8 @@
 }
 
 .card__link {
-  color: inherit;
   display: inline-block;
-  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 
 // Styles for Wide variation of Card
@@ -51,13 +60,14 @@
 
   .card__media {
     flex: 1;
+    margin-bottom: 0;
   }
 
   .card__content {
     flex: 1;
 
     @include breakpoint($bp-xsm) {
-      margin: 0 0 0 24px;
+      margin: 0 0 0 1.5rem;
     }
   }
 
@@ -66,9 +76,12 @@
   }
 }
 
-.card--media-right {
-
-  @include breakpoint($bp-xsm) {
+@include breakpoint($bp-xsm) {
+  .card--media-right {
     flex-direction: row-reverse;
+
+    .card__content {
+      margin: 0 1.5rem 0 0;
+    }
   }
 }

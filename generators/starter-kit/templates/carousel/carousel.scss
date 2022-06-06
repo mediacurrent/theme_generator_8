@@ -6,13 +6,89 @@
 }
 
 .carousel-item__content {
-  background: $color-gray-dk;
-  color: $color-white;
+  @include center-align(absolute);
+  background: $color-transparent-white;
   min-width: 300px;
-  padding: 16px 8px;
+  padding: 1rem 0.5rem;
+  top: 35%;
   text-align: center;
 
   @include breakpoint($bp-xsm) {
-    padding: 16px;
+    padding: 1rem 1.5rem;
+  }
+}
+
+.carousel-item__title {
+  @include wire-large-heading;
+
+  @include breakpoint($bp-under-xsm) {
+    font-size: 1.25rem;
+  }
+}
+
+// Overriding Slick styles for style guide
+// to match wireframes.
+
+// Repositions prev & next button,
+// also makes them larger
+.carousel__slick.slick-slider {
+
+  .slick-prev,
+  .slick-next {
+    top: 80%;
+    z-index: 1;
+    height: 50px;
+    width: 50px;
+
+    @include breakpoint($bp-xsm) {
+      top: 90%;
+    }
+
+    &::before {
+      font-size: 48px;
+
+      @include breakpoint($bp-under-xsm) {
+        font-size: 38px;
+      }
+    }
+  }
+
+  .slick-prev {
+    left: 20%;
+
+    @include breakpoint($bp-xsm) {
+      left: 40%;
+    }
+  }
+
+  .slick-next {
+    right: 20%;
+
+    @include breakpoint($bp-xsm) {
+      right: 40%;
+    }
+  }
+
+  // Make dots below carousel larger.
+  // Improves navigation UX, especially mobile.
+  .slick-dots {
+    bottom: -50px;
+
+    li {
+      height: 35px;
+      width: 35px;
+
+      button {
+        height: 35px;
+        width: 35px;
+
+        &::before {
+          font-size: 20px;
+          height: 35px;
+          position: initial;
+          width: 35px;
+        }
+      }
+    }
   }
 }

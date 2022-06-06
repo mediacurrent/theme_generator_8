@@ -1,0 +1,270 @@
+@import '../../global/utils/init';
+
+.main-menu {
+  background-color: $color-blue;
+  display: none;
+  position: relative;
+  z-index: 1;
+
+  @include breakpoint($bp-sm) {
+    display: block;
+  }
+
+  &.active {
+    display: block;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    list-style: none outside;
+    margin-left: 0;
+
+    @include breakpoint($bp-sm) {
+      @include layout-content;
+      flex-direction: row;
+    }
+
+    a {
+      text-decoration: none;
+      color: $color-white;
+    }
+
+    .menu-item {
+      background: $color-blue;
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 16px 0 0;
+      position: relative;
+      transition: background $transition;
+
+      @include breakpoint($bp-sm) {
+        padding: 0;
+
+        &:hover,
+        &:focus {
+          background: darken($color-blue, 10%);
+        }
+      }
+
+      a {
+        display: block;
+        padding: 25px;
+        flex: 1;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &.js-open {
+        background: darken($color-blue, 10%);
+      }
+
+      &.menu-item--has-submenu {
+        a {
+          padding: 15px 45px 15px 25px;
+
+          @include breakpoint($bp-sm) {
+            padding: 25px 45px 25px 25px;
+          }
+        }
+
+        &.js-open {
+          > .menu__submenu {
+            // height: auto;
+            max-height: 1000px;
+          }
+
+          > .menu-item-toggle {
+            transform: none;
+          }
+        }
+
+        @include breakpoint($bp-sm) {
+          > .menu__submenu {
+            display: none;
+          }
+
+          &:hover,
+          &:focus,
+          &.js-open {
+            > .menu__submenu {
+              // height: auto;
+              display: block;
+              max-height: 1000px;
+            }
+
+            > .menu-item-toggle {
+              transform: none;
+            }
+          }
+        }
+      }
+    }
+
+    .menu__submenu {
+      background: transparent;
+      // height: 0;
+      left: 0;
+      list-style: none;
+      overflow: hidden;
+      max-height: 0;
+      position: initial;
+      top: 100%;
+      white-space: nowrap;
+      width: 100%;
+      transition: max-height $transition;
+
+      @include breakpoint($bp-sm) {
+        background: darken($color-blue, 10%);
+        position: absolute;
+        width: auto;
+      }
+
+      .menu__submenu-item {
+        min-width: 150px;
+
+        @include breakpoint($bp-sm) {
+          &:hover {
+            background: $color-blue;
+          }
+        }
+
+        a {
+          padding: 15px 60px;
+
+          @include breakpoint($bp-sm) {
+            padding: 15px 25px;
+          }
+        }
+
+        &:first-child {
+          a {
+            padding: 0 15px 15px 60px;
+
+            @include breakpoint($bp-sm) {
+              padding: 25px 15px 15px 25px;
+            }
+          }
+        }
+
+        &:last-child {
+          a {
+            padding: 15px 15px 15px 60px;
+
+            @include breakpoint($bp-sm) {
+              padding: 15px 25px 25px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .menu-item.menu-item--active-trail {
+    background-color: $color-tundora;
+
+    a {
+      &.is-active {
+        color: $color-white;
+      }
+    }
+  }
+}
+
+.main-menu__navicon {
+  background-color: $color-blue;
+  display: flex;
+  align-items: center;
+  color: $color-white;
+  width: 100%;
+
+  @include breakpoint($bp-sm) {
+    display: none;
+  }
+}
+
+.navicon {
+  background-color: $color-blue;
+  cursor: pointer;
+  display: block;
+  height: 60px;
+  padding: 16px;
+  border: 0;
+
+  @include breakpoint($bp-sm) {
+    display: none;
+  }
+
+  .active & {
+    .navicon__bar {
+      width: 30px;
+
+      &:nth-child(1) {
+        transform: rotate(45deg) translate(0.0625rem, 0.0625rem);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: rotate(-45deg) translate(0.125rem, -0.0625rem);
+      }
+    }
+  }
+
+  @include breakpoint($bp-sm) {
+    display: none;
+  }
+}
+
+.navicon__bar {
+  background-color: $color-white;
+  border-radius: 0.125rem;
+  display: block;
+  height: 2px;
+  transition: transform $transition, opacity $transition;
+  width: 32px;
+
+  &:nth-child(1) {
+    transform: translate(0, -0.375rem);
+  }
+
+  &:nth-child(3) {
+    transform: translate(0, 0.375rem);
+  }
+}
+
+.menu-item-toggle {
+  background: $color-blue;
+  border: 2px solid $color-white;
+  border-radius: 50px;
+  height: 40px;
+  padding: 5px;
+  width: 40px;
+  transform: rotate(180deg);
+
+  @include breakpoint($bp-sm) {
+    background: transparent;
+    border: 0;
+    height: 100%;
+    position: absolute;
+    right: 12px;
+    width: auto;
+  }
+
+  .menu-item-toggle__icon {
+    width: 12px;
+  }
+
+  .menu-item-toggle__text {
+    height: 0;
+    left: -1000em;
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+  }
+}

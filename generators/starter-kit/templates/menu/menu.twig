@@ -1,0 +1,14 @@
+<ul class="menu list-unstyled{% if modifier %} {{ modifier }}{% endif %}
+  {{- attributes.class ? attributes.class -}}"
+  {{- attributes ? attributes|without(class) -}}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {% for item in items %}
+    <li class="menu-item">
+      {% block menu_item %}
+        <a href="{{ item.url }}" class=" {% if item.options.attributes.class is not empty %} {{ item.options.attributes.class|join(' ') }} {% endif %}"{% if item.options.attributes.target is not empty %} target="{{ item.options.attributes.target }}"{% endif %}>{% if item.title %}{{ item.title }}{% else %}{{ item.text }}{% endif %}</a>
+      {% endblock %}
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,105 @@
+// Import site utilities.
+@import '../../global/utils/init';
+
+.search-form {
+
+  .site-header-middle & {
+
+    @include breakpoint($bp-sm) {
+      max-width: 400px;
+    }
+  }
+}
+
+.search-api-page-block-form-search-results {
+  align-items: center;
+  align-self: center;
+  clear: both;
+  height: 100%;
+  padding: 5px 40px 5px 5px;
+  position: relative;
+
+  label {
+    @include element-invisible;
+  }
+
+  // Targeting Drupal form element markup.
+  > div {
+    margin: 0;
+    width: 100%;
+  }
+
+  input[type='text'],
+  input[type='search'] {
+    background-color: $color-white;
+    border: 1px solid $color-silver;
+    border-right: 0;
+    border-radius: 0;
+    box-sizing: border-box;
+    color: $color-oslo-gray;
+    font-size: 1rem;
+    height: auto;
+    line-height: 1;
+    min-height: 0;
+    padding: 8px;
+    width: 100%;
+    -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
+
+    &:focus {
+      background-color: $color-white;
+    }
+  }
+
+  button[type='submit'],
+  input[type='submit'] {
+    background-color: $color-blue;
+    border: 0;
+    display: block;
+    height: calc(100% - 10px);
+    margin: 0;
+    padding: 0;
+    min-height: 0;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 36px;
+
+    &:focus {
+      @include darken;
+    }
+  }
+
+  input[type='submit'] {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    overflow: hidden;
+    text-indent: -1000em;
+  }
+
+  p {
+    clear: both;
+  }
+
+  .search__submit-icon {
+    @include vertical-horizontal-center;
+    display: block;
+
+    svg {
+      height: 20px;
+
+      path {
+        fill: $color-white;
+      }
+    }
+  }
+
+  .search__submit-text {
+    @include element-invisible;
+  }
+
+  // Add spacing on the search results page.
+  .search-list & {
+    margin-bottom: 30px;
+  }
+}

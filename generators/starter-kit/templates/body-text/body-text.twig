@@ -1,0 +1,9 @@
+{% if body_text|render %}
+  <div class="body-text{{ modifier ? ' ' ~ modifier }}">
+      {% if body_text.value %}
+        {{ body_text }}
+      {% else %}
+        {{ body_text|raw }}
+      {% endif %}  
+  </div>
+{% endif %}

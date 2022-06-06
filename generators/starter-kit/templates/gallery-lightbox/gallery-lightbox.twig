@@ -1,0 +1,35 @@
+{{ attach_library('rain_theme/gallery-lightbox') }}
+{% if section_title %}
+  {%
+    include '@rain_theme/heading/heading.twig' with {
+      "heading": {
+        "title": section_title,
+        "heading_level": 2,
+        "modifier": "heading--section gallery-carousel__title"
+      }
+    } only
+  %}
+{% endif %}
+
+{% if intro_text %}
+  {%
+    include '@rain_theme/body-text/body-text.twig' with {
+      "body_text": intro_text,
+      "modifier": "gallery-lightbox__intro-text"
+    } only
+  %}
+{% endif %}
+
+<ul class="gallery-lightbox">
+  {% block gallery_items %}
+    {% for item in items %}
+      {%
+        include '@rain_theme/gallery-lightbox/gallery-lightbox-item.twig' with {
+          "media": item.media,
+          "media_thumb": item.media_thumb,
+          "media_description": item.media_description
+        } only
+      %}
+    {% endfor %}
+  {% endblock %}
+</ul>

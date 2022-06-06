@@ -1,0 +1,111 @@
+// Import site utilities.
+@import '../../global/utils/init';
+
+.map__link {
+  display: inline-block;
+  margin-top: 1.5rem;
+}
+
+// Styles for two-colum map layout.
+// Includes address text.
+.map--2col {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint($bp-xsm) {
+    flex-direction: row;
+  }
+
+  .map__wrapper {
+    width: 100%;
+
+    @include breakpoint($bp-xsm) {
+      flex: 1;
+    }
+  }
+
+  .map__embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .map__text {
+    width: 100%;
+    margin: 1.5rem 0 0;
+
+    @include breakpoint($bp-xsm) {
+      flex: 1;
+      margin: 0 0 0 1.5rem;
+    }
+
+    @include breakpoint($bp-lg) {
+      margin: 0 0 0 4rem;
+    }
+
+    .map__address {
+      line-height: 1.625;
+
+      @include breakpoint($bp-xsm) {
+        font-size: 1.5rem;
+      }
+    }
+
+    .map__location {
+      font-size: 1.5rem;
+      font-weight: normal;
+
+      @include breakpoint($bp-xsm) {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+// Styles for full-width map embed.
+// No address text included.
+.map--full {
+  max-height: 250px;
+  overflow: hidden;
+
+  @include breakpoint($bp-xsm) {
+    max-height: 300px;
+  }
+
+  @include breakpoint($bp-lg) {
+    max-height: 395px;
+  }
+
+  .map__embed {
+    position: relative;
+    padding-bottom: 100%;
+    height: 0;
+    overflow: hidden;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      @include breakpoint($bp-xsm) {
+        height: 50%;
+      }
+
+      @include breakpoint($bp-lg) {
+        height: 35%;
+      }
+    }
+  }
+}

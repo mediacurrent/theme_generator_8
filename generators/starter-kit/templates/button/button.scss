@@ -1,20 +1,39 @@
+// Buttons
+//
+// This is the button component. It provides basic styles for buttons throughout the site.
+
 // Import site utilities.
 @import '../../global/utils/init';
 
-.button {
-  background-color: $color-black;
-  border: 0;
-  cursor: pointer;
+.button__container {
+  margin-top: 30px;
+}
+
+.button,
+input[type='submit'] {
+  background-color: $color-blue;
+  border: 2px solid $color-blue;
   color: $color-white;
   display: inline-block;
-  font-weight: bold;
-  padding: 10px 30px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
   text-align: center;
-  transition: background-color $transition, color $transition;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 0.25s, color 0.25s;
 
-  &:hover,
-  &:active {
-    background-color: darken($color-black, 15);
-    color: $color-white;
+  &:hover {
+    background-color: $color-white;
+    color: $color-blue;
+  }
+
+  @include breakpoint($bp-sm) {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  &.button--small {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
   }
 }

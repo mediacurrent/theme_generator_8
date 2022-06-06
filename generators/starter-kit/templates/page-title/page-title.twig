@@ -1,0 +1,20 @@
+{{ attach_library('rain_theme/page-title') }}
+
+{%
+  set classes = [
+    'page-title'
+  ]
+%}
+
+<div class="page-title">
+  {%
+    include '@rain_theme/heading/heading.twig' with {
+      heading: {
+        title: title,
+        heading_level: heading_level|default('1'),
+        attributes: title_attributes,
+        modifier: modifier,
+      }
+    }
+  %}
+</div>

@@ -1,0 +1,37 @@
+{{ attach_library('rain_theme/map') }}
+
+{% if map.address %}
+  <section class="map map--2col{{ attributes ? ' ' ~ attributes.class}}"
+  {{- attributes ? attributes|without(class) -}}>
+    <div class="map__wrapper">
+      <div class="map__embed">
+        {{ map.map_embed }}
+      </div>
+    </div>
+    <div class="map__text">
+      {% if map.eyebrow %}
+        {%
+          include '@rain_theme/eyebrow/eyebrow.twig' with {
+            "eyebrow": map.eyebrow
+          } only
+        %}
+      {% endif %}
+      {% if map.location %}
+        <h2 class="map__location">{{ map.location }}</h2>
+      {% endif %}
+      <p class="map__address">
+        {{ map.address }}
+        {% if map.link %}
+          <a href="{{ map.link.url }}" class="map__link">{{ map.link.text }}</a>
+        {% endif %}
+      </p>
+    </div>
+  </section>
+{% else %}
+  <section class="map map--full{{ attributes ? ' ' ~ attributes.class}}"
+  {{- attributes ? attributes|without(class) -}}>
+    <div class="map__embed">
+      {{ map.map_embed }}
+    </div>
+  </section>
+{% endif %}

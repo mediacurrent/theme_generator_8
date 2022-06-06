@@ -1,0 +1,46 @@
+{{ attach_library('rain_theme/gallery-carousel') }}
+
+{% if section_title %}
+  {%
+    include '@rain_theme/heading/heading.twig' with {
+      "heading": {
+        "title": section_title,
+        "heading_level": 2,
+        "modifier": "heading--section gallery-carousel__title"
+      }
+    } only
+  %}
+{% endif %}
+
+{% if intro_text %}
+  {%
+    include '@rain_theme/body-text/body-text.twig' with {
+      "body_text": intro_text,
+      "modifier": "gallery-carousel__intro-text"
+    } only
+  %}
+{% endif %}
+
+<ul class="gallery-carousel{{ attributes ? ' ' ~ attributes.class}}"
+  {{- attributes ? attributes|without(class) -}}>
+
+  {% for item in carousel_items %}
+    <li class="gallery-carousel-item">
+      <img src="{{ item.media }}" class="gallery-carousel-item__media" alt="{{ item.media_description }}"/>
+      {% if item.media_description %}
+        <p class="gallery-carousel-item__text">{{ item.media_description }}</p>
+      {% endif %}
+    </li>
+  {% endfor %}
+
+</ul>
+
+<ul class="gallery-carousel__nav">
+
+  {% for item in carousel_nav_items %}
+    <li class="gallery-carousel__nav-item">
+     <img src="{{ item.media_thumb }}" alt="{{ item.media_thumb_description }}"/>
+    </li>
+  {% endfor %}
+
+</ul>

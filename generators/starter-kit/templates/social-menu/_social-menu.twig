@@ -1,0 +1,13 @@
+{{ attach_library('rain_theme/social-menu') }}
+{% import '@rain_theme/icons/_icons-macro.twig' as icons %}
+
+{% embed '@rain_theme/menu/menu.twig' with {
+  items: items,
+  modifier: 'site-footer__social'
+} %}
+  {% block menu_item %}
+    <a href="{{ item.url }}" class="site-footer__social-icon">
+      {{ icons.get(item.title|lower) }}
+    </a>
+  {% endblock %}
+{% endembed %}

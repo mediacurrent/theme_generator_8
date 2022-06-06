@@ -1,0 +1,16 @@
+{
+  "breadcrumb": [
+    {
+      "text": "Home",
+      "url": "#"
+    },
+    {
+      "text": "Parent Page",
+      "url": "#"
+    },
+    {
+      "text": "Current Page",
+      "url": ""
+    }
+  ]
+}

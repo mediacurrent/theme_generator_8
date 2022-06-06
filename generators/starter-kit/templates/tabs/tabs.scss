@@ -13,10 +13,9 @@
 .tabs.primary {
   padding: 0;
 
-  &::after {
-
-    @include breakpoint($bp-sm) {
-      background-color: $color-gray-mid;
+  @include breakpoint($bp-sm) {
+    &::after {
+      background-color: $color-oslo-gray;
       bottom: 0;
       content: '';
       display: block;
@@ -42,9 +41,9 @@
   }
 
   a {
-    background-color: $color-gray-xlt;
-    border: 1px solid $color-gray-mid;
-    color: $color-gray-mid;
+    background-color: $color-light-gray;
+    border: 1px solid $color-oslo-gray;
+    color: $color-oslo-gray;
     display: block;
     padding: 8px 24px;
     text-decoration: none;
@@ -57,7 +56,7 @@
   a:focus,
   a:hover {
     background-color: $color-white;
-    border: 1px solid $color-gray-mid;
+    border: 1px solid $color-oslo-gray;
     border-bottom: 0;
     color: $color-black;
   }
@@ -80,8 +79,8 @@
 
   a {
     background-color: transparent;
-    border-bottom: 2px solid $color-gray-lt;
-    color: $color-gray-mid;
+    border-bottom: 2px solid $color-alto;
+    color: $color-oslo-gray;
     display: block;
     padding: 8px 12px 4px;
   }

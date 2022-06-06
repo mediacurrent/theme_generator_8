@@ -1,0 +1,18 @@
+{{ attach_library('rain_theme/quote') }}
+
+<blockquote class="quote {{ quote.modifier_class }}">
+  <p class="quote__text">{{ quote.quote }}</p>
+  <cite class="quote__cite{{ quote.image ? ' has-media' : ''}}">
+  {% if quote.image %}
+    <div class="quote__cite-media">
+      {{ quote.image }}
+    </div>
+  {% endif %}
+    <div class="quote__cite-text">
+      <p class="quote__cite-name">{{ quote.name }}</p>
+      {% if quote.job %}
+        <p class="quote__cite-job">{{ quote.job }}</p>
+      {% endif %}
+    </div>
+  </cite>
+</blockquote>

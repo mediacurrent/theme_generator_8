@@ -1,4 +1,6 @@
 {
-  "text": "Some kind of label",
-  "modifier": ""
+  "eyebrow": {
+    "text": "Some kind of label",
+    "modifier": ""
+  }
 }

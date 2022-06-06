@@ -1,13 +1,7 @@
-{{ attach_library('<%= themeNameMachine %>/button') }}
+{{ attach_library('rain_theme/button') }}
 
-{# If a url is passed, we print a <a>,
-otherwise we print a <button>. #}
-{% if url %}
-  <a href="{{ url }}" class="button{{ modifier ? ' ' ~ modifier }}">
-    {{ text }}
-  </a>
+{% if button.url %}
+  <a href="{{ button.url }}" class="button{{ button.modifier ? ' ' ~ button.modifier }}">{{ button.text }}</a>
 {% else %}
-  <button class="button{{ modifier ? ' ' ~ modifier }}">
-    {{ text }}
-  </button>
+  <button class="button{{ button.modifier ? ' ' ~ button.modifier }}">{{ button.text }}</button>
 {% endif %}

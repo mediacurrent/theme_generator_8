@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Macro for embedding svg icons
+ *
+ * @var string name
+ *   The name of the svg to embed. It should match one of the svgs
+ *   that exist within the icons/assets/ directory.
+ */
+#}
+{% macro get(name) %}
+  {% include '@rain_theme/icons/assets/' ~ name ~ '.svg' %}
+{% endmacro %}

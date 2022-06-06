@@ -1,0 +1,99 @@
+@import '../../global/utils/init';
+
+.site-footer {
+  color: $color-white;
+  background-color: $color-blue;
+  margin-top: 80px;
+
+  .site-logo {
+    g {
+      fill: $color-white;
+    }
+  }
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+
+  @include breakpoint($bp-under-sm) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+
+    .menu-item {
+      &:not(:last-of-type) {
+        margin-right: 40px;
+      }
+
+      a {
+        color: $color-white;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.site-footer__text {
+  margin: 15px;
+  flex-shrink: 3;
+}
+
+.site-footer__menus {
+  flex-shrink: 0;
+}
+
+.site-footer__social {
+  display: flex;
+  justify-content: center;
+  color: $color-white;
+  margin: 15px 0;
+}
+
+.site-footer__social-icon {
+  fill: $color-white;
+
+  .icon {
+    width: 40px;
+    height: 40px;
+    max-width: 100%;
+
+    @include breakpoint($bp-lg) {
+      width: 45px;
+      height: 45px;
+    }
+  }
+}
+
+.site-footer__logo {
+  margin: 15px;
+  flex-shrink: 0;
+
+  .site-name {
+    display: none;
+  }
+}
+
+.site-footer__addendum {
+  color: $color-white;
+  background-color: $color-black;
+
+  .region-addendum {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    flex: 1;
+    justify-content: space-between;
+
+    @include breakpoint($bp-under-sm) {
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}

@@ -1,32 +1,67 @@
 // Import site utilities.
 @import '../../global/utils/init';
 
+// Import site utilities.
+@import '../../global/utils/init';
+
 .card-list__title {
-  margin-bottom: 32px;
+  margin-bottom: 2rem;
 }
 
-.card-list__items {
+.card-list {
+  display: flex;
+  flex-direction: column;
   list-style-type: none;
 
   @include breakpoint($bp-sm) {
-    display: flex;
-    margin-left: -16px;
-    margin-right: -16px;
+    flex-direction: row;
   }
 }
 
 .card-list__item {
+  margin: 3rem 0 0;
+  flex: 1;
 
-  @include breakpoint($bp-sm) {
-    padding-left: 16px;
-    padding-right: 16px;
+  &:first-of-type {
+    margin: 0;
   }
 
-  &:not(:first-child) {
-    margin-top: 48px;
+  @include breakpoint($bp-xsm) {
+    margin: 0 0 0 1rem;
+  }
 
-    @include breakpoint($bp-sm) {
-      margin-top: 0;
+  @include breakpoint($bp-sm) {
+    margin: 0 0 0 2.5rem;
+  }
+}
+
+.card-list--wide {
+  margin: 0 auto;
+  max-width: 980px;
+  padding: 0 1.5rem;
+  flex-direction: column;
+
+  .card-list__item {
+    border-bottom: 2px solid $color-alto;
+    margin: 0 0 2.5rem;
+    padding: 0 0 2.5rem;
+
+    &:last-of-type {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .card__media {
+      flex: 1;
+    }
+
+    .card__content {
+      flex: 2;
+    }
+
+    .card__title {
+      margin: 0;
     }
   }
 }
