@@ -11,7 +11,7 @@
     "scss-fix": "npx stylelint './src/**/*.scss' --fix",
     "clean": "gulp clean",
     "gulp": "gulp",
-    "generate": "yo mc-d8-theme:component"
+    "generate": "yo mc-d9-theme:component"
   },
   "babel": {
     "sourceType": "unambiguous",

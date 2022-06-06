@@ -62,7 +62,7 @@ While not a requirement we like to use [NVM](https://github.com/creationix/nvm) 
 1. Run the generator (**Do not change this command**):
 
     ```bash
-    npm create yo mc-d8-theme
+    npm create yo mc-d9-theme
     ```
 
     - You should be taken through a series of questions that allow you to pick the best options for your theme.
@@ -130,7 +130,7 @@ These can include both component and Drupal templates that are added to the appr
 This can also be run within a pre-existing theme using:
 
 ```bash
-npx yo mc-d8-theme:starter-kit
+npx yo mc-d9-theme:starter-kit
 ```
 
 ## Create new Components

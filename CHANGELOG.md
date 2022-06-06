@@ -132,7 +132,7 @@
 ## 1.3.2 (2017-03-15)
 
 ### New Feature
-* Updated version of Node / npm used with project. The old version was keeping the readme from showing up on [https://www.npmjs.com/package/generator-mc-d8-theme](npm).
+* Updated version of Node / npm used with project. The old version was keeping the readme from showing up on [https://www.npmjs.com/package/generator-mc-d9-theme](npm).
 
 ## ✈️ 1.3.1 (2017-02-14)
 

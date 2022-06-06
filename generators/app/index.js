@@ -105,7 +105,7 @@ module.exports = class extends Generator {
     // Prompt the user for start kit components. If any are selected
     // they will be copied over to the patterns folder and the libraries.yml
     // file will be appended with the component library.
-    this.composeWith('mc-d8-theme:starter-kit', {
+    this.composeWith('mc-d9-theme:starter-kit', {
       themeName: this.themeNameMachine
     });
   }
@@ -299,14 +299,14 @@ module.exports = class extends Generator {
 
     // Install the following node modules specifically for Pattern Lab
     // and theme generator.
-    // Adding the `yo generator-mc-d8-theme` so users can quickly
+    // Adding the `yo generator-mc-d9-theme` so users can quickly
     // run the component sub-generator locally.
     const npmArray = [
       '@pattern-lab/core',
       '@pattern-lab/engine-twig-php',
       '@pattern-lab/uikit-workshop',
       'yo',
-      'generator-mc-d8-theme'
+      'generator-mc-d9-theme'
     ];
 
     // This runs `npm install ... --save-dev` on the command line.
