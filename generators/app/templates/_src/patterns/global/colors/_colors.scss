@@ -7,20 +7,34 @@
 // If you need help naming colors check out:
 // http://chir.ag/projects/name-that-color/
 
-// Standard.
-$color-white: #fff;
-$color-black: #1b2b34;
+// Primary
+$color-primary: #e74c3c;
+$color-secondary: #f6510b;
+$color-rio-grande: #c4d600;
+$color-white: #FFF;
+$color-black: #404040;
+$color-blue: #003954;
+$color-req-red: #D0021B;
+$color-admin-blue: #0C5C7F;
 
-// Primary.
-$color-mandy: #ec5f67;
-$color-tan-hide: #f99157;
-$color-saffron-mango: #fac863;
-$color-de-york: #99c794;
-$color-tradewind: #5fb3b3;
-$color-danube: #69c;
+// Grays
+$color-tundora: #464646;
+$color-silver: #bbb;
+$color-alto: #ddd;
+$color-light-gray: #eee;
+$color-oslo-gray: #888b8d;
+$color-lighter-gray: #f7f7f7;
+$color-gray-lt: #eef2f4;
 
-// Grays.
-$color-gray-dk: #343d46;
-$color-gray-mid: #4f5b66;
-$color-gray-lt: #65737e;
-$color-gray-xlt: #a7adba;
+// Supporting colors for messages
+$color-green: #77b259;
+$color-dark-green: #325e1c;
+$color-light-green: #f3faef;
+$color-red: #a51b00;
+$color-orange: #e62600;
+$color-pink: #fcf4f2;
+$color-beige: #fdf8ed;
+$color-brown: #734c00;
+
+// Transparent colors
+$color-transparent-white: rgba(255, 255, 255, 0.8);

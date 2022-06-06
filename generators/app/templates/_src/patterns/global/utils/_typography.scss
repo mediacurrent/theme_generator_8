@@ -32,3 +32,17 @@ $font-italic: italic;
     line-height: 1.16;
   }
 }
+
+// Mixin for wireframe style large heading.
+@mixin wire-large-heading {
+  font-size: 1.5rem;
+  font-weight: normal;
+
+  @include breakpoint($bp-xsm) {
+    font-size: 2rem;
+  }
+
+  @include breakpoint($bp-sm) {
+    font-size: 3rem;
+  }
+}

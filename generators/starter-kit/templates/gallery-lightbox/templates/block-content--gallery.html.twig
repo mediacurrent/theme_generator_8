@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block content.
+ *
+ * @see template_preprocess_block_content_template()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'block-content',
+    'block-content--type-' ~ bundle|clean_class,
+    'block-content--' ~ id,
+    'block-content--view-mode-' ~ view_mode|clean_class,
+    'container'
+  ]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  {% block content %}
+    {% embed '@<%= themeNameMachine %>/gallery-lightbox/gallery-lightbox.twig' with {
+        section_title: content.field_title,
+        intro_text: content.body,
+        content: content
+      } only %}
+      {% block gallery_items %}
+        {% for i in content.field_media_item['#items'] %}
+          <li class="gallery-lightbox-item">
+            {{ content.field_media_item[loop.index0] }}
+            {% include '@<%= themeNameMachine %>/gallery-lightbox/gallery-lightbox-expand-btn.twig' only %}
+          </li>
+        {% endfor %}
+      {% endblock %}
+    {% endembed %}
+  {% endblock %}
+</div>

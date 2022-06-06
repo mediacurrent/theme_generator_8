@@ -1,5 +1,5 @@
-{{ attach_library('rain_theme/pager') }}
-{% import '@rain_theme/icons/_icons-macro.twig' as icons %}
+{{ attach_library('<%= themeNameMachine %>/pager') }}
+{% import '@<%= themeNameMachine %>/icons/_icons-macro.twig' as icons %}
 
 {% if items %}
   <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">

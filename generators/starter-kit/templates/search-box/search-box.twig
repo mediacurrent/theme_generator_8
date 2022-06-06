@@ -2,8 +2,8 @@
 This file matches output from Drupal, with some additions for the submit button.
 #}
 
-{{ attach_library('rain_theme/search-box') }}
-{% import '@rain_theme/icons/_icons-macro.twig' as icons %}
+{{ attach_library('<%= themeNameMachine %>/search-box') }}
+{% import '@<%= themeNameMachine %>/icons/_icons-macro.twig' as icons %}
 
 <div class="search-api-page-block-form-search-results search-form search-block-form container-inline contextual-region block block-search-api-page block-search-api-page-form-block" data-drupal-selector="search-api-page-block-form-search-results" id="block-searchapipagesearchblockform">
   {% block content %}

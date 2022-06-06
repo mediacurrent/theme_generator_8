@@ -2,34 +2,30 @@
   "sections": {
     "Primary": [
       {
-        "name": "$color-mandy",
-        "hex": "#EC5f67"
+        "name": "$color-primary",
+        "hex": "#e74c3c"
       },
       {
-        "name": "$color-tan-hide",
-        "hex": "#F99157"
+        "name": "$color-rio-grande",
+        "hex": "#c4d600"
       },
       {
-        "name": "$color-saffron-mango",
-        "hex": "#FAC863"
+        "name": "$color-blue",
+        "hex": "#3300CC"
       },
       {
-        "name": "$color-de-york",
-        "hex": "#99C794"
+        "name": "$color-req-red",
+        "hex": "#D0021B"
       },
       {
-        "name": "$color-tradewind",
-        "hex": "#5FB3B3"
-      },
-      {
-        "name": "$color-danube",
-        "hex": "#6699CC"
+        "name": "$color-admin-blue",
+        "hex": "#0C5C7F"
       }
     ],
     "Black &amp; White": [
       {
         "name": "$color-black",
-        "hex": "#1B2B34"
+        "hex": "#404040"
       },
       {
         "name": "$color-white",
@@ -38,20 +34,62 @@
     ],
     "Grays": [
       {
-        "name": "$color-gray-dk",
-        "hex": "#343D46"
+        "name": "$color-tundora",
+        "hex": "#464646"
       },
       {
-        "name": "$color-gray-mid",
-        "hex": "#4F5B66"
+        "name": "$color-silver",
+        "hex": "#bbb"
       },
       {
-        "name": "$color-gray-lt",
-        "hex": "#65737E"
+        "name": "$color-alto",
+        "hex": "#ddd"
       },
       {
-        "name": "$color-gray-xlt",
-        "hex": "#A7ADBA"
+        "name": "$color-light-gray",
+        "hex": "#eee"
+      },
+      {
+        "name": "$color-oslo-gray",
+        "hex": "#888b8d"
+      },
+      {
+        "name": "$color-lighter-gray",
+        "hex": "#f7f7f7"
+      }
+    ],
+    "Supporting colors for messages": [
+      {
+        "name": "$color-green",
+        "hex": "#77b259"
+      },
+      {
+        "name": "$color-dark-green",
+        "hex": "#325e1c"
+      },
+      {
+        "name": "$color-light-green",
+        "hex": "#f3faef"
+      },
+      {
+        "name": "$color-red",
+        "hex": "#a51b00"
+      },
+      {
+        "name": "$color-orange",
+        "hex": "#e62600"
+      },
+      {
+        "name": "$color-pink",
+        "hex": "#fcf4f2"
+      },
+      {
+        "name": "$color-beige",
+        "hex": "#fdf8ed"
+      },
+      {
+        "name": "$color-brown",
+        "hex": "#734c00"
       }
     ]
   }

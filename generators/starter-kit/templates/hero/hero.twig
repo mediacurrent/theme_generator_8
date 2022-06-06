@@ -1,9 +1,9 @@
-{{ attach_library('rain_theme/hero') }}
+{{ attach_library('<%= themeNameMachine %>/hero') }}
 
 <section class="hero">
   {% if hero.media %}
     {%
-      include '@rain_theme/media/media.twig' with {
+      include '@<%= themeNameMachine %>/media/media.twig' with {
         "image": hero.media.image
       } only
     %}
@@ -12,7 +12,7 @@
   <div class="hero__content">
     {% if hero.eyebrow %}
       {%
-        include '@rain_theme/eyebrow/eyebrow.twig' with {
+        include '@<%= themeNameMachine %>/eyebrow/eyebrow.twig' with {
           "eyebrow": hero.eyebrow
         } only
       %}
@@ -20,7 +20,7 @@
 
     {% if hero.heading %}
       {%
-        include '@rain_theme/heading/heading.twig' with {
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
           "heading": hero.heading
         } only
       %}
@@ -28,7 +28,7 @@
 
     {% if hero.body %}
       {%
-        include '@rain_theme/body-text/body-text.twig' with {
+        include '@<%= themeNameMachine %>/body-text/body-text.twig' with {
           "body_text": hero.body.body_text,
           "modifier": hero.body.classes
         } only
@@ -37,7 +37,7 @@
 
     {% if hero.button.url %}
       {%
-        include '@rain_theme/button/button.twig' with {
+        include '@<%= themeNameMachine %>/button/button.twig' with {
           "button": hero.button
         } only
       %}

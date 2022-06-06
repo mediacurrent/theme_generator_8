@@ -215,6 +215,10 @@ module.exports = class extends Generator {
       this.destinationPath('src/templates')
     );
     this.fs.copy(
+      this.templatePath('_src/vendor'),
+      this.destinationPath('src/vendor')
+    );
+    this.fs.copy(
       this.templatePath('_src/favicon.ico'),
       this.destinationPath('src/favicon.ico')
     );

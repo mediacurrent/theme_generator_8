@@ -1,7 +1,7 @@
 <header role="banner">
   <div class="region site-header-top">
     {%
-      include '@rain_theme/utility-nav/utility-nav.twig' with {
+      include '@<%= themeNameMachine %>/utility-nav/utility-nav.twig' with {
         links: user_account_nav.links
       } only
     %}
@@ -9,7 +9,7 @@
   <div class="region site-header-middle l-flex container">
     <div class="l-container">
       {%
-        include '@rain_theme/site-branding/site-branding.twig' with {
+        include '@<%= themeNameMachine %>/site-branding/site-branding.twig' with {
           links: site_branding.link,
           site_name: site_branding.site_name
         } only
@@ -18,12 +18,12 @@
   </div>
   <div class="region site-header-bottom">
     {%
-      include '@rain_theme/main-menu/main-menu.twig' with {
+      include '@<%= themeNameMachine %>/main-menu/main-menu.twig' with {
         items: main_menu.items
       } only
     %}
     {%
-      include '@rain_theme/breadcrumb/breadcrumb.twig' with {
+      include '@<%= themeNameMachine %>/breadcrumb/breadcrumb.twig' with {
         breadcrumb: breadcrumb
       } only
     %}

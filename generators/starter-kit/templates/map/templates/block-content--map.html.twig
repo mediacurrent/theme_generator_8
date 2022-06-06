@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block content.
+ *
+ * @see template_preprocess_block_content_template()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'block-content',
+    'block-content--type-' ~ bundle|clean_class,
+    'block-content--' ~ id,
+    'block-content--view-mode-' ~ view_mode|clean_class,
+    'container'
+  ]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+  {% block content %}
+    {% include '@<%= themeNameMachine %>/map/map.twig' with {
+      "map": {
+        "map_embed": content.field_location,
+        "location": content.field_title,
+        "address": content.body,
+        "eyebrow": {
+          "text": content.field_short_title,
+          "modifier": ""
+        },
+        "link": {
+          "url": content.field_link[0]['#url'],
+          "text": content.field_link[0]['#title']
+        }
+      }
+    } only %}
+  {% endblock %}
+</div>

@@ -9,6 +9,12 @@
   }
 }
 
+// Adds box-shadow to darken.
+// Can be used on hovers.
+@mixin darken {
+  box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.5);
+}
+
 // Makes an element visually hidden, but accessible.
 // @see http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
 @mixin element-invisible {
@@ -43,5 +49,124 @@
 @mixin print($declarations) {
   @each $property, $value in $declarations {
     #{$property}: $value;
+  }
+}
+
+// Vertical align mixin.
+@mixin vertical-align($position: relative) {
+  display: block;
+  position: $position;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+// Horizontal align mixin.
+@mixin horizontal-align($position: relative) {
+  display: inline-block;
+  left: 50%;
+  position: $position;
+  transform: translateX(-50%);
+}
+
+// Center align mixin.
+@mixin center-align($position: relative) {
+  display: block;
+  left: 50%;
+  position: $position;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Mixin for wireframe style large heading.
+@mixin wire-large-heading {
+  font-size: 1.5rem;
+  font-weight: normal;
+
+  @include breakpoint($bp-xsm) {
+    font-size: 2rem;
+  }
+
+  @include breakpoint($bp-sm) {
+    font-size: 3rem;
+  }
+}
+
+@mixin max-width {
+  margin: 0 auto;
+  max-width: 1600px;
+  width: 100%;
+}
+
+@mixin layout-content {
+  max-width: 90%;
+  width: auto;
+  margin: 0 auto;
+
+  @include breakpoint($bp-xl) {
+    max-width: 1600px;
+  }
+}
+
+// Vertically/Horizontally center an element
+@mixin vertical-horizontal-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+@mixin slick-pager {
+  .slick-prev,
+  .slick-next {
+    height: 50px;
+    width: 50px;
+    z-index: 1;
+    display: inline;
+    position: relative;
+
+    &::before {
+      color: $color-blue;
+      font-size: 48px;
+    }
+  }
+
+  .slick-prev {
+    left: auto;
+  }
+
+  .slick-next {
+    right: auto;
+  }
+
+  .slick-track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .slick-pager {
+
+    .slick-prev::before,
+    .slick-next::before {
+      border-radius: 50%;
+      border: 5px solid rgb(204, 202, 227);
+      width: 70px;
+      height: 70px;
+      display: block;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .slick-prev {
+      left: -30px;
+
+      &::before {
+        content: '\003C';
+      }
+    }
+
+    .slick-next::before {
+      content: '\003E';
+    }
   }
 }

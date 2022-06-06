@@ -1,0 +1,50 @@
+// Provide default spacing for Rain paragraphs.
+body {
+  .block-content--type-text,
+  .node__body {
+    margin-bottom: 30px;
+    padding: 0 1.5rem;
+
+    ul,
+    ol {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 40px;
+    }
+  }
+
+  .block-content--type-embed,
+  .block-content--type-form,
+  .block-content--type-map,
+  .block-content--type-views,
+  .block-content--type-accordion,
+  .block-content--type-quote,
+  .block-content--type-media,
+  .block-content--type-gallery,
+  .block-content--type-gallery-carousel,
+  .block-content--type-hero,
+  .block-content--type-slider,
+  .block-content--type-card-list,
+  .block-content--type-breaker,
+  .block-content--type-teaser {
+    margin-bottom: 50px;
+
+    .paragraph--type--card {
+      margin-bottom: 0;
+    }
+  }
+
+  .block-content--type-gallery {
+    padding: 0 1.5rem;
+  }
+}
+
+.block-content--type-quote-carousel {
+  margin-bottom: -100px;
+
+  .paragraph--type--quote {
+    margin-bottom: 0;
+  }
+}

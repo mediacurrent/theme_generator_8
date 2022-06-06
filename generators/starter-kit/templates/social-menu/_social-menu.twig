@@ -1,7 +1,7 @@
-{{ attach_library('rain_theme/social-menu') }}
-{% import '@rain_theme/icons/_icons-macro.twig' as icons %}
+{{ attach_library('<%= themeNameMachine %>/social-menu') }}
+{% import '@<%= themeNameMachine %>/icons/_icons-macro.twig' as icons %}
 
-{% embed '@rain_theme/menu/menu.twig' with {
+{% embed '@<%= themeNameMachine %>/menu/menu.twig' with {
   items: items,
   modifier: 'site-footer__social'
 } %}

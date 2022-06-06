@@ -1,7 +1,7 @@
 <li class="carousel-item">
   <div class="carousel-item__media">
     {%
-      include '@rain_theme/media/media.twig' with {
+      include '@<%= themeNameMachine %>/media/media.twig' with {
         "image": item.image,
       } only
     %}
@@ -9,7 +9,7 @@
   {% if item.title %}
     <div class="carousel-item__content">
       {%
-        include '@rain_theme/heading/heading.twig' with {
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
           "heading": {
             "title": item.title,
             "heading_level": 2,
@@ -19,7 +19,7 @@
       %}
       {% if item.button.text %}
         {%
-          include '@rain_theme/button/button.twig' with {
+          include '@<%= themeNameMachine %>/button/button.twig' with {
             "button": {
               "text": item.button.text,
               "url": item.button.url,

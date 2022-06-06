@@ -1,8 +1,8 @@
-{{ attach_library('rain_theme/latest-news') }}
+{{ attach_library('<%= themeNameMachine %>/latest-news') }}
 <section class="latest-news{{ attributes ? ' ' ~ attributes.class}}">
   {% if heading.title %}
     {%
-      include '@rain_theme/heading/heading.twig' with {
+      include '@<%= themeNameMachine %>/heading/heading.twig' with {
         "heading": heading,
       } only
     %}
@@ -13,7 +13,7 @@
         {% for item in items %}
           <div class="latest-news__card">
             {%
-              include '@rain_theme/card/card.twig' with {
+              include '@<%= themeNameMachine %>/card/card.twig' with {
                 card: item.card,
               } only
             %}

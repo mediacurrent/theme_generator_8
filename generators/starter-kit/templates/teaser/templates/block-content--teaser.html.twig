@@ -1,0 +1,84 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block content.
+ *
+ * @see template_preprocess_block_content_template()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'block-content',
+    'block-content--type-' ~ bundle|clean_class,
+    'block-content--' ~ id,
+    'block-content--view-mode-' ~ view_mode|clean_class
+  ]
+%}
+
+{# We triggering a full render of the content variable. #}
+{% set rendered_content = content|render %}
+
+{% set media_type = content.field_media['#items'].entity.bundle() %}
+
+{% set layout = content.field_teaser_layout|field_value|render %}
+
+{% set modifier_class = '' %}
+{% if layout == 'wide' %}
+  {% set modifier_class = 'card--wide' %}
+{% elseif layout == 'wide_right' %}
+  {% set modifier_class = 'card--wide card--media-right' %}
+{% endif %}
+
+{% set media_content = {
+    image: media_type == 'image' ? content.field_media : null,
+    video: media_type == 'video' ? content.field_media : null
+  }
+%}
+
+{% set eyebrow_content = {
+    text: content.field_short_title,
+    modifier: 'card__eyebrow'
+  }
+%}
+
+{% set heading_content = {
+    title: content.field_title,
+    icon: content.field_icon,
+    heading_level: '2',
+    modifier: 'card__title'
+  }
+%}
+
+{% set subheading_content = {
+    title: content.field_subhead,
+    heading_level: '3',
+    modifier: 'card__subhead'
+  }
+%}
+
+{% set link = {
+    url: content.field_link[0]['#url'],
+    text: content.field_link[0]['#title']
+  }
+%}
+
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  {% block content %}
+    {% include '@<%= themeNameMachine %>/card/card.twig' with {
+        card: {
+          modifier: modifier_class,
+          media: media_content,
+          eyebrow: eyebrow_content,
+          heading: heading_content,
+          subhead: subheading_content,
+          summary_text: content.field_summary,
+          link: link,
+        }
+      } only
+    %}
+  {% endblock %}
+</div>

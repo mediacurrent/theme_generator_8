@@ -1,4 +1,4 @@
-{{ attach_library('rain_theme/card') }}
+{{ attach_library('<%= themeNameMachine %>/card') }}
 
 <article class="card {{ card.modifier ? ' ' ~ card.modifier }}
   {{- attributes ? ' ' ~ attributes.class -}}"
@@ -20,21 +20,21 @@
   <div class="card__content">
     {% if card.eyebrow %}
       {%
-        include '@rain_theme/eyebrow/eyebrow.twig' with {
+        include '@<%= themeNameMachine %>/eyebrow/eyebrow.twig' with {
           "eyebrow": card.eyebrow
         } only
       %}
     {% endif %}
 
     {%
-      include '@rain_theme/heading/heading.twig' with {
+      include '@<%= themeNameMachine %>/heading/heading.twig' with {
         "heading": card.heading
       } only
     %}
 
     {% if card.subhead.title|render %}
       {%
-        include '@rain_theme/heading/heading.twig' with {
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
           "heading": card.subhead
         } only
       %}
@@ -42,7 +42,7 @@
 
     {% if card.summary_text %}
       {%
-        include '@rain_theme/body-text/body-text.twig' with {
+        include '@<%= themeNameMachine %>/body-text/body-text.twig' with {
           "body_text": card.summary_text
         } only
       %}

@@ -1,5 +1,4 @@
-// @file
-// Site global scss file.
+// Utilities
 //
 // Import variables and mixins
 // Should contain NO css output.
@@ -10,6 +9,15 @@
 //
 // This should only be imported and loaded once.
 @import 'fonts/fonts';
+
+// Import utility classes.
+@import 'utils/classes';
+
+// Import Rain blocks default styles.
+@import 'blocks/blocks';
+
+// Layout builder styles.
+@import 'builder/builder';
 
 // Base
 //
@@ -22,9 +30,18 @@
 // point it has and will be updated as needed.
 // This should be ONLY plain html element styling.
 // There should be NO classes, IDs, etc.
+//=======================================================
 
-// StyleLint needs to ignore some Normalize specific things:
-/* stylelint-disable property-no-vendor-prefix */
+// Sass Lint needs to ignore some Normalize specific things:
+// sass-lint:disable no-duplicate-properties, no-vendor-prefixes
+
+html {
+  @include font-stack-primary;
+  font-size: 100%;
+  line-height: 1.625;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+}
 
 // https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
 * {
@@ -36,25 +53,19 @@
   }
 }
 
-html {
-  @include font-stack-primary;
-  font-size: 100%;
-  line-height: 1.15;
-  box-sizing: border-box;
-  -webkit-text-size-adjust: 100%;
-}
-
 // Sections.
+
 body {
   margin: 0;
 }
 
-// Render the `main` element consistently in IE11.
+// Render the `main` element consistently in IE.
 main {
   display: block;
 }
 
 // Grouping content.
+
 hr {
   box-sizing: content-box;
   height: 0;
@@ -62,15 +73,14 @@ hr {
 }
 
 pre {
-  /* stylelint-disable-next-line font-family-no-duplicate-names */
   font-family: monospace, monospace;
   font-size: 1em;
 }
 
 // Text-level semantics.
+
 abbr[title] {
   border-bottom: 0;
-  // Fallback for browsers that do not support `text-decoration-style`.
   text-decoration: underline;
   text-decoration: underline dotted;
 }
@@ -83,7 +93,6 @@ strong {
 code,
 kbd,
 samp {
-  /* stylelint-disable-next-line font-family-no-duplicate-names */
   font-family: monospace, monospace;
   font-size: 1em;
 }
@@ -109,13 +118,16 @@ sup {
 }
 
 // Embedded content.
+
 img {
   border-style: none;
+  display: block;
   max-width: 100%;
   height: auto;
 }
 
 // Forms
+
 button,
 input,
 optgroup,
@@ -159,7 +171,7 @@ button:-moz-focusring,
 [type='button']:-moz-focusring,
 [type='reset']:-moz-focusring,
 [type='submit']:-moz-focusring {
-  outline: 1px dotted $color-danube;
+  outline: 1px dotted $color-blue;
 }
 
 // Correct the padding in Firefox.
@@ -207,6 +219,7 @@ textarea {
 }
 
 // Interactive.
+
 // Add the correct display in Edge, IE 10+, and Firefox.
 details {
   display: block;
@@ -217,12 +230,14 @@ summary {
 }
 
 // Misc.
+
 // Add the correct display in IE 10+.
 template {
   display: none;
 }
 
 // Lists
+
 // Unset default list margin and padding because if not
 // we'll have to unset it every. single. time.
 ul,

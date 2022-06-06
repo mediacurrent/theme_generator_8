@@ -60,6 +60,15 @@ components:
 # the semi-colon is the machine name of the region. The text after the
 # semi-colon is the region's description used on the admin/structure/block page.
 regions:
-  header: Header
+  # The three header regions are stacked vertically.
+  header_top: Header Top
+  header_middle: Header Middle
+  header_bottom: Header Bottom
   content: Content
-  footer: Footer
+  sidebar_right: Sidebar Right
+  # The three footer regions are stacked horizontally, so that each region can
+  # have multiple blocks; the addendum is displayed afterwards.
+  footer_left: Footer Left
+  footer_middle: Footer Middle
+  footer_right: Footer Right
+  addendum: Addendum

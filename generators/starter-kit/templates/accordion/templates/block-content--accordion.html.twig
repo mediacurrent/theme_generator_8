@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block content.
+ *
+ * @see template_preprocess_block_content_template()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'block-content',
+    'block-content--type-' ~ bundle|clean_class,
+    'block-content--' ~ id,
+    'block-content--view-mode-' ~ view_mode|clean_class,
+    'horizontal-align',
+    'container',
+    'faq-container',
+  ]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  {% block content %}
+    {% if content.field_title %}
+      {%
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
+          "heading": {
+            "title": content.field_title,
+            "heading_level": "2",
+            "modifier": "accordion__title heading--section",
+          },
+        } only
+      %}
+    {% endif %}
+    {% embed '@<%= themeNameMachine %>/accordion/accordion.twig' with { content: content } only %}
+      {% block accordion_items %}
+        {{ content.field_accordion_item }}
+      {% endblock accordion_items %}
+    {% endembed %}
+  {% endblock %}
+</div>

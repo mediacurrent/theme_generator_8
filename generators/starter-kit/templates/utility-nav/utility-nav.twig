@@ -1,10 +1,10 @@
-{{ attach_library('rain_theme/utility-nav') }}
+{{ attach_library('<%= themeNameMachine %>/utility-nav') }}
 
 {% if links %}
   <div class="utility-nav">
     {% if links %}
       {%
-        include '@rain_theme/menu/menu.twig' with
+        include '@<%= themeNameMachine %>/menu/menu.twig' with
           {
             items: links
           } only
