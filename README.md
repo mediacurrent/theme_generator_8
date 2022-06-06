@@ -7,7 +7,7 @@ The Theme Generator is a scafolding tool built by your friends at [Mediacurrent]
 - [Creating a new Drupal Theme](#creating-a-new-drupal-theme)
   - [Setup NodeJS & NPM](#setup-nodejs--npm)
   - [Create the theme](#create-the-theme)
-- [Note about Drupal 8](#note-about-drupal-8)
+- [Note about Drupal 9](#note-about-drupal-9)
 - [About the New Theme](#about-the-new-theme)
   - [Drupal Module Dependencies](#drupal-module-dependencies)
   - [Support](#support)
@@ -73,9 +73,9 @@ More info if you're interested in how this stuff works:
 
 `npm create` is an alias of `npm init` and uses [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) under the hood. Find out more about [npm init](https://docs.npmjs.com/cli/init.html).
 
-## Note about Drupal 8
+## Note about Drupal 9
 
-If you are building a Drupal 8 theme, make the following updates after your theme has been created:
+If you are building a Drupal 9 theme, make the following updates after your theme has been created:
 
 - Update Pattern Lab to v5.14.0 by updating `package.json` as follows:
 
