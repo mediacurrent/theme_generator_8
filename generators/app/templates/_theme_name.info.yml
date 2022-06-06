@@ -4,8 +4,8 @@
 # properties of your theme. Properties such as its name, libraries of style
 # sheets and javascripts, and block regions.
 #
-# Drupal 8 stores a cache of the data in this .info.yml files. If you modify any
-# lines in this file, you MUST refresh Drupal 8's cache. You can do this with
+# Drupal 8/9 stores a cache of the data in this .info.yml files. If you modify any
+# lines in this file, you MUST refresh 8/9's cache. You can do this with
 # the "drush cr" command or by simply visiting the Appearance page at
 # admin/appearance.
 

@@ -228,7 +228,7 @@ git clone git@github.com:mediacurrent/theme_generator_9.git
 ```
 
 ```bash
-cd theme_generator_8
+cd theme_generator_9
 ```
 
 Remove `generator-mc-d9-theme` if you have previously installed it:

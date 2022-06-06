@@ -1,7 +1,7 @@
 # These lines define the <%= themeNameMachine %>/global library.
 global:
   css:
-    # The SMACSS category, "base", is loaded before other categories. Drupal 8
+    # The SMACSS category, "base", is loaded before other categories. Drupal 8/9
     # loads stylesheets based on the SMACSS ordering of:
     # base, layout, component, state, theme
     base:
