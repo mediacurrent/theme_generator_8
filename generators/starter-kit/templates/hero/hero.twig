@@ -1,44 +1,50 @@
 {{ attach_library('<%= themeNameMachine %>/hero') }}
 
-<section class="hero">
-  {% if hero.media %}
-    {%
-      include '@<%= themeNameMachine %>/media/media.twig' with {
-        "image": hero.media.image
-      } only
-    %}
+<section class="hero {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is mostly relevant to nodes and blocks.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
+
+  {# Media could be an image or video. #}
+  {% if image %}
+    <div class="hero__media">
+      {%
+        include '@<%= themeNameMachine %>/media-item/media-item.twig' with {
+          "image": image
+        } only
+      %}
+    </div>
   {% endif %}
 
   <div class="hero__content">
-    {% if hero.eyebrow %}
-      {%
-        include '@<%= themeNameMachine %>/eyebrow/eyebrow.twig' with {
-          "eyebrow": hero.eyebrow
-        } only
-      %}
+    {% if title %}
+      <div class="hero__heading">
+        {%
+          include '@<%= themeNameMachine %>/heading/heading.twig' with {
+            "title": title,
+            "heading_level": heading_level,
+            "modifier": "hero__heading"
+          } only
+        %}
+      </div>
     {% endif %}
 
-    {% if hero.heading %}
-      {%
-        include '@<%= themeNameMachine %>/heading/heading.twig' with {
-          "heading": hero.heading
-        } only
-      %}
+    {% if body %}
+      <div class="hero__body">
+        {{ body }}
+      </div>
     {% endif %}
 
-    {% if hero.body %}
-      {%
-        include '@<%= themeNameMachine %>/body-text/body-text.twig' with {
-          "body_text": hero.body.body_text,
-          "modifier": hero.body.classes
-        } only
-      %}
-    {% endif %}
-
-    {% if hero.button.url %}
+    {% if button_text %}
       {%
         include '@<%= themeNameMachine %>/button/button.twig' with {
-          "button": hero.button
+          "text": button_text,
+          "url": url
         } only
       %}
     {% endif %}

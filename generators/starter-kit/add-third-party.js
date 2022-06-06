@@ -9,23 +9,23 @@ module.exports = function addThirdParty(libraries) {
 
   // If slick hasn't been added yet and it's needed, add it.
   if (!containsSlick && containsCarousel) {
-    // const slick = {
-    //   ['slick-carousel']: {
-    //     css: {
-    //       component: {
-    //         ['/libraries/slick-carousel/slick/slick.css']: {}
-    //       }
-    //     },
-    //     js: {
-    //       ['/libraries/slick-carousel/slick/slick.min.js']: { minified: true }
-    //     },
-    //     dependencies: [
-    //       'core/jquery'
-    //     ]
-    //   }
-    // };
-    // // Add slick to the libraries object.
-    // libraries.push(slick);
+    const slick = {
+      ['slick-carousel']: {
+        css: {
+          component: {
+            ['/libraries/slick-carousel/slick/slick.css']: {}
+          }
+        },
+        js: {
+          ['/libraries/slick-carousel/slick/slick.min.js']: { minified: true }
+        },
+        dependencies: [
+          'core/jquery'
+        ]
+      }
+    };
+    // Add slick to the libraries object.
+    libraries.push(slick);
   }
 
   return libraries;

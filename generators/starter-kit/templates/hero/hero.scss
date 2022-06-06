@@ -6,50 +6,31 @@
 }
 
 .hero__content {
-  @include center-align(absolute);
-  background: $color-transparent-white;
-  margin-right: -50%;
-  max-width: 95%;
-  padding: 1rem;
+  background-color: $color-gray-lt;
+  padding: 16px;
   text-align: center;
 
-  @include breakpoint($bp-xsm) {
-    max-width: 750px;
-    padding: 2rem 3rem;
+  @include breakpoint($bp-sm) {
+    padding-bottom: 32px;
+    padding-top: 32px;
   }
 }
 
 .hero__heading {
-  @include wire-large-heading;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 
   @include breakpoint($bp-xsm) {
-    margin-bottom: 1rem;
-  }
-}
-
-.hero__eyebrow {
-  color: $color-tundora;
-  display: block;
-  font-size: 0.75rem;
-  font-weight: normal;
-  letter-spacing: 0.15rem;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-
-  @include breakpoint($bp-xsm) {
-    font-size: 0.875rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 16px;
   }
 }
 
 .hero__body {
   font-size: 1rem;
   line-height: 1.625;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 
   @include breakpoint($bp-xsm) {
     font-size: 1.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 48px;
   }
 }

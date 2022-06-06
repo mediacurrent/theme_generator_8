@@ -5,23 +5,23 @@ module.exports = function addDependency (component, themeNameMachine) {
   // If this is the carousel component, it needs SlickJS added
   // as a dependency.
   if (component === 'carousel') {
-    // libraries = {
-    //   [component]: {
-    //     css: {
-    //       component: {
-    //         [`dist/css/${component}.css`]: {}
-    //       }
-    //     },
-    //     js: {
-    //       [`dist/js/${component}.js`]: {}
-    //     },
-    //     dependencies: [
-    //       'core/drupal',
-    //       'core/jquery',
-    //       `${themeNameMachine}/slick-carousel`
-    //     ]
-    //   }
-    // };
+    libraries = {
+      [component]: {
+        css: {
+          component: {
+            [`dist/css/${component}.css`]: {}
+          }
+        },
+        js: {
+          [`dist/js/${component}.js`]: {}
+        },
+        dependencies: [
+          'core/drupal',
+          'core/jquery',
+          `${themeNameMachine}/slick-carousel`
+        ]
+      }
+    };
   }
 
   return Object.keys(libraries).length && libraries;

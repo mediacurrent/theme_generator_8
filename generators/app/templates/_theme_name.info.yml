@@ -4,8 +4,8 @@
 # properties of your theme. Properties such as its name, libraries of style
 # sheets and javascripts, and block regions.
 #
-# Drupal 8/9 stores a cache of the data in this .info.yml files. If you modify any
-# lines in this file, you MUST refresh 8/9's cache. You can do this with
+# Drupal 8 stores a cache of the data in this .info.yml files. If you modify any
+# lines in this file, you MUST refresh Drupal 8's cache. You can do this with
 # the "drush cr" command or by simply visiting the Appearance page at
 # admin/appearance.
 
@@ -60,15 +60,6 @@ components:
 # the semi-colon is the machine name of the region. The text after the
 # semi-colon is the region's description used on the admin/structure/block page.
 regions:
-  # The three header regions are stacked vertically.
-  header_top: Header Top
-  header_middle: Header Middle
-  header_bottom: Header Bottom
+  header: Header
   content: Content
-  sidebar_right: Sidebar Right
-  # The three footer regions are stacked horizontally, so that each region can
-  # have multiple blocks; the addendum is displayed afterwards.
-  footer_left: Footer Left
-  footer_middle: Footer Middle
-  footer_right: Footer Right
-  addendum: Addendum
+  footer: Footer

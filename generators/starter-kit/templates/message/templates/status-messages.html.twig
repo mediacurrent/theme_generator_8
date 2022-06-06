@@ -21,8 +21,6 @@
  *   - class: HTML classes.
  */
 #}
-<div class="container">
-  {% block messages %}
-    {% include '@<%= themeNameMachine %>/message/message.twig' %}
-  {% endblock messages %}
-</div>
+{% block messages %}
+  {% include '@<%= themeNameMachine %>/message/message.twig' %}
+{% endblock messages %}

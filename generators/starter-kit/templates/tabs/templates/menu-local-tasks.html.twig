@@ -11,16 +11,14 @@
  * themed in menu-local-task.html.twig.
  */
 #}
-<div class="container">
-  {% embed "@<%= themeNameMachine %>/tabs/tabs.twig" with {
-    primary: primary,
-    secondary: secondary
-  } only %}
-    {% block primary %}
-      {{ primary }}
-    {% endblock %}
-    {% block secondary %}
-      {{ secondary }}
-    {% endblock %}
-  {% endembed %}
-</div>
+{% embed "@<%= themeNameMachine %>/tabs/tabs.twig" with {
+  primary: primary,
+  secondary: secondary
+} only %}
+  {% block primary %}
+    {{ primary }}
+  {% endblock %}
+  {% block secondary %}
+    {{ secondary }}
+  {% endblock %}
+{% endembed %}

@@ -3,12 +3,9 @@
  * @file
  * Theme override for a field.
  *
- * To override output, copy the "field.html.twig" from the templates directory
- * to your theme's directory and customize it, just like customizing other
- * Drupal templates such as page.html.twig or node.html.twig.
- *
  * Instead of overriding the theming for all fields, you can also just override
  * theming for a subset of fields using
+ *
  * @link themeable Theme hook suggestions. @endlink For example,
  * here are some theme hook suggestions that can be used for a field_foo field
  * on an article node type:
@@ -33,45 +30,34 @@
  * - field_type: The type of the field.
  * - label_display: The display settings for the label.
  *
- *
  * @see template_preprocess_field()
  */
 #}
 {%
-  set classes = [
-    'field',
-    'field--name-' ~ field_name|clean_class,
-    'field--type-' ~ field_type|clean_class,
-    'field--label-' ~ label_display,
-  ]
-%}
-{%
   set title_classes = [
-    'field__label',
     label_display == 'visually_hidden' ? 'visually-hidden',
   ]
 %}
-
+{# If the label is hidden don't add any additional markup. #}
 {% if label_hidden %}
   {% if multiple %}
-    <div{{ attributes.addClass(classes, 'field__items') }}>
       {% for item in items %}
-        <div{{ item.attributes.addClass('field__item', 'clearfix') }}>{{ item.content }}</div>
+        {{ item.content }}
       {% endfor %}
-    </div>
   {% else %}
     {% for item in items %}
-      <div{{ attributes.addClass(classes, 'field__item') }}>{{ item.content }}</div>
+      {{ item.content }}
     {% endfor %}
   {% endif %}
+{# If the label is shown add the default Drupal wrapping markup. #}
 {% else %}
-  <div{{ attributes.addClass(classes) }}>
+  <div{{ attributes }}>
     <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
     {% if multiple %}
-      <div class="field__items">
+      <div>
     {% endif %}
     {% for item in items %}
-      <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
+      <div{{ item.attributes }}>{{ item.content }}</div>
     {% endfor %}
     {% if multiple %}
       </div>

@@ -1,0 +1,28 @@
+{{ attach_library('<%= themeNameMachine %>/media-item') }}
+
+<div class="media-item {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is mostly relevant to nodes and blocks.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
+
+  {% if video %}
+    <div class="media-item__responsive-video">
+      {{ video }}
+    </div>
+  {% else %}
+    <div class="media-item__image">
+      {{ image }}
+    </div>
+  {% endif %}
+  {# Captions are optional. #}
+  {% if caption %}
+    <div class="media-item__caption">
+      {{ caption }}
+    </div>
+  {% endif %}
+</div>

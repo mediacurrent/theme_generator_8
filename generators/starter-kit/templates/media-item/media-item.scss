@@ -1,0 +1,35 @@
+@import '../../global/utils/init';
+
+.media-item__image {
+
+  img {
+    display: block;
+  }
+}
+
+.media-item__caption {
+  font-size: 0.875rem;
+  margin-top: 4px;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+// Responsive styles for YouTube video embed.
+.media-item__responsive-video {
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+
+  iframe {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  video {
+    width: 100%;
+  }
+}

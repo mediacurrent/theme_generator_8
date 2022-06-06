@@ -12,7 +12,7 @@ Call the `.get()` function passing it the icon name.
 
 **Example:**
 ```
-{% import '@<%= themeNameMachine %>/icons/_icons-macro.twig' as icons %}
+{% import '@<%= themeNameMachine %>/icons/icons-macro-twig' as icons %}
 {{ icons.get('facebook') }}
 ```
 This will render the svg inline.

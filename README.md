@@ -7,7 +7,7 @@ The Theme Generator is a scafolding tool built by your friends at [Mediacurrent]
 - [Creating a new Drupal Theme](#creating-a-new-drupal-theme)
   - [Setup NodeJS & NPM](#setup-nodejs--npm)
   - [Create the theme](#create-the-theme)
-- [Note about Drupal 9](#note-about-drupal-9)
+- [Note about Drupal 8](#note-about-drupal-8)
 - [About the New Theme](#about-the-new-theme)
   - [Drupal Module Dependencies](#drupal-module-dependencies)
   - [Support](#support)
@@ -62,7 +62,7 @@ While not a requirement we like to use [NVM](https://github.com/creationix/nvm) 
 1. Run the generator (**Do not change this command**):
 
     ```bash
-    npm create yo mc-d9-theme
+    npm create yo mc-d8-theme
     ```
 
     - You should be taken through a series of questions that allow you to pick the best options for your theme.
@@ -73,9 +73,9 @@ More info if you're interested in how this stuff works:
 
 `npm create` is an alias of `npm init` and uses [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) under the hood. Find out more about [npm init](https://docs.npmjs.com/cli/init.html).
 
-## Note about Drupal 9
+## Note about Drupal 8
 
-If you are building a Drupal 9 theme, make the following updates after your theme has been created:
+If you are building a Drupal 8 theme, make the following updates after your theme has been created:
 
 - Update Pattern Lab to v5.14.0 by updating `package.json` as follows:
 
@@ -130,7 +130,7 @@ These can include both component and Drupal templates that are added to the appr
 This can also be run within a pre-existing theme using:
 
 ```bash
-npx yo mc-d9-theme:starter-kit
+npx yo mc-d8-theme:starter-kit
 ```
 
 ## Create new Components
@@ -224,19 +224,19 @@ Would you like to contribute? Want to make a few changes or fix a bug? COME ON O
 ### Clone down this repo
 
 ```bash
-git clone git@github.com:mediacurrent/theme_generator_9.git
+git clone git@github.com:mediacurrent/theme_generator_8.git
 ```
 
 ```bash
-cd theme_generator_9
+cd theme_generator_8
 ```
 
-Remove `generator-mc-d9-theme` if you have previously installed it:
+Remove `generator-mc-d8-theme` if you have previously installed it:
 
 _Tip: use `npm ls -g -depth=0` to see what global node modules are installed._
 
 ```bash
-npm uninstall generator-mc-d9-theme -g
+npm uninstall generator-mc-d8-theme -g
 ```
 
 Use the node version of the generator
@@ -259,7 +259,7 @@ npm install
 npm link
 ```
 
-Now whenever you run `yo mc-d9-theme` it'll use your locally cloned mc-d9-theme generator. Any updates done to the generator can be tested in real time.
+Now whenever you run `yo mc-d8-theme` it'll use your locally cloned mc-d8-theme generator. Any updates done to the generator can be tested in real time.
 
 Break off a feature branch dive right in. After you've got something you'd like to add, push back to the repo and pull request against develop.
 
