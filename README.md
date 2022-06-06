@@ -224,19 +224,19 @@ Would you like to contribute? Want to make a few changes or fix a bug? COME ON O
 ### Clone down this repo
 
 ```bash
-git clone git@github.com:mediacurrent/theme_generator_8.git
+git clone git@github.com:mediacurrent/theme_generator_9.git
 ```
 
 ```bash
 cd theme_generator_8
 ```
 
-Remove `generator-mc-d8-theme` if you have previously installed it:
+Remove `generator-mc-d9-theme` if you have previously installed it:
 
 _Tip: use `npm ls -g -depth=0` to see what global node modules are installed._
 
 ```bash
-npm uninstall generator-mc-d8-theme -g
+npm uninstall generator-mc-d9-theme -g
 ```
 
 Use the node version of the generator
@@ -259,7 +259,7 @@ npm install
 npm link
 ```
 
-Now whenever you run `yo mc-d8-theme` it'll use your locally cloned mc-d8-theme generator. Any updates done to the generator can be tested in real time.
+Now whenever you run `yo mc-d9-theme` it'll use your locally cloned mc-d9-theme generator. Any updates done to the generator can be tested in real time.
 
 Break off a feature branch dive right in. After you've got something you'd like to add, push back to the repo and pull request against develop.
 
