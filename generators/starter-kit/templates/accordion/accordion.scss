@@ -1,132 +1,67 @@
 // Import site utilities.
 @import '../../global/utils/init';
 
-.faq-container {
-  @include max-width;
-  padding: 0 1.5rem;
-}
-
-.accordion__title {
-  font-size: 28px;
-  font-family: 'Raleway-Bold', sans-serif;
-  font-weight: bold;
-  line-height: 33px;
-  color: $color-blue;
-
-  @include breakpoint($bp-md) {
-    font-size: 42px;
-    line-height: 49px;
-  }
-}
-
-.accordion__wrapper {
-  max-width: none;
-  position: relative;
-  margin-top: 50px;
-}
-
 .accordion {
-  background: $color-white;
-  padding: 22px 16px 22px 30px;
-  transition: background 0.75s;
-  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
-  border: 0;
-  margin-bottom: 10px;
-  width: 112%;
-  margin-left: -6%;
+  border-bottom: 1px solid $color-gray-mid;
+  border-left: 1px solid $color-gray-mid;
+  border-right: 1px solid $color-gray-mid;
+  border-top: 0;
+  transition: background-color $transition;
 
-  @include breakpoint($bp-xsm) {
-    width: 100%;
-    margin-left: 0;
-  }
-
-  &:first-of-type {
-    border: 0;
-  }
-
-  &.open {
-    background: $color-white;
-
-    .accordion__heading {
-      font-weight: 600;
-    }
-
-    svg {
-      transform: rotate(-180deg);
-    }
-  }
-
-  .field--type-link {
-    margin-top: 20px;
-
-    a {
-      color: $color-black;
-      font-size: 16px;
-      font-weight: bold;
-      line-height: 26px;
-      position: relative;
-      text-decoration: none;
-      margin-top: 21px;
-
-      &::after {
-        content: '>';
-        margin-left: 10px;
-      }
-    }
+  &:first-child {
+    border-top: 1px solid $color-gray-mid;
   }
 }
 
 .accordion__toggle {
+  background: $color-gray-xlt;
   border: 0;
-  background: transparent;
   cursor: pointer;
   outline: inherit;
-  padding: 0;
+  padding: 16px 48px 16px 24px;
   position: relative;
   text-align: left;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
 
   &::after {
-    display: none;
-  }
+    background-image: url('../images/accordion__arrow.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+    height: 24px;
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform $transition;
+    width: 24px;
+    will-change: transform;
 
-  svg {
-    fill: $color-blue;
-    margin-top: 12px;
+    .open & {
+      transform: translateY(-50%) rotate(-180deg);
+    }
   }
 }
 
 .accordion__heading {
-  color: #414751;
-  font-size: 18px;
-  font-weight: 500;
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.625;
+}
 
-  @include breakpoint($bp-sm) {
-    font-size: 24px;
+.accordion__content-wrapper {
+  max-height: 0;
+  line-height: 1.625;
+  overflow: hidden;
+  transition: max-height $transition;
+
+  .open & {
+    max-height: 500px;
   }
 }
 
 .accordion__content {
-  max-height: 0;
-  margin-top: 0;
-  overflow: hidden;
-  padding: 0 32px 0 0;
-  transition: max-height 0.15s, margin-top 0.35s;
-  color: #414751;
-  font-family: 'Raleway', sans-serif;
-  font-size: 18px;
-  font-weight: normal;
-  line-height: 26px;
-
-  .open & {
-    margin-top: 20px;
-    max-height: 9999vh;
-  }
-
-  img {
-    position: relative;
-    border: 15px solid $color-blue;
-  }
+  padding: 16px 24px;
 }

@@ -1,55 +1,65 @@
 {{ attach_library('<%= themeNameMachine %>/card') }}
 
-<article class="card {{ card.modifier ? ' ' ~ card.modifier }}
-  {{- attributes ? ' ' ~ attributes.class -}}"
-  {{- attributes ? attributes|without(class) -}}>
+<article class="card {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is mostly relevant to nodes and blocks.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
 
-  {% block card_media %}
-    {% if card.media.image or card.media.video %}
-      <div class="card__media">
-        {% if card.media.image %}
-          {{ card.media.image }}
-        {% elseif card.media.video %}
-          {{ card.media.video }}
-        {% endif %}
-          {{ card.media.caption }}
-      </div>
-    {% endif %}  
-  {% endblock %}
+  <div class="card__media">
+    {% if image %}
+      {{ image }}
+    {% elseif video %}
+      {{ video }}
+    {% endif %}
+    <span class="card__media-caption">
+      {{ caption }}
+    </span>
+  </div>
 
   <div class="card__content">
-    {% if card.eyebrow %}
+    {% if eyebrow %}
       {%
         include '@<%= themeNameMachine %>/eyebrow/eyebrow.twig' with {
-          "eyebrow": card.eyebrow
+          "text": eyebrow,
+          "modifier": "card__eyebrow"
         } only
       %}
     {% endif %}
 
-    {%
-      include '@<%= themeNameMachine %>/heading/heading.twig' with {
-        "heading": card.heading
-      } only
-    %}
-
-    {% if card.subhead.title|render %}
+    {% if title %}
       {%
         include '@<%= themeNameMachine %>/heading/heading.twig' with {
-          "heading": card.subhead
+          "title": title,
+          "heading_level": heading_level,
+          "modifier": "card__title",
+          "url": url
         } only
       %}
     {% endif %}
 
-    {% if card.summary_text %}
+    {% if subhead %}
       {%
-        include '@<%= themeNameMachine %>/body-text/body-text.twig' with {
-          "body_text": card.summary_text
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
+          "title": subhead,
+          "heading_level": subhead_level,
+          "modifier": "card__subhead"
         } only
       %}
     {% endif %}
 
-    {% if card.link.url %}
-      <a href="{{ card.link.url }}" class="card__link">{{ card.link.text }}</a>
+    {% if text %}
+      <div class="card__summary">
+        {{ text }}
+      </div>
+    {% endif %}
+
+    {% if link_text %}
+      <a href="{{ url }}" class="card__link">{{ link_text }}</a>
     {% endif %}
   </div>
 

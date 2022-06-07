@@ -1,0 +1,40 @@
+<li class="carousel-item {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is mostly relevant to nodes and blocks.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
+
+  {% if image %}
+    <div class="carousel-item__media">
+      {%
+        include '@<%= themeNameMachine %>/media-item/media-item.twig' with {
+          "image": image,
+        } only
+      %}
+    </div>
+  {% endif %}
+
+  {% if title %}
+    <div class="carousel-item__content">
+      {%
+        include '@<%= themeNameMachine %>/heading/heading.twig' with {
+          "title": title,
+          "heading_level": 'h3',
+          "modifier": "carousel-item__title",
+        } only
+      %}
+      {% if button_text %}
+        {%
+          include '@<%= themeNameMachine %>/button/button.twig' with {
+            "text": button_text,
+            "url": url
+          } only
+        %}
+      {% endif %}
+    </div>
+  {% endif %}
+</li>

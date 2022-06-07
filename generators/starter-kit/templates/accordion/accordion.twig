@@ -1,11 +1,24 @@
 {{ attach_library('<%= themeNameMachine %>/accordion') }}
 
-<section class="accordion__wrapper{{ attributes ? ' ' ~ attributes.class}}"
-{{- attributes ? attributes|without(class) -}}>
+<section class="accordion-container {{ modifier }}" {{ extra_attributes }}>
+  {#
+    Optional: Pass in Drupal specific functionality.
+    Note that this is mostly relevant to nodes and blocks.
+  #}
+  {#
+    {{ title_prefix }}
+    {{ title_suffix }}
+  #}
+
   {% block accordion_items %}
-    {% for item in items %}
+    {% for accordion_item in items %}
       {%
-        include '@<%= themeNameMachine %>/accordion/_accordion-item.twig' with {item: item} only
+        include '@<%= themeNameMachine %>/accordion/_accordion-item.twig' with {
+          "modifier": accordion_item.modifier,
+          "heading": accordion_item.heading,
+          "content": accordion_item.content,
+          "instance": accordion_item.instance
+        } only
       %}
     {% endfor %}
   {% endblock %}

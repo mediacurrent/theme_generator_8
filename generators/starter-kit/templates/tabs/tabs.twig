@@ -5,7 +5,7 @@
   <ul class="tabs primary">
     {% block primary %}
       {% for tab in tabs %}
-        <li class="{{is_active ? 'is-active'}}"}>
+        <li class="{{ is_active ? 'is-active' }}">
           <a href="{{ tab.link }}">{{ tab.text }}</a>
         </li>
       {% endfor %}
@@ -17,7 +17,7 @@
   <ul class="tabs secondary">
     {% block secondary %}
       {% for tab in tabs %}
-        <li class="{{is_active ? 'is-active'}}"}>
+        <li class="{{is_active ? 'is-active' }}">
           <a href="{{ tab.link }}">{{ tab.text }}</a>
         </li>
       {% endfor %}

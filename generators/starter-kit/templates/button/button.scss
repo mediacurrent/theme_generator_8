@@ -1,0 +1,20 @@
+// Import site utilities.
+@import '../../global/utils/init';
+
+.button {
+  background-color: $color-black;
+  border: 0;
+  cursor: pointer;
+  color: $color-white;
+  display: inline-block;
+  font-weight: bold;
+  padding: 10px 30px;
+  text-align: center;
+  transition: background-color $transition, color $transition;
+
+  &:hover,
+  &:active {
+    background-color: darken($color-black, 15);
+    color: $color-white;
+  }
+}

@@ -1,13 +1,11 @@
 // Breakpoints.
 
 $bp-under-xsm: 'max-width: 543px';
-$bp-under-sm: 'max-width: 767px';
 $bp-xsm: 544px;
 $bp-sm: 768px;
 $bp-md: 1024px;
 $bp-lg: 1200px;
 $bp-xl: 1540px;
-$bp-max: 1440px;
 
 // Expects $viewport to either be a number: 200px
 // Or a string: 'max-width: 300px'

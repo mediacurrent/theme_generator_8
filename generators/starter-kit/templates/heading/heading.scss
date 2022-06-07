@@ -1,0 +1,10 @@
+@import '../../global/utils/init';
+
+.heading__link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

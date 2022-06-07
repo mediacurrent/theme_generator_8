@@ -1,13 +1,11 @@
 # These lines define the <%= themeNameMachine %>/global library.
 global:
   css:
-    # The SMACSS category, "base", is loaded before other categories. Drupal 8/9
+    # The SMACSS category, "base", is loaded before other categories. Drupal 8
     # loads stylesheets based on the SMACSS ordering of:
     # base, layout, component, state, theme
     base:
       dist/css/global.css: {}
-    dependencies:
-      - <%= themeNameMachine %>/button
 
 # Example external library.
 # webfonts:
@@ -30,53 +28,3 @@ global:
 #   dependencies:
 #     - <%= themeNameMachine %>/clearfix
 #     - <%= themeNameMachine %>/visually-hidden
-
-button:
-  css:
-    component:
-      dist/css/button.css: {}
-
-colorbox:
-  css:
-    theme:
-      dist/css/colorbox.css: {}
-  js:
-    dist/js/jquery.colorbox.js: {}
-  dependencies:
-    - core/drupal
-    - core/drupalSettings
-    - core/jquery.once
-    - core/jquery
-
-heading:
-  css:
-    component:
-      dist/css/heading.css: {}
-
-l-flex:
-  css:
-    component:
-      dist/css/l-flex.css: {}
-
-page-layout:
-  css:
-    component:
-      dist/css/page-layout.css: {}
-
-site-footer:
-  css:
-    component:
-      dist/css/site-footer.css: {}
-
-slick:
-  css:
-    theme:
-      dist/css/slick.css: {}
-      dist/css/slick-theme.css: {}
-  js:
-    dist/js/slick.min.js: {}
-  dependencies:
-    - core/drupal
-    - core/drupalSettings
-    - core/jquery.once
-    - core/jquery

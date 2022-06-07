@@ -1,0 +1,13 @@
+{{ attach_library('<%= themeNameMachine %>/button') }}
+
+{# If a url is passed, we print a <a>,
+otherwise we print a <button>. #}
+{% if url %}
+  <a href="{{ url }}" class="button{{ modifier ? ' ' ~ modifier }}">
+    {{ text }}
+  </a>
+{% else %}
+  <button class="button{{ modifier ? ' ' ~ modifier }}">
+    {{ text }}
+  </button>
+{% endif %}
