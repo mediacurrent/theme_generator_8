@@ -30,6 +30,13 @@ module.exports = class extends Generator {
       type: Boolean,
       desc: 'Include a JS file'
     });
+
+    // Allow the user to opt in to a Markdown file.
+    // --include-markdown
+    this.option('include-markdown', {
+      type: Boolean,
+      desc: 'Include a Markdown file'
+    });
   }
 
   initializing() {
@@ -48,6 +55,9 @@ module.exports = class extends Generator {
 
     // Check to see if we need to include a JS file.
     this.includeJS = this.options.includeJs || false;
+
+    // Check to see if we need to include a Markdown file.
+    this.includeMarkdown = this.options.includeMarkdown || false;
   }
 
   // Prompts need at least two arguments passed in to work:
@@ -99,6 +109,12 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
       type: 'confirm',
       message: 'Would you like to include a JavaScript Behavior file?',
       default: false
+    },
+    {
+      name: 'includeMarkdown',
+      type: 'confirm',
+      message: 'Would you like to include a Markdown file?',
+      default: false
     }];
 
     return this.prompt(prompts).then(function (props) {
@@ -113,6 +129,8 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
 
       // See if we need to include a JS behavior file.
       this.includeJS = props.includeJSBehavior;
+      // See if we need to include a Markdown file.
+      this.includeMarkdown = props.includeMarkdown;
 
       // To access props later use this.props.someAnswer;
       this.props = props;
@@ -217,6 +235,17 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
         }
       );
     }
+    if (this.includeMarkdown) {
+      this.fs.copyTpl(
+        this.templatePath('_component/_component.md'),
+        // eslint-disable-next-line max-len
+        this.destinationPath('src/patterns/components/' + this.componentName.dashed + '/' + this.componentName.dashed + '.md'),
+        {
+          name: this.componentName.raw,
+          dashed: this.componentName.dashed
+        }
+      );
+    }
   }
 
   end() {
@@ -232,7 +261,7 @@ ${chalk.blue('Make sure you\'re running this command from your theme root.')}`
       this.log('To generate components faster you can pass in arguments to the subgenerator!');
       this.log('For example: 👇');
       // eslint-disable-next-line max-len
-      this.log(chalk.blue(`npm run generate -- --name="${this.componentName.raw}" --theme-name="${this.themeNameMachine}"`));
+      this.log(chalk.blue(`npm run generate -- --name="${this.componentName.raw}" --theme-name="${this.themeNameMachine} --include-markdown"`));
       this.log('Or add a Drupal JavaScript behavior to that with:');
       // eslint-disable-next-line max-len
       this.log(chalk.blue(`npm run generate -- --name="${this.componentName.raw}" --theme-name="${this.themeNameMachine}" --include-js`));
